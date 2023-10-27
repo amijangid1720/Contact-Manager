@@ -1,0 +1,55 @@
+<div class="login">
+  <br /><br /><br />
+  <div class="container conatiner-fluid card">
+    <h2>Login</h2>
+    <form id="" method="" action="">
+      <!-- <label><b>User Name</b></label> -->
+      <input
+        type="text"
+        name=""
+        id="email"
+        placeholder="Enter Your Name"
+        [(ngModel)]="loginData.email"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <!-- <label><b>Password </b></label> -->
+      <input
+        type="Password"
+        name="password"
+        id=""
+        placeholder="Enter Password"
+        [(ngModel)]="loginData.password"
+        [ngModelOptions]="{ standalone: true }"
+      />
+
+      <button class="btn1" (click)="login()">LogIn</button>
+    </form>
+
+    <h3>OR</h3>
+
+    <div style="display: flex; justify-content: center">
+      <asl-google-signin-button 
+        type="standard"
+        size="large"
+        
+        width="3vw"
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 10%;
+          width: 5vw;
+          size: large;
+        "
+      >
+      <span (click)="signInWithGoogle()">Login with Google</span>
+      </asl-google-signin-button>
+    </div>
+
+    <!-- <button routerLink="/signup">SignUp</button> -->
+    <span class="span-container"
+      >Don't have an account? <a routerLink="/signup">Register here</a></span
+    >
+  </div>
+</div>
