@@ -18,19 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 
 @Entity
-@Table(name="users")
+@Table(name="user_login")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // or GenerationType.SEQUENCE, GenerationType.TABLE, or GenerationType.AUTO)
     private Integer id;
-
-    @Column(name = "firstname")
-    private String firstName;
-
-    @Column(name = "lastname")
-    private String lastName;
 
     @Column(name = "email",unique = true) //@Column(name = "email", unique = true)
     private String email;
@@ -43,9 +37,8 @@ public class User implements UserDetails {
 
     @OneToMany
     private List<Token>tokens;
-    public User(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String email, String password) {
+
         this.email = email;
         this.password = password;
     }
@@ -54,8 +47,6 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
@@ -69,21 +60,6 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-//    public String getFirstName() {
-//        return firstName;
-//    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getEmail() {
         return email;

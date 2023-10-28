@@ -31,8 +31,6 @@ public class AuthenticationService {
     public AuthenticationResponse register(com.contactmanager.springboot.security.auth.RegisterRequest request) {
       //create a user object out of this register request
         User user = User.builder()
-                .firstName(request.getFirstname())
-                .lastName(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
