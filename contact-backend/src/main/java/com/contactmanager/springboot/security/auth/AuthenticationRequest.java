@@ -2,7 +2,8 @@ package com.contactmanager.springboot.security.auth;
 
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

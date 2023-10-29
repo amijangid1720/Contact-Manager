@@ -1,5 +1,6 @@
 package com.contactmanager.springboot.security.user;
 
+import com.contactmanager.springboot.contacts.Contact;
 import com.contactmanager.springboot.security.token.Token;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,6 +33,9 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Contact> contacts = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;

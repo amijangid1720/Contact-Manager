@@ -1,5 +1,5 @@
-package com.contactmanager.springboot.Entity;
-import java.util.*;
+package com.contactmanager.springboot.contacts;
+import com.contactmanager.springboot.Entity.User_Info;
 import com.contactmanager.springboot.security.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,16 +11,16 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "contacts")
-public class Contacts {
+public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "firstname")
-    private String firstName;
+    private String firstname;
 
     @Column(name = "lastname")
-    private String lastName;
+    private String lastname;
 
     @Column(name = "email",unique = true)
     private String email;
@@ -37,13 +37,9 @@ public class Contacts {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_contacts",
-            joinColumns = @JoinColumn(name = "contact_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> users = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
 }

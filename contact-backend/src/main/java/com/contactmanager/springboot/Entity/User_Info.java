@@ -1,8 +1,12 @@
 package com.contactmanager.springboot.Entity;
 
+import com.contactmanager.springboot.contacts.Contact;
 import com.contactmanager.springboot.security.user.User;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.*;
+
 
 @Builder
 @Getter
@@ -34,9 +38,12 @@ public class User_Info {
     @Column(name = "address")
     private String address;
 
-    @OneToOne
-    @JoinColumn(name = "userid") // This is the foreign key column in user_info
-    private User user; // Represents the association with User entity
+    @ManyToOne
+    @JoinColumn(name = "userid", referencedColumnName = "id") // Define the foreign key relationship
+    private User user;
+
+
+
 
 
 }
