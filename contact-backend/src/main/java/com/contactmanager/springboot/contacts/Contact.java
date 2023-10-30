@@ -1,6 +1,7 @@
 package com.contactmanager.springboot.contacts;
 import com.contactmanager.springboot.Entity.User_Info;
 import com.contactmanager.springboot.security.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,13 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
+
+
+
+
 @Table(name = "contacts")
 public class Contact {
     @Id
@@ -37,7 +44,7 @@ public class Contact {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
