@@ -1,42 +1,105 @@
+
+
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #02010ee8;;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #f3eaea;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #8d0404;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+
 .navbar{
-    /* background-color: #aba4ddcc;  */
-    background-color: #e0dcfd;
-   padding-top: 0;
-    //  background-image: linear-gradient(to bottom, #161518,white);
+  // margin-left: 16vw;
+  height: 7vh;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 13vh;
+  background-color: rgba(229, 227, 238, 0.897);
 
-    height: 4vw;
-}
-a.navbar-brand{
-     font-family: 'Pacifico', cursive;
-     font-size: 3.5vw;
-     color: rgb(7, 0, 99);
-     padding: 2vw;
-}
-a.item{
-    font-size: 1.3vw;
-    font-family:'Times New Roman', Times, serif;
-   
 }
 
-/* Style for the selected item when clicked or focused */
-a.item:active,
-a.item:focus {
-    background-color:  #3222a5cc; ; /* Change the background color to a selected color */
-    color: #fff; /* Change the text color to make it more visible */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
-h2{
-    text-align: center;
-    font-size: 8vw;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding: 7vw;
-    font-family: 'Dancing Script', cursive;
-    color: #736e99cc;
+// .menu {
+  
+//   margin: 0;
+//   padding-top: 0;
+//   height: 100vh;
+//   width: 16vw;
+//   position: fixed;
+//   background-color: #0b082ee8;
+//   overflow-y: auto; /* Add scroll if needed */
+// }
+
+// .menu .sidebar {
+//   padding-top: 30px; /* Adjust top padding to avoid overlapping with fixed navbar */
+// }
+
+
+.menu .brand {
+  padding-top: 40px;
+ 
+  text-align: center;
+  font-size: 5em;
+  padding-bottom: 2vw;
+ color: white;
+  
 }
-button{
-  background-color:  #0c053bcc; 
+
+h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.5em;
   color: white;
-  font-size: 1.3em;
-  width: 6vw;
-  height: 2.5vw;
-  border-radius: 1.2vw;
+  padding-bottom: 2vw;
+}
+
+.nav {
+  list-style:none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  padding: 10px;
+  
+
+}
+.navbar-text{
+  align-items: center !important;
+}
+.nav-link {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 1.5em;
+  font-family:'Times New Roman', Times, serif;
 }

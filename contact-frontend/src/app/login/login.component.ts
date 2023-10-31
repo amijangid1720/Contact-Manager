@@ -66,9 +66,11 @@ export class LoginComponent implements OnInit {
           console.log('success');
           console.log(data);
           const token = data.token;
+        
 
           // Store the token in a secure location (e.g., local storage)
           localStorage.setItem('token', token);
+         
 
           // Redirect to the authenticated page (adjust the route as needed)
           this.router.navigateByUrl('api/v1/dashboard');

@@ -46,7 +46,7 @@ public class ContactController {
         // Save the contact
         contactService.addContact(contact);
 
-        contactService.addContact(contact);
+//        contactService.addContact(contact);
         return ResponseEntity.ok(contactRequest);
     }
 
@@ -56,7 +56,7 @@ public class ContactController {
     public ResponseEntity<String>  DeleteContact(@PathVariable Integer id, Authentication authentication){
         System.out.println(authentication.getName());
         contactRepository.deleteById(id);
-        return ResponseEntity.ok("deletd" + id);
+        return ResponseEntity.ok("deleted: " + id);
     }
     @GetMapping("/findAll")
     public  List<Contact> findAllContacts(Authentication authentication) throws Exception

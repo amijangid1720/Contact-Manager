@@ -15,6 +15,9 @@ import {
   SocialLoginModule,
   GoogleSigninButtonModule,
 } from '@abacritt/angularx-social-login';
+import { Navbar1Component } from './navbar1/navbar1.component';
+import { ContactTableComponent } from './contact-table/contact-table.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -35,7 +38,9 @@ const config: SocialAuthServiceConfig = {
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    Navbar1Component,
+    ContactTableComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +50,7 @@ const config: SocialAuthServiceConfig = {
     BrowserAnimationsModule,
     SocialLoginModule,
     GoogleSigninButtonModule,
+    FontAwesomeModule,
   ],
 
   
