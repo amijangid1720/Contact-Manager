@@ -15,6 +15,8 @@ import {
   SocialLoginModule,
   GoogleSigninButtonModule,
 } from '@abacritt/angularx-social-login';
+import { AddComponent } from './add/add.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -35,7 +37,8 @@ const config: SocialAuthServiceConfig = {
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ const config: SocialAuthServiceConfig = {
     BrowserAnimationsModule,
     SocialLoginModule,
     GoogleSigninButtonModule,
+    FontAwesomeModule,
   ],
 
   
