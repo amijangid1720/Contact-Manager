@@ -1,41 +1,42 @@
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"></a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active item" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active item item" aria-current="page" href="#"
-            >Company</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active item item" aria-current="page" href="#"
-            >Contact Us</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active item" aria-current="page" href="#"
-            >About Us</a
-          >
-        </li>
-      </ul>
-      <button (click)="signOut()">logout</button>
-    </div>
-  </div>
-</nav>
 
-<h2>Welcome User !!!!</h2>
+ <div class="sidenav" id="mySidenav">
+ 
+    
+  
+  <nav class="sidebar">
+    <div class="brand">
+      <H2>Smart Contact</H2>
+     </div>
+   
+    <ul class="nav flex-column">
+        <li class="nav-item">  <a class="nav-link " href="#"> Home <i class="fa-regular fa-house" style="color: #dee4e9;"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"> My Contacts</a>
+      </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"> Add Contacts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"> Profile </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" (click)="signOut()"> Logout </a>
+        </li>
+    </ul>
+    </nav>
+</div>
+<div>
+  <nav class="navbar navbar-light  ">
+      <div class="ml-auto container-fluid">
+        <span class="navbar-text">
+          Your Name
+        </span>
+        <span style="font-size:40px;cursor:pointer" (click)="toggleNav()">&#9776;</span>
+    </div>
+  </nav> 
+</div> 
+
+<div>
+  <app-contact-table></app-contact-table>
+</div>

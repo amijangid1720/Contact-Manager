@@ -1,5 +1,5 @@
 package com.contactmanager.springboot.contacts;
-import com.contactmanager.springboot.Entity.User_Info;
+// import com.contactmanager.springboot.Entity.User_Info;
 import com.contactmanager.springboot.security.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;

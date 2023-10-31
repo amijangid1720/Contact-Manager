@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
-import { AddComponent } from './add/add.component';
+import { Navbar1Component } from './navbar1/navbar1.component';
 
 const routes: Routes = [
   {
@@ -21,9 +21,7 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'api/v1/contacts/add',
-    component: AddComponent,
-    canActivate: [authGuard],
+    path:'navbar', component:Navbar1Component
   }
 ];
 
