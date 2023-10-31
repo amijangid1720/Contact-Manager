@@ -18,6 +18,7 @@ import {
 import { Navbar1Component } from './navbar1/navbar1.component';
 import { ContactTableComponent } from './contact-table/contact-table.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AddComponent } from './add/add.component';
 
 
 
@@ -40,7 +41,8 @@ const config: SocialAuthServiceConfig = {
     LoginComponent,
     DashboardComponent,
     Navbar1Component,
-    ContactTableComponent
+    ContactTableComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,

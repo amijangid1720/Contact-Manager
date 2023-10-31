@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
 import { Navbar1Component } from './navbar1/navbar1.component';
+import { AddComponent } from './add/add.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
   },
   {
     path:'navbar', component:Navbar1Component
+  },
+  {
+    path: 'api/v1/contacts/add',
+    component: AddComponent,
+    canActivate: [authGuard],
   }
 ];
 
