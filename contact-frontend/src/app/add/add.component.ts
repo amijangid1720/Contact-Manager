@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AddServiceService } from '../service/add-service.service';
 import { Router } from '@angular/router';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { AddServiceService } from '../service/add-service.service';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
-
 })
 export class AddComponent {
 
