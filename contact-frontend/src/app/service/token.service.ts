@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -29,6 +29,20 @@ export class TokenService {
     }
 
     return false; // No valid token
+  }
+
+  public getUserName(yourAuthToken:string): Observable<any>{
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${yourAuthToken}` // Add your token here
+    });
+
+    const options = { headers: headers };
+
+
+    return this.http.get(`http://localhost:8082/api/v1/contacts/info`,options);
+
   }
 }
 
