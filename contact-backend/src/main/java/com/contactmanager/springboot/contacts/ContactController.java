@@ -4,6 +4,7 @@ import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.security.Repository.UserRepository;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
+import com.contactmanager.springboot.security.user.UserSession;
 import com.contactmanager.springboot.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +16,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/contacts")
+@RequestMapping("api/contacts")
 public class ContactController {
     @Autowired
     ContactService contactService;
 
     @Autowired
     UserInfoService userInfoService;
+
+//    @Autowired
+//    private UserSession userSession;
 
     @Autowired
     ContactRepository contactRepository;
@@ -30,11 +34,12 @@ public class ContactController {
     UserRepository userRepository;
     @Autowired
     UserService userService;
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication)
-    {
+   {
+//        User loggedInUser = userSession.getCurrentUser();
 
-        // Get the currently authenticated user
+//        // Get the currently authenticated user
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
 
         // Create a Contact object and associate it with the logged-in user
@@ -48,7 +53,7 @@ public class ContactController {
         contact.setPhoneno(contactRequest.getPhoneno());
 
         // Set the logged-in user as the owner of the contact
-        contact.setUser(loggedInUser);
+      contact.setUser(loggedInUser);
 
         // Save the contact
         contactService.addContact(contact);
@@ -56,6 +61,7 @@ public class ContactController {
 //        contactService.addContact(contact);
         return ResponseEntity.ok(contactRequest);
     }
+
 
 
     //id of the contact who we want to delete

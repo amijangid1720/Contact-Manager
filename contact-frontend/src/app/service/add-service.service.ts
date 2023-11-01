@@ -19,7 +19,7 @@ export class AddServiceService {
 
     const options = { headers: headers };
 
-    return this.http.post(`http://localhost:8082/api/v1/contacts/add`,contact ,options);
+    return this.http.post(`http://localhost:8082/api/contacts/`,contact ,options);
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../service/storage.service';
 import { AuthService } from '../service/auth.service';
+import { faUserPen,faTrashCan,faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,7 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent  implements OnInit{
-  
+  faArrowRightFromBracket = faArrowRightFromBracket;
   constructor(private router: Router,
     private storageService: StorageService,
    private authService: AuthService,
@@ -28,14 +29,29 @@ export class DashboardComponent  implements OnInit{
   }
 
 
+  // toggleNav() {
+  //   const sidenavElement = this.el.nativeElement.querySelector('#mySidenav');
+  //   const currentWidth = getComputedStyle(sidenavElement).width;
+  
+  //   if (currentWidth === '0px' || !currentWidth) {
+  //     this.renderer.setStyle(sidenavElement, 'width', '250px');
+  //   } else {
+  //     this.renderer.setStyle(sidenavElement, 'width', '0');
+  //   }
+  // }
+
   toggleNav() {
     const sidenavElement = this.el.nativeElement.querySelector('#mySidenav');
+    const mainElement = this.el.nativeElement.querySelector('#main');
+    
     const currentWidth = getComputedStyle(sidenavElement).width;
-  
+
     if (currentWidth === '0px' || !currentWidth) {
       this.renderer.setStyle(sidenavElement, 'width', '250px');
+      this.renderer.setStyle(mainElement, 'margin-left', '250px');
     } else {
       this.renderer.setStyle(sidenavElement, 'width', '0');
+      this.renderer.setStyle(mainElement, 'margin-left', '0');
     }
   }
   signOut() {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { faUserPen,faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faUserPen,faTrashCan,faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-contact-table',
   templateUrl: './contact-table.component.html',
@@ -8,4 +9,5 @@ import { faUserPen,faTrashCan } from '@fortawesome/free-solid-svg-icons';
 export class ContactTableComponent {
   faUserPen = faUserPen;
   faTrashCan = faTrashCan;
+  faArrowRightFromBracket = faArrowRightFromBracket;
 }
