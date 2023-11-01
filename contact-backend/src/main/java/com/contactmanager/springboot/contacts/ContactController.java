@@ -4,7 +4,7 @@ import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.security.Repository.UserRepository;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
-import com.contactmanager.springboot.security.user.UserSession;
+//import com.contactmanager.springboot.security.user.UserSession;
 import com.contactmanager.springboot.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
