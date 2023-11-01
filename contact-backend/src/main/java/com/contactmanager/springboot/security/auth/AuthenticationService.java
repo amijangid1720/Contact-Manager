@@ -1,5 +1,7 @@
 package com.contactmanager.springboot.security.auth;
 
+import com.contactmanager.springboot.Entity.UserInfo;
+import com.contactmanager.springboot.Repository.UserInfoRepository;
 import com.contactmanager.springboot.security.Repository.UserRepository;
 import com.contactmanager.springboot.security.services.jwtService;
 import com.contactmanager.springboot.security.token.Token;
@@ -28,6 +30,9 @@ public class AuthenticationService {
 
     @Autowired
     private final TokenRepository tokenRepository;
+
+    @Autowired
+    private UserInfoRepository userInfoRepository;
     public AuthenticationResponse register(com.contactmanager.springboot.security.auth.RegisterRequest request) {
       //create a user object out of this register request
         User user = User.builder()
@@ -37,6 +42,19 @@ public class AuthenticationService {
                 .build();
 //        User user = new User(request.getFirstname(),request.getLastname(),userDetails.getUsername(),userDetails.getPassword() );
         var savedUser=repository.save(user);
+
+        UserInfo userInfo = UserInfo.builder()
+                .firstName(request.getFirstname())
+                .lastName(request.getLastname())
+                .email(request.getEmail()) // This can be set if you want to store it in UserInfo
+                .phoneno(request.getPhoneno())
+                .gender(request.getGender())
+                .address(request.getAddress())
+                .user(savedUser) // Set the User entity for UserInfo
+                .build();
+
+        // Save the UserInfo entity to the user_info table
+        userInfoRepository.save(userInfo);
         var jwtToken=JwtService.generateToken(user);
         revokeAllUserTokens(savedUser);
         saveUserToken(savedUser, jwtToken);

@@ -1,10 +1,13 @@
 package com.contactmanager.springboot.security.services;
+import com.contactmanager.springboot.security.Repository.UserRepository;
+import com.contactmanager.springboot.security.user.User;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.function.Function;
 import java.util.HashMap;
@@ -20,6 +23,8 @@ import java.util.Base64;
 
 @Service
 public class jwtService {
+    @Autowired
+    UserRepository userRepository;
     private static final String SECRET_KEY="5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -47,6 +52,7 @@ public class jwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ) {
+//
         return Jwts
                 .builder()
                 .setClaims(extraClaims)

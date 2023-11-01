@@ -1,11 +1,15 @@
 package com.contactmanager.springboot.contacts;
 
+import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.security.Repository.UserRepository;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
+import com.contactmanager.springboot.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +19,9 @@ import java.util.List;
 public class ContactController {
     @Autowired
     ContactService contactService;
+
+    @Autowired
+    UserInfoService userInfoService;
 
     @Autowired
     ContactRepository contactRepository;
@@ -90,7 +97,18 @@ public class ContactController {
         return contact;
     }
 
-//    @GetMapping("/get-name"){
-//
-//    }
+    @GetMapping("/info")
+    public ResponseEntity<UserInfo> getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
+
+        System.out.println("Hiiii");
+        String username = userDetails.getUsername();
+        UserInfo userInfo = userInfoService.getUserInfo(username);
+        System.out.println(userInfo);
+        if (userInfo != null) {
+            return ResponseEntity.ok(userInfo);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

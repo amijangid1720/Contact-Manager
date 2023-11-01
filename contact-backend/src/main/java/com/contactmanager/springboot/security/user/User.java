@@ -1,7 +1,9 @@
 package com.contactmanager.springboot.security.user;
 
+import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.contacts.Contact;
 import com.contactmanager.springboot.security.token.Token;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,14 +30,15 @@ public class User implements UserDetails {
     // or GenerationType.SEQUENCE, GenerationType.TABLE, or GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "email",unique = true) //@Column(name = "email", unique = true)
+    @Column(name = "email",unique = true,nullable = false) //@Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Contact> contacts = new ArrayList<>();
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private UserInfo userInfo;
 
     @Enumerated(EnumType.STRING)
     private Role role;
