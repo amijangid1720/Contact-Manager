@@ -24,22 +24,13 @@
     </ul>
     </nav>
 </div>
-<div>
-  <nav class="navbar navbar-light  ">
-      <div class="ml-auto container-fluid">
-        <span class="navbar-text">
-          {{ firstName }}
-        </span>
-        <span style="font-size:40px;cursor:pointer" (click)="toggleNav()">&#9776;</span>
-    </div>
-  </nav> 
 <div id="main">
   
      <nav class="navbar navbar-light  ">
       <div class="d-flex nav2 flex-row  mb-3 container-fluid">
         <div class="p-2 bd-highlight"><span style="font-size:40px;cursor:pointer" (click)="toggleNav()">&#9776;</span></div>
         <div class="p-2 bd-highlight">  <span class="navbar-text">
-          Your Name
+          {{ firstName }}
           </span></div>
           <div class=" ms-auto p-2" (click)="signOut()"><fa-icon
             [icon]="faArrowRightFromBracket"

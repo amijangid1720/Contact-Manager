@@ -1,7 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-register',
@@ -10,51 +8,35 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
   providers:[HttpClient]
 })
 export class RegisterComponent {
-  faCoffee = faCoffee;
-  user={
-  firstName:"",
-  lastName:"",
-  email:"",
-  password:"",
-  phoneNo:"",
-  gender:"",
- address:""
-  }
-userForm: any;
+  firstname:string="";
+  lastname:string="";
+  email:string="";
+  password:string="";
+  phoneno:string="";
+  gender:string="";
+  address:string="";
+  
 constructor(private http: HttpClient )
   {
   }
-  // register()
-  // {
-  //    console.log("hiiiiii");
-    
-  //   let bodyData = {
-  //     "firstname" : this.firstName,
-  //     "lastname":this.lastName,
-  //     "email" : this.email,
-  //     "password" : this.password,
-  //     "phoneNo" : this.phoneNo,
-  //     'gender' : this.gender,
-  //      'address':this.address,
-  //   };
-  //   this.http.post("http://localhost:8082/api/v1/auth/register",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
-  //   {
-  //       console.log(resultData);
-  //       alert("Employee Registered Successfully");
-  //   });
+  register()
+  {
+     console.log("hiiiiii");
 
-  // }
-  OnSubmit(userForm: NgForm){
-   if(userForm.valid) {
-      console.log(userForm);
-      this.http.post("http://localhost:8082/api/v1/auth/register",this.user,{responseType: 'text'}).subscribe((resultData: any)=>
-       {
-             console.log(resultData);
-             alert("Regeistration Successful");
-   });
+    let bodyData = {
+      "firstname" : this.firstname,
+      "lastname":this.lastname,
+      "email" : this.email,
+      "address":this.address,
+      "password" : this.password,
+      "phoneno":this.phoneno,
+      "gender":this.gender
+    };
+    this.http.post("http://localhost:8082/api/v1/auth/register",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
+    {
+        console.log(resultData);
+        alert("User Registered Successfully");
+    });
+
   }
-  else{
-           alert("Registraion was unsuccessfull!!") ;
-  }
-}
 }

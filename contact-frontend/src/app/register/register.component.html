@@ -1,161 +1,92 @@
-<!-- <div class="login">
-   
-    <div class="container conatiner-fluid card">
-        <h2>SignUp</h2>
-    <form class="form-container" id="" method="" action="">
-        
-    
-        <input class="input" type="text" name="" id="" placeholder="Enter Your First Name" [(ngModel)]="firstName"  [ngModelOptions]="{standalone: true}">
-      
-      
-        <input   class="input" type="text" name="" id="" placeholder="Enter Your Last Name" [(ngModel)]="lastName"  [ngModelOptions]="{standalone: true}">
-       
-       
-        <input  class="input" type="email" name="" id="" placeholder="Enter Your Email" [(ngModel)]="email"  [ngModelOptions]="{standalone: true}">
-       
+<div class="login">
+  <div class="container conatiner-fluid card">
+    <h2>SignUp</h2>
+    <form id="" method="" action="">
+      <!-- <label><b>First Name
+      </b>
+      </label> -->
+      <input
+        type="text"
+        name=""
+        id=""
+        placeholder="Enter Your First Name"
+        [(ngModel)]="firstname"
+        [ngModelOptions]="{ standalone: true }"
+      />
 
+      <!-- <label><b>Last Name
+      </b>
+      </label> -->
+      <input
+        type="text"
+        name=""
+        id=""
+        placeholder="Enter Your Last Name"
+        [(ngModel)]="lastname"
+        [ngModelOptions]="{ standalone: true }"
+      />
 
-        <input  class="input" type="tel" name="" id="" placeholder="Enter Your Phone no" [(ngModel)]="phoneNo"  [ngModelOptions]="{standalone: true}">
+      <!-- <label><b>Email <br>
+      </b>
+      </label> -->
+      <input
+        type="email"
+        name=""
+        id=""
+        placeholder="Enter Your Email"
+        [(ngModel)]="email"
+        [ngModelOptions]="{ standalone: true }"
+      />
 
-
-        <select  class="input" id="gender" name="gender" class="select-field form-select form-control" [(ngModel)]="gender">
-            <option value="" disabled selected>Select gender</option>
-         Placeholder option 
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Others">Others</option>
-          </select>
-
-        <input  class="input" type="text" name="" id="" placeholder=" enter your address" [(ngModel)]="address"  [ngModelOptions]="{standalone: true}">
-       
-        <input  class="input" type="Password" name="" id="" placeholder="Enter Password"[(ngModel)]="password"  [ngModelOptions]="{standalone: true}">
-         <div class="container2">
-        <button class="btn1" (click)="register()">SignUp</button>
-    </div>
-    
-    </form>
-    <div class="span-container" ></div>
-    <span>Already have an account? <a routerLink="/">Login Here</a></span>
-     <button routerLink="">Login</button> 
-</div>
-</div> -->
-
-
-<div class="form-parent">
-
-
-    <div class="container card login">
-        <h2 class="text-center">SignUp</h2>
-        <form
-          #contactForm="ngForm"
-          (ngSubmit)="OnSubmit(userForm)"
-          class="form-container"
+      <!-- <label><b>Password
+      </b>
+      </label> -->
+      <input
+        type="Password"
+        name=""
+        id=""
+        placeholder="Enter Password"
+        [(ngModel)]="password"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <input
+        type="text"
+        name=""
+        id=""
+        placeholder="Enter Your Phone Number"
+        [(ngModel)]="phoneno"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <div class="form-group">
+        <select
+          id="gender"
+          name="gender"
+          class="select-field"
+          ngModel
+          required
+          [(ngModel)]="gender"
         >
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  id="firstname"
-                  name="firstname"
-                  placeholder="Enter First Name"
-                  class="input-field form-control"
-                  ngModel
-                  required
-                  #fname="ngModel"
-                  [(ngModel)]="user.firstName"
-                />
-              </div>
-            </div>
-      
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  id="lastname"
-                  name="lastname"
-                  placeholder="Enter Last Name"
-                  class="input-field form-control"
-                  ngModel
-                  required
-                  [(ngModel)]="user.lastName"
-                />
-              </div>
-            </div>
-          </div>
-      
-          <div class="form-group">
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter Email"
-              class="input-field form-control"
-              ngModel
-              required
-              email
-              [(ngModel)]="user.email"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter Password"
-              class="input-field form-control"
-              ngModel
-              required
-              email
-              [(ngModel)]="user.password"
-            />
-          </div>
-      
-          <div class="form-group">
-            <input
-              type="text"
-              id="work"
-              name="work"
-              placeholder="Enter address"
-              class="input-field form-control"
-              ngModel
-              [(ngModel)]="user.address"
-            />
-          </div>
-      
-          <div class="form-group">
-            <input
-              type="tel"
-              id="phoneno"
-              name="phoneno"
-              placeholder="Enter Phone Number"
-              class="input-field form-control"
-              ngModel
-              required
-              [(ngModel)]="user.phoneNo"
-            />
-          </div>
-      
-          <div class="form-group">
-            <select id="gender" name="gender" class="select-field form-select form-control" ngModel required [(ngModel)]="user.gender">
-              <option value="" disabled selected>Select gender</option>
-              <!-- Placeholder option -->
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Others">Others</option>
-            </select>
-          </div>
-        
-      
-          <div class="form-group text-center container2">
-            <button type="submit" class="btn1 " [disabled]="!userForm.valid">
-              <fa-icon [icon]="faCoffee"></fa-icon> Submit
-            </button>
-          </div>
-        </form>
-        <div class="span-container" ></div>
-        <span>Already have an account? <a routerLink="/">Login Here</a></span>
-         <!-- <button routerLink="">Login</button>  -->
-    </div>
+          <option value="" disabled selected>Select gender</option>
+          <!-- Placeholder option -->
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Others">Others</option>
+        </select>
       </div>
-    
+      <input
+        type="text"
+        name=""
+        id=""
+        placeholder="Enter Address"
+        [(ngModel)]="address"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <div class="container2">
+        <button class="btn1" (click)="register()">SignUp</button>
+      </div>
+    </form>
+    <div class="span-container"></div>
+    <span>Already have an account? <a routerLink="/">Login Here</a></span>
+    <!-- <button routerLink="">Login</button> -->
+  </div>
+</div>
