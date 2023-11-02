@@ -3,6 +3,7 @@
     <table class="table table-striped">
       <thead>
         <tr class="">
+          <th class="head" scope="col-3">#</th>
           <th class="head" scope="col-3">Name</th>
           <th class="head" scope="col-3">Email</th>
           <th class="head" scope="col-2">Phoneno</th>
@@ -10,10 +11,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-body">
-          <td scope="col-3">Mark</td>
-          <td scope="col-3">Otto</td>
-          <td scope="col-2">9856895645</td>
+        <tr class="table-body" *ngFor="let cont of contacts, index as i">
+           <td scpope="col-1"> {{i+1}}</td>
+          <td scope="col-2">{{cont.name}}</td>
+          <td scope="col-3">{{cont.email}}</td>
+          <td scope="col-2">{{cont.phoneno}}</td>
           <td scope="col-4">
             <div class="container-fluid">
               <div class="icon">
@@ -32,91 +34,7 @@
             </div>
           </td>
         </tr>
-        <tr class="table-body">
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>9856895645</td>
-          <td>
-            <div class="container-fluid">
-              <div class="icon">
-              <fa-icon
-                [icon]="faUserPen"
-                size="2x"
-                [styles]="{ stroke: 'red', color: '#1e0863' }"
-              ></fa-icon>
-              <fa-icon
-                [icon]="faTrashCan"
-                size="2x"
-                [styles]="{ stroke: 'red', color: '#1e0863' }"
-              ></fa-icon>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr class="table-body">
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>9856895645</td>
-          <td>
-            <div class="container-fluid">
-              <div class="icon">
-              <fa-icon
-                [icon]="faUserPen"
-                size="2x"
-                [styles]="{ stroke: 'red', color: '#1e0863' }"
-              ></fa-icon>
-              <fa-icon
-                [icon]="faTrashCan"
-                size="2x"
-                [styles]="{ stroke: 'red', color: '#1e0863' }"
-              ></fa-icon>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr class="table-body">
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>9856895645</td>
-          <td>
-            <div class="container-fluid">
-              <div class="icon">
-              <fa-icon
-                [icon]="faUserPen"
-                size="2x"
-                [styles]="{ stroke: 'red', color: '#1e0863' }"
-              ></fa-icon>
-              <fa-icon
-                [icon]="faTrashCan"
-                size="2x"
-                [styles]="{ stroke: 'red', color: '#1e0863' }"
-              ></fa-icon>
-              </div>
-            </div>
-          </td>
-        </tr>
-
-        <tr class="table-body">
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>9856895645</td>
-          <td>
-            <div class="container-fluid">
-              <div class="icon">
-              <fa-icon
-                [icon]="faUserPen"
-                size="2x"
-                [styles]="{ stroke: 'red', color: '#1e0863' }"
-              ></fa-icon>
-              <fa-icon
-                [icon]="faTrashCan"
-                size="2x"
-                [styles]="{ stroke: 'red', color: '#1e0863' }"
-              ></fa-icon>
-              </div>
-            </div>
-          </td>
-        </tr>
+            
       </tbody>
     </table>
   </div>
