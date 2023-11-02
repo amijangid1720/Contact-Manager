@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { faPen,faTrashCan,faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPen,
+  faTrashCan,
+  faArrowRightFromBracket,
+} from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
 // import { map } from 'rxjs';
 // import { contacts } from '../model/contacts';
@@ -13,12 +17,13 @@ import { AddServiceService } from '../service/add-service.service';
   templateUrl: './contact-table.component.html',
   styleUrls: ['./contact-table.component.scss'],
 })
-export class ContactTableComponent  implements OnInit{
+export class ContactTableComponent implements OnInit {
   faPen = faPen;
   faTrashCan = faTrashCan;
   faArrowRightFromBracket = faArrowRightFromBracket;
   contacts!: any[];
-    const data1:any | undefined;
+  data1!: any;
+
   constructor(
     private http: HttpClient,
     private manipulateuser: ManipulateUserService,
@@ -33,7 +38,7 @@ export class ContactTableComponent  implements OnInit{
         .getContacts(yourAuthToken)
         .subscribe((data: any[]) => {
           console.log(data);
-       this.data1= data;
+          this.data1 = data;
 
           this.contacts = data.map((contact) => ({
             id: contact.id,
@@ -48,14 +53,12 @@ export class ContactTableComponent  implements OnInit{
   }
 
   updateContact(contact: object, id: number) {
-  
     this.router.navigate(['update-contact', id]);
   }
-}
 
   onDeleteContact(contactId: string) {
     const yourAuthToken = localStorage.getItem('token');
-   const dub = this.data1[contactId].id;
+    const dub = this.data1[contactId].id;
 
     if (yourAuthToken != null) {
       this.manipulateuser.deleteContact(dub, yourAuthToken).subscribe(
@@ -65,14 +68,12 @@ export class ContactTableComponent  implements OnInit{
           window.location.reload();
           // Perform any additional actions after successful deletion
         },
-        error => {
+        (error) => {
           console.error('Error deleting contact:', error);
         }
       );
-    }
-     else {
+    } else {
       console.log('Token not found');
     }
-
-}
+  }
 }
