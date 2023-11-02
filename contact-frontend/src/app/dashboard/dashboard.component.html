@@ -10,7 +10,7 @@
         <li class="nav-item">  <a class="nav-link " href="#"> Home <i class="fa-regular fa-house" style="color: #dee4e9;"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"> My Contacts</a>
+          <a class="nav-link" routerLink="api/v1/dashboard"> My Contacts</a>
       </li>
         <li class="nav-item">
             <a class="nav-link" routerLink="/api/v1/contacts/add"> Add Contacts</a>
@@ -28,9 +28,9 @@
   
      <nav class="navbar navbar-light  ">
       <div class="d-flex nav2 flex-row  mb-3 container-fluid">
-        <div class="p-2 bd-highlight"><span style="font-size:40px;cursor:pointer" (click)="toggleNav()">&#9776;</span></div>
+        <div class="p-2 bd-highlight hamburger"><span style="font-size:40px;cursor:pointer" (click)="toggleNav()">&#9776;</span></div>
         <div class="p-2 bd-highlight">  <span class="navbar-text">
-          {{ firstName }}
+       Hiii   {{ firstName }}  !!!
           </span></div>
           <div class=" ms-auto p-2" (click)="signOut()"><fa-icon
             [icon]="faArrowRightFromBracket"

@@ -3,7 +3,7 @@
     <table class="table table-striped">
       <thead>
         <tr class="">
-          <th class="head" scope="col-3">#</th>
+          <th class="head" scope="col-1">#</th>
           <th class="head" scope="col-3">Name</th>
           <th class="head" scope="col-3">Email</th>
           <th class="head" scope="col-2">Phoneno</th>
@@ -11,30 +11,31 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-body" *ngFor="let cont of contacts, index as i">
-           <td scpope="col-1"> {{i+1}}</td>
-          <td scope="col-2">{{cont.name}}</td>
-          <td scope="col-3">{{cont.email}}</td>
-          <td scope="col-2">{{cont.phoneno}}</td>
+        <tr class="table-body" *ngFor="let cont of contacts; index as i">
+          <td scope="col-1">{{ i + 1 }}</td>
+          <td scope="col-2">{{ cont.name }}</td>
+          <td scope="col-3">{{ cont.email }}</td>
+          <td scope="col-2">{{ cont.phoneno }}</td>
           <td scope="col-4">
             <div class="container-fluid">
-              <div class="icon">
+              <div class="icon row"> 
+                <div class="col">
                 <fa-icon
-                  [icon]="faUserPen"
+                  [icon]="faPen"
                   size="2x"
                   [styles]="{ stroke: 'red', color: '#1e0863' }"
                 >
-                </fa-icon>
-                <fa-icon
+                </fa-icon></div>
+                <div class="col"><fa-icon
                   [icon]="faTrashCan"
                   size="2x"
-                  [styles]="{ stroke: 'red', color: '#1e0863' }"
+                  [styles]="{ stroke: 'red', color: '#1e0863' }" (click) = "onDeleteContact(i.toString())"
                 ></fa-icon>
               </div>
             </div>
+            </div>
           </td>
         </tr>
-            
       </tbody>
     </table>
   </div>

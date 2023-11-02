@@ -35,7 +35,6 @@
   margin-bottom: 13vh;
   background-color: rgba(229, 227, 238, 0.897);
   border-radius: 5vw;
-
 }
 
 
@@ -43,10 +42,6 @@
   display: flex;
   justify-content: flex-start;
   padding-left: 2vw;
-}
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
 }
 
 
@@ -87,6 +82,13 @@ h2 {
   font-family:'Times New Roman', Times, serif;
 }
 
+.navbar-text{
+ font-size :1.5rem;
+ font-family: 'Pacifico', cursive;
+ color:#170458;
+ padding-left: 1.5vw;
+}
+
 #main {
   transition: margin-left .5s;
   padding: 16px;
@@ -102,3 +104,17 @@ button{
     ;
    
   }
+
+  @media screen and (max-width: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    .navbar-text{font-size: 1.2em;
+    }
+    .navbar{
+      width:95vw;
+    }
+    .hamburger{
+      font-size: 10px;
+    }
+  }
+  

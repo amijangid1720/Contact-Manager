@@ -7,13 +7,16 @@ import com.contactmanager.springboot.security.user.User;
 //import com.contactmanager.springboot.security.user.UserSession;
 import com.contactmanager.springboot.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -66,11 +69,29 @@ public class ContactController {
 
 
     //id of the contact who we want to delete
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<String>  DeleteContact(@PathVariable Integer id, Authentication authentication){
+//        System.out.println(authentication.getName());
+//        contactRepository.deleteById(id);
+//        return ResponseEntity.ok("deleted: " + id);
+//    }
+
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String>  DeleteContact(@PathVariable Integer id, Authentication authentication){
+    public ResponseEntity<Map<String, Object>> deleteContact(@PathVariable Integer id, Authentication authentication) {
         System.out.println(authentication.getName());
-        contactRepository.deleteById(id);
-        return ResponseEntity.ok("deleted: " + id);
+
+        try {
+            contactRepository.deleteById(id);
+            Map<String, Object> response = new HashMap<>();
+            response.put("deleted", id);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            // Handle exceptions and return an appropriate response
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Unable to delete contact");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
     }
     @GetMapping("/findAll")
     public  List<Contact> findAllContacts(Authentication authentication) throws Exception

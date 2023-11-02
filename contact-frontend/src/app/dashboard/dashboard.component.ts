@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { StorageService } from '../service/storage.service';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
-import { faUserPen,faTrashCan,faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',

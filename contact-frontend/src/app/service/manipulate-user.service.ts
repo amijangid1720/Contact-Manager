@@ -35,6 +35,16 @@ export class ManipulateUserService implements OnInit {
     return this.http.get(`http://localhost:8082/api/v1/contacts/findAll`, {headers});
 
    }
+
+   deleteContact(dub: string, yourAuthToken:string):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${yourAuthToken}`,
+    });
+
+
+    return this.http.delete(`http://localhost:8082/api/v1/contacts/delete/${dub}` ,{headers, responseType: 'text'})
+   }
  
 }
 

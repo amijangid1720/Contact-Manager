@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AddServiceService } from '../service/add-service.service';
 import { Router } from '@angular/router';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faCoffee,faCircleChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import { } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add',
@@ -17,6 +18,7 @@ export class AddComponent {
    
   ) {}
   faCoffee = faCoffee;
+  faBackward = faCircleChevronLeft;
   contact={
    firstname:"",
    lastname:"",

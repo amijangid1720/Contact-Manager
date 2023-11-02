@@ -16,6 +16,10 @@ h2{
     font-size: 2rem;
     /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
+.back{
+  margin-left: 2vw;
+  margin-top: 3vw;
+}
 .form-container {
 	width:70vw;
 	margin: 0 auto;
@@ -83,10 +87,20 @@ h2{
 input.ng-invalid.ng-touched {
     border:1.75px solid rgb(171, 83, 83);
 }
-
+.backR{
+  display: none;
+}
+.form-parent{
+  display: flex;
+  justify-content: center;
+}
 @media screen and (max-width: 800px) {
   .input-field{
     height: 4vw;
+  }
+  .form-parent{
+    display: flex;
+    flex-direction: column;
   }
 }
 
