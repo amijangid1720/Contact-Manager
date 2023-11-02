@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
 import { Navbar1Component } from './navbar1/navbar1.component';
 import { AddComponent } from './add/add.component';
+import { UpdateContactComponent } from './update-contact/update-contact.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
     path: 'api/v1/contacts/add',
     component: AddComponent,
     canActivate: [authGuard],
-  }
+  },
+  { path: 'update-contact/:id',component:UpdateContactComponent}
 ];
 
 @NgModule({
