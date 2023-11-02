@@ -104,6 +104,15 @@ public class ContactController {
         return contact;
     }
 
+    @GetMapping("/contactinfo/{id}")
+    public ResponseEntity<Contact> getContactInfo(@PathVariable Integer id)
+    {
+        Contact contactInfo = contactRepository.getById(id);
+        if (contactInfo == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(contactInfo);
+    }
     @GetMapping("/info")
     public ResponseEntity<UserInfo> getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
 
