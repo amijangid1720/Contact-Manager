@@ -3,71 +3,81 @@ import { NgForm } from '@angular/forms';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddServiceService } from '../service/add-service.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { Injectable } from '@angular/core';
+import { Toast } from 'primeng/toast';
+
+import { compileNgModule } from '@angular/compiler';
+import { ToasterService } from '../service/toaster.service';
 
 @Component({
   selector: 'app-update-contact',
   templateUrl: './update-contact.component.html',
   styleUrls: ['./update-contact.component.scss'],
 })
+@Injectable()
 export class UpdateContactComponent {
   faCoffee = faCoffee;
-  contact={
-    firstname:'',
-    lastname:'',
-    email:'',
-    work:'',
-    phoneno:'',
-    gender:'',
-    description:''
-
+  contact = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    work: '',
+    phoneno: '',
+    gender: '',
+    description: '',
   };
-  contact_id!:number;
+  contact_id!: number;
   constructor(
     private route: ActivatedRoute,
     private addService: AddServiceService,
-    private router:Router
+    private router: Router,
+    private messageService: MessageService,
+    private toasterService: ToasterService
   ) {
     const yourAuthToken = localStorage.getItem('token');
     this.route.params.subscribe((params) => {
       const contactId = +params['id']; // Convert to a number if needed
-      this.contact_id=contactId;
+      this.contact_id = contactId;
       // Fetch the contact details by ID and prepopulate the form
-      if(yourAuthToken!=null)
-      {
-        this.addService.getContactById(contactId,yourAuthToken).subscribe((data) => {
-          
-          
-          this.contact = data; // Update 'contact' with fetched data
-          
-        });
-      }else {
+      if (yourAuthToken != null) {
+        this.addService
+          .getContactById(contactId, yourAuthToken)
+          .subscribe((data) => {
+            this.contact = data; // Update 'contact' with fetched data
+          });
+      } else {
         console.log('token not found');
       }
-     
     });
   }
-  onSubmit(contactForm:NgForm) {
+
+  onSubmit(contactForm: NgForm) {
     if (contactForm.valid) {
       const yourAuthToken = localStorage.getItem('token');
-      if(yourAuthToken!=null)
-      {
-        
-        this.addService.updateContact(this.contact,yourAuthToken,this.contact_id).subscribe({
-          next: (res) => {
-            console.log(res);
-            this.router.navigateByUrl('/api/v1/dashboard');
-          },
-          error: (err) => {
-            console.log(err);
-            // Handle the error
-          },
-        });
-      }else{
-        console.log("Token not found")
+      if (yourAuthToken != null) {
+        this.addService
+          .updateContact(this.contact, yourAuthToken, this.contact_id)
+          .subscribe({
+            next: (res) => {
+              console.log(res);
+
+              setTimeout(() => {
+                this.router.navigateByUrl('/api/v1/dashboard');
+              }, 1500);
+              this.toasterService.showContactUpdated();
+            },
+            error: (err) => {
+              console.log(err);
+              // Handle the error
+            },
+          });
+      } else {
+        console.log('Token not found');
       }
-     
     } else {
-      alert("Invalid Updates !!!");
+      alert('Invalid Updates !!!');
     }
   }
 }

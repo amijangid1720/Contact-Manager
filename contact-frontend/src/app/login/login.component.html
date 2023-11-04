@@ -3,7 +3,6 @@
   <div class="container conatiner-fluid card">
     <h2>Login</h2>
     <form id="" method="" action="">
-      <!-- <label><b>User Name</b></label> -->
       <input
         type="text"
         name=""
@@ -13,7 +12,6 @@
         [ngModelOptions]="{ standalone: true }"
       />
 
-      <!-- <label><b>Password </b></label> -->
       <input
         type="Password"
         name="password"
@@ -29,10 +27,9 @@
     <h3>OR</h3>
 
     <div style="display: flex; justify-content: center">
-      <asl-google-signin-button 
+      <asl-google-signin-button
         type="standard"
         size="large"
-        
         width="3vw"
         style="
           display: flex;
@@ -43,14 +40,12 @@
           size: large;
         "
       >
-      <span (click)="signInWithGoogle()">Login with Google</span>
+        <span (click)="signInWithGoogle()">Login with Google</span>
       </asl-google-signin-button>
     </div>
 
-    <!-- <button routerLink="/signup">SignUp</button> -->
     <span class="span-container"
       >Don't have an account? <a routerLink="/signup">Register here</a></span
     >
   </div>
 </div>
-

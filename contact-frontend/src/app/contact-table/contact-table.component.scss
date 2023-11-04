@@ -1,89 +1,66 @@
-.container{
-    
-    display: table;
-    border-radius: 2vw;
-    margin-top: 5vw;
-    margin-right: 5vw;
-    background-color: white;
-    padding-left: 5vw;
-    padding-top: 7vw;
-    padding-bottom: 4vw;
-//     height: 30vw;
- }
- .section{
-    display: flex;
-    justify-content: center;
-    
+.container {
+  display: table;
+  border-radius: 2vw;
+  margin-top: 5vw;
+  margin-right: 5vw;
+  background-color: white;
+  padding-left: 5vw;
+  padding-top: 7vw;
+  padding-bottom: 4vw;
+}
+.section {
+  display: flex;
+  justify-content: center;
+}
+table {
+  width: 55vw;
+  display: table;
+  border-collapse: collapse;
+}
+.head {
+  background-color: #1d117acc;
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  height: 5vh;
+  text-align: center;
+}
+.table-body {
+  text-align: center;
+  height: 6vh;
+}
+button {
+  background-color: #1d117acc;
+  margin-right: 1vw;
+  width: 5vw;
+  align-items: center;
+  color: white;
+}
+
+.fa-2x {
+  font-size: 100em;
+}
+.iconspace {
+  display: grid;
+  height: 6vh;
+  padding-left: 0.5vw;
+}
+
+@media screen and (max-width: 480px) {
+  .icon {
+    font-size: 10px;
   }
-table{
-     width: 55vw; 
-    display: table;
-    // width: auto;
-    border-collapse: collapse;
-    // border:solid black 1px;
+  .table {
+    width: 25vw;
+    margin-left: 5px;
+  }
+  button {
+    margin-right: 1vw;
+    width: 2vw;
+  }
 
-
-}
-
-
-// td, th {
-//     border-radius: 10px;
-//     // border-top:solid black 10px;
-// }
-
-
-.head{
-    background-color:#1d117acc ;
-    color: white;
-    font-family: 'Times New Roman', Times, serif;
-    height: 5vh;
-    text-align: center;
-}
-.table-body{
-    text-align: center;
-    height: 6vh;
-}
-// th{
-//     width: auto;
-// }
-button{
-    // padding-right: .3vw;
-    background-color:#1d117acc;
-margin-right: 1vw;
-width: 5vw;
-align-items: center;
-color: white;
-}
-
-.fa-2x{
-    font-size: 100em;
-}
-.iconspace{
-    display:grid;
-    height: 6vh;
-    padding-left: .5vw;
-}
-
-@media screen and (max-width: 480px){
-    .icon{
-        font-size:10px;
-    }
-    .table{
-        width: 25vw; 
-        margin-left:5px;
-
-    }
-   //     width: auto;
-   // }
-   button{
-   margin-right: 1vw;
-   width: 2vw;
-   }
-   
-   .iconspace{
-       display:grid;
-       height: 3vh;
-       padding-left: .5vw;
-   }
-
+  .iconspace {
+    display: grid;
+    height: 3vh;
+    padding-left: 0.5vw;
+  }
 }
