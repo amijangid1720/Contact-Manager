@@ -1,19 +1,20 @@
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddServiceService {
 
-  private baseUrl = 'http://localhost:8082/api/v1/contacts/contactinfo';
-  private updateUrl='http://localhost:8082/api/v1/contacts';
+  private baseUrl = `${environment.apiUrl}contacts/contactinfo`;
+  private updateUrl=' contacts';
   constructor(private http: HttpClient) {}
 
   public addContact(contact:Object):Observable<any>{
 
-    return this.http.post(`http://localhost:8082/api/v1/contacts/`,contact);
+    return this.http.post(`${environment.apiUrl}contacts/`,contact);
   }
 
   getContactById(contactId: number) : Observable<any>{

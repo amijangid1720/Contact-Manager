@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class TokenService {
       email: email,
       password: password
     };
-    return this.http.post(`http://localhost:8082/api/v1/auth/authenticate`, { ... params });
+    return this.http.post(`${environment.apiUrl}auth/authenticate`, { ... params });
   }
 
   public isAuthenticated(): boolean {
@@ -32,7 +33,7 @@ export class TokenService {
   }
 
   public getUserName(): Observable<any>{
-    return this.http.get(`http://localhost:8082/api/v1/contacts/info`);
+    return this.http.get(`${environment.apiUrl}contacts/info`);
 
   }
 
