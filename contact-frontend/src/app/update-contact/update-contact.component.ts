@@ -41,24 +41,18 @@ export class UpdateContactComponent {
       const contactId = +params['id']; // Convert to a number if needed
       this.contact_id = contactId;
       // Fetch the contact details by ID and prepopulate the form
-      if (yourAuthToken != null) {
-        this.addService
-          .getContactById(contactId, yourAuthToken)
+      this.addService
+          .getContactById(contactId)
           .subscribe((data) => {
             this.contact = data; // Update 'contact' with fetched data
           });
-      } else {
-        console.log('token not found');
-      }
     });
   }
 
   onSubmit(contactForm: NgForm) {
     if (contactForm.valid) {
-      const yourAuthToken = localStorage.getItem('token');
-      if (yourAuthToken != null) {
-        this.addService
-          .updateContact(this.contact, yourAuthToken, this.contact_id)
+      this.addService
+          .updateContact(this.contact, this.contact_id)
           .subscribe({
             next: (res) => {
               console.log(res);
@@ -73,9 +67,6 @@ export class UpdateContactComponent {
               // Handle the error
             },
           });
-      } else {
-        console.log('Token not found');
-      }
     } else {
       alert('Invalid Updates !!!');
     }

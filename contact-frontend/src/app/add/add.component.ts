@@ -34,26 +34,20 @@ export class AddComponent {
   };
   onSubmit(contactForm: NgForm) {
     if (contactForm.valid) {
-      // Send the 'contact' object to your API using a service
-      console.log(contactForm); 
-      const yourAuthToken = localStorage.getItem('token'); 
-      if (yourAuthToken !== null) { 
-        this.addService.addContact(this.contact, yourAuthToken).subscribe({
-          next: (res) => {
-            console.log(res);
-            this.toasterService.showContactAdded();
-            setTimeout(()=>{
-              this.router.navigateByUrl('api/v1/dashboard');
-            },1000)
-            
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
-      } else {
-        console.error("Token not found in localStorage."); // Handle this case
-      }
+      this.addService.addContact(this.contact).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.toasterService.showContactAdded();
+          setTimeout(()=>{
+            this.router.navigateByUrl('api/v1/dashboard');
+          },1000)
+          
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+
     } else {
       // Handle form validation errors
     }

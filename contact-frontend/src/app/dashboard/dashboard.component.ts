@@ -21,21 +21,15 @@ export class DashboardComponent  implements OnInit{
   ) {}
   firstName:string="";
   ngOnInit(): void {
-    const yourAuthToken = localStorage.getItem('token');
-    
-    if (yourAuthToken !== null) { 
-      this.tokenService.getUserName(yourAuthToken).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.firstName = res.firstName;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    } else {
-      console.error("Token not found in localStorage."); 
-    }
+    this.tokenService.getUserName().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.firstName = res.firstName;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   toggleNav() {

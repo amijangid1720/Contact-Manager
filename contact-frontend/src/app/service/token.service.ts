@@ -31,17 +31,13 @@ export class TokenService {
     return false; // No valid token
   }
 
-  public getUserName(yourAuthToken:string): Observable<any>{
+  public getUserName(): Observable<any>{
+    return this.http.get(`http://localhost:8082/api/v1/contacts/info`);
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${yourAuthToken}` // Add your token here
-    });
+  }
 
-    const options = { headers: headers };
-
-
-    return this.http.get(`http://localhost:8082/api/v1/contacts/info`,options);
+  public fetchToken():any{
+    return localStorage.getItem('token');
 
   }
 }

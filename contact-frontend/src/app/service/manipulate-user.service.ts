@@ -25,27 +25,16 @@ export class ManipulateUserService implements OnInit {
   // }
 
 
-   getContacts(yourAuthToken:string):Observable<any> {
-    const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${yourAuthToken}`,
-          });
-
-        
-    return this.http.get(`http://localhost:8082/api/v1/contacts/findAll`, {headers});
+   getContacts():Observable<any> {   
+    return this.http.get(`http://localhost:8082/api/v1/contacts/findAll`);
 
    }
 
-   deleteContact(dub: string, yourAuthToken:string):Observable<any>{
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${yourAuthToken}`,
-    });
-
-
-    return this.http.delete(`http://localhost:8082/api/v1/contacts/delete/${dub}` ,{headers, responseType: 'text'})
+   deleteContact(dub: string):Observable<any>{
+   
+    return this.http.delete(`http://localhost:8082/api/v1/contacts/delete/${dub}`)
    }
  
 }
 
- // const options = {headers:headers}
+ 

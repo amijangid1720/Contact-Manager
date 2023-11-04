@@ -38,24 +38,17 @@ export class ContactTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const yourAuthToken = localStorage.getItem('token');
-    if (yourAuthToken != null) {
-      this.manipulateuser
-        .getContacts(yourAuthToken)
-        .subscribe((data: any[]) => {
-          console.log(data);
-          this.data1 = data;
+    this.manipulateuser.getContacts().subscribe((data: any[]) => {
+      console.log(data);
+      this.data1 = data;
 
-          this.contacts = data.map((contact) => ({
-            id: contact.id,
-            name: contact.firstname + ' ' + contact.lastname,
-            email: contact.email,
-            phoneno: contact.phoneno,
-          }));
-        });
-    } else {
-      console.log('token not found');
-    }
+      this.contacts = data.map((contact) => ({
+        id: contact.id,
+        name: contact.firstname + ' ' + contact.lastname,
+        email: contact.email,
+        phoneno: contact.phoneno,
+      }));
+    });
   }
 
   updateContact(contact: object, id: number) {
@@ -65,28 +58,22 @@ export class ContactTableComponent implements OnInit {
   onDeleteContact(contactId: string) {
     this.confirmationService.confirm({
       accept: () => {
-        const yourAuthToken = localStorage.getItem('token');
         const dub = this.data1[contactId].id;
-
-        if (yourAuthToken != null) {
-          this.manipulateuser.deleteContact(dub, yourAuthToken).subscribe(
-            () => {
-              this.messageService.add({
-                severity: 'info',
-                summary: 'Deleted',
-                detail: 'Contact Deleted',
-              });
-              setTimeout(() => {
-                window.location.reload();
-              }, 1500);
-            },
-            (error) => {
-              console.error('Error deleting contact:', error);
-            }
-          );
-        } else {
-          console.log('Token not found');
-        }
+        this.manipulateuser.deleteContact(dub).subscribe(
+          () => {
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Deleted',
+              detail: 'Contact Deleted',
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          },
+          (error) => {
+            console.error('Error deleting contact:', error);
+          }
+        );
       },
       reject: (type: ConfirmEventType) => {
         switch (type) {
