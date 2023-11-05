@@ -36,32 +36,37 @@ export class UpdateContactComponent {
     private messageService: MessageService,
     private toasterService: ToasterService
   ) {
+    const yourAuthToken = localStorage.getItem('token');
     this.route.params.subscribe((params) => {
       const contactId = +params['id']; // Convert to a number if needed
       this.contact_id = contactId;
       // Fetch the contact details by ID and prepopulate the form
-      this.addService.getContactById(contactId).subscribe((data) => {
-        this.contact = data; // Update 'contact' with fetched data
-      });
+      this.addService
+          .getContactById(contactId)
+          .subscribe((data) => {
+            this.contact = data; // Update 'contact' with fetched data
+          });
     });
   }
 
   onSubmit(contactForm: NgForm) {
     if (contactForm.valid) {
-      this.addService.updateContact(this.contact, this.contact_id).subscribe({
-        next: (res) => {
-          console.log(res);
+      this.addService
+          .updateContact(this.contact, this.contact_id)
+          .subscribe({
+            next: (res) => {
+              console.log(res);
 
-          setTimeout(() => {
-            this.router.navigateByUrl('/api/v1/dashboard');
-          }, 1500);
-          this.toasterService.showContactUpdated();
-        },
-        error: (err) => {
-          console.log(err);
-          // Handle the error
-        },
-      });
+              setTimeout(() => {
+                this.router.navigateByUrl('/api/v1/dashboard');
+              }, 1500);
+              this.toasterService.showContactUpdated();
+            },
+            error: (err) => {
+              console.log(err);
+              // Handle the error
+            },
+          });
     } else {
       alert('Invalid Updates !!!');
     }

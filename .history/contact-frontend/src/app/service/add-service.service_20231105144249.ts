@@ -8,6 +8,7 @@ import { environment } from '../environment';
 })
 export class AddServiceService {
   private baseUrl = `${environment.apiUrl}contacts/contactinfo`;
+  private updateUrl = ' contacts';
   constructor(private http: HttpClient) {}
 
   public addContact(contact: Object): Observable<any> {
