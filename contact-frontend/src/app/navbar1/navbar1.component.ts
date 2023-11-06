@@ -30,7 +30,7 @@ export class Navbar1Component {
     const yourAuthToken = localStorage.getItem('token');
  
     if (yourAuthToken !== null) { // Check if it's not null
-      this.tokenservice.getUserName(yourAuthToken).subscribe({
+      this.tokenservice.getUserName().subscribe({
         next: (res) => {
           console.log(res);
           this.firstName = res.firstName;

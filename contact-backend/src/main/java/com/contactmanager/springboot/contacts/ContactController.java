@@ -14,6 +14,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,6 +148,15 @@ public class ContactController {
         }
         else {
             return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/search/{searchQuery}")
+    public ResponseEntity<List<Contact>> searchContacts(@PathVariable String searchQuery) {
+        try {
+            List<Contact> matchingContacts = contactService.searchContacts(searchQuery);
+            return ResponseEntity.ok(matchingContacts);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }
     }
 }
