@@ -26,6 +26,7 @@ export class ContactTableComponent implements OnInit {
   faArrowRightFromBracket = faArrowRightFromBracket;
   contacts!: any[];
   data1!: any;
+  searchTerm:string="";
 
   constructor(
     private http: HttpClient,

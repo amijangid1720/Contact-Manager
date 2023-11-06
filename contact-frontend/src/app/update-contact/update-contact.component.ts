@@ -63,7 +63,7 @@ export class UpdateContactComponent {
         },
       });
     } else {
-      alert('Invalid Updates !!!');
+      //this.messageService.add()
     }
   }
 }

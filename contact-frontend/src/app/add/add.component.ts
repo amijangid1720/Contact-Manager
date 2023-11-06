@@ -31,8 +31,9 @@ export class AddComponent {
    work:"",
    phoneno:"",
    gender:"",
-   description:""
+   description:"",
   };
+  searchTerm:string="";
   onSubmit(contactForm: NgForm) {
     if (contactForm.valid) {
       this.addService.addContact(this.contact).subscribe({
