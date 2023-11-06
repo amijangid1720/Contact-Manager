@@ -17,7 +17,7 @@ export class DashboardComponent  implements OnInit{
     private authService: AuthService,
     private renderer: Renderer2,
     private el: ElementRef,
-    private tokenService:TokenService
+    private tokenService:TokenService,
   ) {}
   firstName:string="";
   ngOnInit(): void {
@@ -49,6 +49,7 @@ export class DashboardComponent  implements OnInit{
   signOut() {
     console.log('Logout button clicked');
     this.authService.signOut();
-    this.router.navigate(['/']);
+
+    this.router.navigate(['']);
   }
 }

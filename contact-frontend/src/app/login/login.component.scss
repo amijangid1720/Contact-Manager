@@ -12,46 +12,62 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
-h2 {
-  text-align: center;
-  color: #1d117acc;
-  padding-top: 0.5vw;
-  padding-bottom: 1.9vw;
-  font-family: "Pacifico", cursive;
-  font-size: 40px;
+h2{
+    text-align: center;
+    color: #176B87;
+    padding-top: .5vw;
+    padding-bottom: 1.9vw;
+    font-family: 'Pacifico', cursive;
+     font-size: 40px;
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
 
-input {
-  border: none;
-  border-radius: 1vw;
-  margin-bottom: 1vw;
-  padding-left: 8px;
-  font-size: 1.2em;
-  width: 90%;
-  height: 2.6vw;
-  margin-left: 0;
+input{
+        border: none;
+        border-radius: 1vw;
+		margin-bottom: 1vw;
+        padding-left: 8px;
+        font-size: 1.2em;
+        width: 90%;
+        height: 2.6vw;
+        margin-left: 0;
+    /* margin-left: 0.8vw; */
+    
 }
-.btn1 {
-  width: 90%;
-  height: 2.5vw;
-  border: none;
-  border-radius: 1.2vw;
-  background-color: #5140d4cc;
-  margin-right: 1vw;
-  color: white;
-  margin-bottom: 1vw;
-  font-size: 1.3em;
+
+/* 
+label{
+    color: #021814;
+    font-size: 1vw;
+} */
+
+
+// .container2{
+
+//     padding-top: 2vw;
+//     padding-left: 1.5vw;
+  
+
+.btn1{
+    width: 90%;
+    height: 2.5vw;
+    border: none;
+    border-radius: 1.2vw;
+    background-color: #04364A;
+    margin-right:1vw;
+    color: white;
+	margin-bottom: 1vw;
+    font-size: 1.3em;
 }
 
 .btn1:hover {
   background-color: rgb(2, 2, 41) 0d4cc;
   color: white;
 }
-a {
-  color: #5140d4cc;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  text-decoration: none;
+a{
+    color: #176B87;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-decoration: none;
 }
 h3 {
   padding-top: 0.3vw;

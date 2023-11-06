@@ -46,7 +46,8 @@ export class LoginComponent implements OnInit {
             this.signOut();
           }
           localStorage.setItem('token', res.token);
-          this.router.navigateByUrl('api/v1/dashboard');
+          this.router.navigateByUrl('table');
+
         },
         error: (err) => {
           console.log(err);
@@ -70,7 +71,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', token);
 
           // Redirect to the authenticated page (adjust the route as needed)
-          this.router.navigateByUrl('api/v1/dashboard');
+          this.router.navigateByUrl('dashboard');
         },
         (error) => {
           console.log('Error');

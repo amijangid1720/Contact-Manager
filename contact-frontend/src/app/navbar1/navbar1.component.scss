@@ -1,39 +1,83 @@
+.brand {
+  color: #ffff;
+  font-size: 1.9rem;
 
+  font-family: "Pacifico", cursive;
+}
+.nav-link {
+  color: #dafffb;
+  font-size: 1rem;
+
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.navbar {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(21 52 64 / 42%);
+  padding: 2vw;
+}
+
+.navbar-text {
+  font-size: 1.5rem;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: white;
+  padding-left: 1.5vw;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #02202c;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav ul {
+  margin-top: 5vw;
+}
+.sidenav a {
+  // padding: 8px 8px 8px 32px;
+  padding-top: 2vw;
+  padding-left: 2vw;
+  text-decoration: none;
+  font-size: 23px;
+  color: #f3eaea;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #8d0404;
+}
+
+#main {
+  transition: margin-left 0.5s;
+  padding: 16px;
+}
+
+@media screen and (max-width: 450px) {
   .sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 15px;
   }
-  
   .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
+    font-size: 18px;
   }
-  
-  .sidenav a:hover {
-    color: #f1f1f1;
+  .navbar-text {
+    font-size: 1.2em;
   }
-  
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+  .navbar {
+    width: 95vw;
   }
-  
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+
+  .hamburger {
+    font-size: 10px;
   }
+}

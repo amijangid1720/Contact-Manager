@@ -1,0 +1,23 @@
+<div
+  class="back img-fluid"
+  style="background-image: url(../../assets/phone6.avif)"
+>
+  <app-navbar1></app-navbar1>
+
+  <div class="color-overlay" *ngIf="!loggedin">
+    <div>
+      <h1>Smart Contact Manager</h1>
+      <p class="">
+        Start collecting your conatcts in a very smart way. We provide very
+        efficient and smarter way of handling conatcts.
+      </p>
+      <p><a routerLink="">Get Start</a></p>
+    </div>
+    <!-- <div>
+      <img class="img1" src="../../assets/phone7.png" />
+    </div> -->
+  </div>
+  <div class="section">
+    <router-outlet></router-outlet>
+  </div>
+</div>

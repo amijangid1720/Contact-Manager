@@ -7,13 +7,14 @@ $background-color_2: #51508e;
   justify-content: center;
   align-items: center;
 }
-h2 {
-  text-align: center;
-  color: #1d117acc;
-  padding-top: 0.25vw;
-  padding-bottom: 0.25vw;
-  font-family: "Pacifico", cursive;
-  font-size: 2rem;
+h2{
+    text-align: center;
+    color: #04364A;
+    padding-top: .25vw;
+    padding-bottom: .25vw;
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
 .form-container {
   width: 70vw;
@@ -57,17 +58,16 @@ h2 {
 }
 
 .btn-primary {
-  background-color: $background-color_1;
-  color: $color_1;
-  padding: 10px 20px;
-  width: 100%;
-  border: none;
-  border-radius: 1vw;
-  margin: auto;
-  cursor: pointer;
-  &:hover {
-    background-color: $background-color_2;
-  }
+	background-color: #04364A;
+	padding: 10px 20px;
+    width: 100%;
+	border: none;
+	border-radius: 1vw;
+    margin: auto;
+	cursor: pointer;
+	&:hover {
+		background-color:#056388 ;
+	}
 }
 input.ng-invalid.ng-touched {
   border: 1.75px solid rgb(171, 83, 83);

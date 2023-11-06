@@ -41,7 +41,7 @@ export class AddComponent {
           console.log(res);
           this.toasterService.showContactAdded();
           setTimeout(()=>{
-            this.router.navigateByUrl('api/v1/dashboard');
+            this.router.navigateByUrl('/dashboard');
           },1000)
           
         },
