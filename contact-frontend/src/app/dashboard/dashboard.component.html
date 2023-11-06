@@ -1,51 +1,54 @@
-
- <div class="sidenav" id="mySidenav">
- 
+<div class="sidenav" id="mySidenav">
   <nav class="sidebar">
     <div class="brand">
       <H2>Smart Contact</H2>
-     </div>
-   
+    </div>
+
     <ul class="nav flex-column">
-        <li class="nav-item">  <a class="nav-link " href="#"> Home <i class="fa-regular fa-house" style="color: #dee4e9;"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="api/v1/dashboard"> My Contacts</a>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          Home <i class="fa-regular fa-house" style="color: #dee4e9"></i
+        ></a>
       </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="/api/v1/contacts/add"> Add Contacts</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#"> Profile </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" (click)="signOut()"> Logout </a>
-        </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="api/v1/dashboard"> My Contacts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/api/v1/contacts/add"> Add Contacts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"> Profile </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="signOut()"> Logout </a>
+      </li>
     </ul>
-    </nav>
+  </nav>
 </div>
 <div id="main">
-  
-     <nav class="navbar navbar-light  ">
-      <div class="d-flex nav2 flex-row  mb-3 container-fluid">
-        <div class="p-2 bd-highlight hamburger"><span style="font-size:40px;cursor:pointer" (click)="toggleNav()">&#9776;</span></div>
-        <div class="p-2 bd-highlight">  <span class="navbar-text">
-       Hiii   {{ firstName }}  !!!
-          </span></div>
-          <div class=" ms-auto p-2" (click)="signOut()"><fa-icon
-            [icon]="faArrowRightFromBracket"
-            size="2x"
-            [styles]="{ stroke: 'red', color: '#1e0863' }"
-          ></fa-icon>
-          </div> 
-      </div> 
-   
-    </nav> 
+  <nav class="navbar navbar-light">
+    <div class="d-flex nav2 flex-row mb-3 container-fluid">
+      <div class="p-2 bd-highlight hamburger">
+        <span style="font-size: 40px; cursor: pointer" (click)="toggleNav()"
+          >&#9776;</span
+        >
+      </div>
+      <div class="p-2 bd-highlight">
+        <span class="navbar-text"> Hiii {{ firstName }} !!! </span>
+      </div>
+      <div class="ms-auto p-2" (click)="signOut()">
+        <fa-icon
+          [icon]="faArrowRightFromBracket"
+          size="2x"
+          [styles]="{ stroke: 'red', color: '#1e0863' }"
+        ></fa-icon>
+      </div>
+    </div>
+  </nav>
 
-  
   <div>
     <app-contact-table></app-contact-table>
   </div>
-</div> 
+</div>
 
-<!-- <button class="btn" (click)="signOut()"> Logout   </button> -->
+

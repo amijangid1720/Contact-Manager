@@ -21,45 +21,16 @@ export class DashboardComponent  implements OnInit{
   ) {}
   firstName:string="";
   ngOnInit(): void {
-    // const storedToken = localStorage.getItem('token');
-    // if(storedToken){
-    //   this.authService.getUserInfo.getItem.subscribe({
-    //     next:(userInfo: any) => {
-    //       this.userName = userInfo;
-    //     },
-
-    //   })
-    // }
-    const yourAuthToken = localStorage.getItem('token');
-    // this.tokenService.getUserName(yourAuthToken).subscribe((data: any) => {
-    //   console.log(data);
-    //   this.firstName = data.firstName;
-    // });
-    if (yourAuthToken !== null) { // Check if it's not null
-      this.tokenService.getUserName(yourAuthToken).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.firstName = res.firstName;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    } else {
-      console.error("Token not found in localStorage."); // Handle this case
-    }
+    this.tokenService.getUserName().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.firstName = res.firstName;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
-
-  // toggleNav() {
-  //   const sidenavElement = this.el.nativeElement.querySelector('#mySidenav');
-  //   const currentWidth = getComputedStyle(sidenavElement).width;
-  
-  //   if (currentWidth === '0px' || !currentWidth) {
-  //     this.renderer.setStyle(sidenavElement, 'width', '250px');
-  //   } else {
-  //     this.renderer.setStyle(sidenavElement, 'width', '0');
-  //   }
-  // }
 
   toggleNav() {
     const sidenavElement = this.el.nativeElement.querySelector('#mySidenav');
@@ -77,8 +48,6 @@ export class DashboardComponent  implements OnInit{
   }
   signOut() {
     console.log('Logout button clicked');
-    // localStorage.clear();
-    // sessionStorage.clear();
     this.authService.signOut();
     this.router.navigate(['/']);
   }

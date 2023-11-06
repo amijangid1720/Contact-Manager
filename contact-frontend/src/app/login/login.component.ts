@@ -38,25 +38,24 @@ export class LoginComponent implements OnInit {
       console.log('token: ' + user.idToken);
       const googleIdToken = user.idToken;
 
-    //   /// send id token to the backend
+      //   /// send id token to the backend
       this.authBackendService.sendTokenToBackend(googleIdToken).subscribe({
         next: (res) => {
           console.log(res);
-          if(this.loggedIn){
+          if (this.loggedIn) {
             this.signOut();
           }
           localStorage.setItem('token', res.token);
           this.router.navigateByUrl('api/v1/dashboard');
-
         },
         error: (err) => {
           console.log(err);
         },
       });
-     });
+    });
   }
 
-  //for logi usinfg username-password
+  //for login usinfg username-password
   login() {
     // request to generate token
     this.tokenService
@@ -66,11 +65,9 @@ export class LoginComponent implements OnInit {
           console.log('success');
           console.log(data);
           const token = data.token;
-        
 
           // Store the token in a secure location (e.g., local storage)
           localStorage.setItem('token', token);
-         
 
           // Redirect to the authenticated page (adjust the route as needed)
           this.router.navigateByUrl('api/v1/dashboard');
@@ -83,34 +80,9 @@ export class LoginComponent implements OnInit {
 
   ///for google auth
 
-   signInWithGoogle(): void { 
+  signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
-  // //   this.authService
-  //     .signIn(GoogleLoginProvider.PROVIDER_ID)
-  //     .then((user) => {
-  //       this.user = user;
-  //       this.loggedIn = true;
-
-  //       const googleIdToken = user.idToken;
-
-  //       //send id token to the backend
-  //       this.authBackendService.sendTokenToBackend(googleIdToken).subscribe(
-  //         response => {
-  //           console.log('id send to backend', response);
-
-  //         },
-  //         error => {
-  //           console.error("error sending id token")
-  //         }
-  //       )
-
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error during Google login', error);
-  //     });
-  // }
-
   signOut(): void {
     this.authService
       .signOut()

@@ -12,12 +12,12 @@ export class ManipulateUserService implements OnInit {
   }
 
   getContacts(): Observable<any> {
-    return this.http.get(`${environment.backendUrl}/api/v1/contacts/findAll`);
+    return this.http.get(`http://localhost:8082/api/v1/contacts/findAll`);
   }
 
-  deleteContact(id: string): Observable<any> {
+  deleteContact(dub: string): Observable<any> {
     return this.http.delete(
-      `${environment.backendUrl}/api/v1/contacts/delete/${id}`
+      `http://localhost:8082/api/v1/contacts/delete/${dub}`
     );
   }
 }

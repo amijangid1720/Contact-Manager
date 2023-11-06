@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule ,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthInterceptorService} from './service/auth-interceptor.service'; // Import your interceptor
 import {
   GoogleLoginProvider,
   SocialAuthServiceConfig,
@@ -20,9 +21,9 @@ import { ContactTableComponent } from './contact-table/contact-table.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddComponent } from './add/add.component';
 import { UpdateContactComponent } from './update-contact/update-contact.component';
-
-
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 const config: SocialAuthServiceConfig = {
   providers: [
     {
@@ -44,7 +45,7 @@ const config: SocialAuthServiceConfig = {
     Navbar1Component,
     ContactTableComponent,
     AddComponent,
-    UpdateContactComponent
+    UpdateContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,15 +56,23 @@ const config: SocialAuthServiceConfig = {
     SocialLoginModule,
     GoogleSigninButtonModule,
     FontAwesomeModule,
+    ToastModule,
+    ConfirmDialogModule,
+    HttpClientModule
   ],
 
-  
   providers: [
+    MessageService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: config,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService, // Add your interceptor here
+      multi: true,
+    }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

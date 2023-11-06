@@ -26,8 +26,6 @@ export class Navbar1Component {constructor(private router: Router,
 
 signOut() {
   console.log('Logout button clicked');
-  // localStorage.clear();
-  // sessionStorage.clear(); 
   this.authService.signOut();
   this.router.navigate(['/']);
 }

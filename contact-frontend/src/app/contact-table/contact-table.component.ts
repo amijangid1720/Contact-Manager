@@ -6,16 +6,19 @@ import {
   faArrowRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
-// import { map } from 'rxjs';
-// import { contacts } from '../model/contacts';
+
 import { ManipulateUserService } from '../service/manipulate-user.service';
 import { Router } from '@angular/router';
 import { AddServiceService } from '../service/add-service.service';
+import { ToasterService } from '../service/toaster.service';
+import { MessageService } from 'primeng/api';
+import { ConfirmationService, ConfirmEventType } from 'primeng/api';
 
 @Component({
   selector: 'app-contact-table',
   templateUrl: './contact-table.component.html',
   styleUrls: ['./contact-table.component.scss'],
+  providers: [ConfirmationService, MessageService],
 })
 export class ContactTableComponent implements OnInit {
   faPen = faPen;
@@ -28,28 +31,24 @@ export class ContactTableComponent implements OnInit {
     private http: HttpClient,
     private manipulateuser: ManipulateUserService,
     private router: Router,
-    private addService: AddServiceService
+    private addService: AddServiceService,
+    private messageService: MessageService,
+    private toasterService: ToasterService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
-    const yourAuthToken = localStorage.getItem('token');
-    if (yourAuthToken != null) {
-      this.manipulateuser
-        .getContacts(yourAuthToken)
-        .subscribe((data: any[]) => {
-          console.log(data);
-          this.data1 = data;
+    this.manipulateuser.getContacts().subscribe((data: any[]) => {
+      console.log(data);
+      this.data1 = data;
 
-          this.contacts = data.map((contact) => ({
-            id: contact.id,
-            name: contact.firstname + ' ' + contact.lastname,
-            email: contact.email,
-            phoneno: contact.phoneno,
-          }));
-        });
-    } else {
-      console.log('token not found');
-    }
+      this.contacts = data.map((contact) => ({
+        id: contact.id,
+        name: contact.firstname + ' ' + contact.lastname,
+        email: contact.email,
+        phoneno: contact.phoneno,
+      }));
+    });
   }
 
   updateContact(contact: object, id: number) {
@@ -57,23 +56,43 @@ export class ContactTableComponent implements OnInit {
   }
 
   onDeleteContact(contactId: string) {
-    const yourAuthToken = localStorage.getItem('token');
-    const dub = this.data1[contactId].id;
-
-    if (yourAuthToken != null) {
-      this.manipulateuser.deleteContact(dub, yourAuthToken).subscribe(
-        () => {
-          console.log(`Contact with ID ${dub} deleted successfully.`);
-
-          window.location.reload();
-          // Perform any additional actions after successful deletion
-        },
-        (error) => {
-          console.error('Error deleting contact:', error);
+    this.confirmationService.confirm({
+      accept: () => {
+        const dub = this.data1[contactId].id;
+        this.manipulateuser.deleteContact(dub).subscribe(
+          () => {
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Deleted',
+              detail: 'Contact Deleted',
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          },
+          (error) => {
+            console.error('Error deleting contact:', error);
+          }
+        );
+      },
+      reject: (type: ConfirmEventType) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
         }
-      );
-    } else {
-      console.log('Token not found');
-    }
+      },
+    });
   }
 }
