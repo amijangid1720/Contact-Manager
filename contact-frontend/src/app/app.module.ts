@@ -21,6 +21,7 @@ import { ContactTableComponent } from './contact-table/contact-table.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddComponent } from './add/add.component';
 import { UpdateContactComponent } from './update-contact/update-contact.component';
+import { HomeComponent } from './home/home.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -46,6 +47,7 @@ const config: SocialAuthServiceConfig = {
     ContactTableComponent,
     AddComponent,
     UpdateContactComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,89 @@
+<!-- */////////////////////////////////// -->
 
-<div id="mySidenav" class="sidenav">
-  <p class="closebtn" (click)="closeNav()">&times;</p>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
-</div>
-<h2>Animated Sidenav Example</h2>
-<p>Click on the element below to open the side navigation menu.</p>
-<span style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; open</span>
+<nav class="navbar navbar-expand-lg" id="main">
+  <div class="container-fluid">
+    <div class="sidenav" id="mySidenav" *ngIf="loggedin">
+      <nav class="sidebar">
+        <!-- <div class="brand">
+       <H2>Smart Contact</H2> -->
+        <!-- </div>  -->
+
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="">
+              Home <i class="fa-regular fa-house" style="color: #dee4e9"></i
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="dashboard"> My Contacts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/add"> Add Contacts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/"> Profile </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="signOut()"> Logout </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- ///////////////////////////////////// -->
+    <div class="p-2 bd-highlight hamburger">
+      <span
+        style="font-size: 40px; cursor: pointer"
+        *ngIf="loggedin"
+        (click)="toggleNav()"
+        >&#9776;</span
+      >
+    </div>
+    <a class="navbar-brand brand" href="#">Smart Contact</a>
+    <div class="d-flex bd-highlight navMenu">
+      <div class="p-3 bd-highlight nav-item">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          *ngIf="!loggedin"
+          href="#"
+          >Home</a
+        >
+      </div>
+      <div class="p-3 bd-highlight nav-item">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          *ngIf="!loggedin"
+          routerLink="/login"
+          >Login</a
+        >
+      </div>
+      <div class="p-3 bd-highlight nav-item">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          *ngIf="!loggedin"
+          routerLink="/signup"
+          >signup</a
+        >
+      </div>
+
+      <div class="p-3 bd-highlight nav-item" *ngIf="loggedin">
+        <span class="navbar-text "> Welcome {{ firstName }} </span>
+      </div>
+
+      <div
+        class="p-3 bd-highlight nav-item"
+        (click)="signOut()"
+        *ngIf="loggedin"
+      >
+        <fa-icon
+          [icon]="faArrowRightFromBracket"
+          class="nav-link active"
+          size="2x"
+          [styles]="{ stroke: 'red', color: 'white' }"
+        ></fa-icon>
+      </div>
+    </div>
+  </div>
+</nav>

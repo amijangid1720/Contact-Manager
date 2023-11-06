@@ -1,0 +1,35 @@
+
+
+.back{
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+}
+
+.color-overlay{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top:20vh;
+    // gap:10vw;
+}
+
+.img1{
+   width:25vw;
+   height:35vh;
+}
+.color-overlay h1{
+    
+    font-size: 2rem;
+}
+
+.color-overlay a{
+    // padding-left:45%;
+}
+
+.section{
+    margin:4vw;
+}

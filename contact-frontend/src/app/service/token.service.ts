@@ -9,6 +9,13 @@ import { environment } from '../environment';
 export class TokenService {
   constructor(private http: HttpClient) {}
 
+  public isLoggedin():boolean{
+    if(localStorage.getItem('token'))
+      return true;
+    else
+        return false;
+  }
+
   public getToken(email :string,password:string) :Observable<any>{
     // Send a GET request to your server's token retrieval endpoint
     // Adjust the URL as needed

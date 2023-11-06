@@ -7,30 +7,51 @@ import { authGuard } from './auth.guard';
 import { Navbar1Component } from './navbar1/navbar1.component';
 import { AddComponent } from './add/add.component';
 import { UpdateContactComponent } from './update-contact/update-contact.component';
+import { HomeComponent } from './home/home.component';
+import { ContactTableComponent } from './contact-table/contact-table.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent,
   },
   {
     path: 'signup',
     component: RegisterComponent,
   },
+  // {
+  //   path: 'api/v1/dashboard',
+  //   component: DashboardComponent,
+  //   canActivate: [authGuard],
+  // },
   {
-    path: 'api/v1/dashboard',
-    component: DashboardComponent,
-    canActivate: [authGuard],
+    path:'navbar1', component:Navbar1Component
   },
-  {
-    path:'navbar', component:Navbar1Component
-  },
-  {
-    path: 'api/v1/contacts/add',
-    component: AddComponent,
-    canActivate: [authGuard],
-  },
-  { path: 'update-contact/:id',component:UpdateContactComponent}
+  // {
+  //   path: 'api/v1/contacts/add',
+  //   component: AddComponent,
+  //   canActivate: [authGuard],
+  // },
+  // { path: 'update-contact/:id',component:UpdateContactComponent},
+  {path:'',component:HomeComponent,
+    children:[
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'update-contact/:id',
+        component:UpdateContactComponent
+      },
+      {
+        path:'add',
+        component: AddComponent,
+      },
+
+      {path:'table',
+    component:ContactTableComponent}
+    ]
+}
 ];
 
 @NgModule({
