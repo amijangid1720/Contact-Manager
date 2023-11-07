@@ -9,9 +9,10 @@ import { AddComponent } from './add/add.component';
 import { UpdateContactComponent } from './update-contact/update-contact.component';
 import { HomeComponent } from './home/home.component';
 import { ContactTableComponent } from './contact-table/contact-table.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  
+ 
   {
     path: 'login',
     component: LoginComponent,
@@ -38,19 +39,22 @@ const routes: Routes = [
     children:[
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,canActivate: [authGuard],
       },
       {
         path: 'update-contact/:id',
-        component:UpdateContactComponent
+        component:UpdateContactComponent,canActivate: [authGuard],
       },
       {
         path:'add',
-        component: AddComponent,
+        component: AddComponent,canActivate: [authGuard],
       },
 
       {path:'table',
-    component:ContactTableComponent}
+    component:ContactTableComponent,canActivate: [authGuard],},
+    {
+      path:'profile', component:ProfileComponent,canActivate: [authGuard],
+    },
     ]
 }
 ];
