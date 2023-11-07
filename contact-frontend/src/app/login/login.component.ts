@@ -8,6 +8,7 @@ import {
   SocialUser,
 } from '@abacritt/angularx-social-login';
 import { AuthService } from '../service/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private tokenService: TokenService,
     private authService: SocialAuthService,
-    private authBackendService: AuthService
+    private authBackendService: AuthService,
+    private messageService:MessageService
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +76,12 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('dashboard');
         },
         (error) => {
-          console.log('Error');
+          this.messageService.add({
+            key: 'tr',
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Invalid Credentials!!',
+          });
         }
       );
   }

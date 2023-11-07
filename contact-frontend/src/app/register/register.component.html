@@ -30,12 +30,16 @@
         placeholder="Enter Your Last Name"
         [(ngModel)]="lastname"
         #last="ngModel"
+        pattern="[A-Za-z]+"
         required
         [ngModelOptions]="{ standalone: true }"
       />
       <div *ngIf="last.invalid && (last.dirty || last.touched)">
         <div *ngIf="last?.errors?.['required']" class="error-message">
           *Last Name is required.
+        </div>
+        <div *ngIf="last?.errors?.['pattern']" class="error-message">
+          *Last Name should contain only alphabets
         </div>
       </div>
 
@@ -114,4 +118,9 @@
     <span>Already have an account? <a routerLink="/">Login Here</a></span>
   </div>
 </div>
-<p-toast></p-toast>
+<p-toast
+  [showTransformOptions]="'translateY(100%)'"
+  [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'1000ms'"
+  [showTransformOptions]="'translateX(100%)'"
+></p-toast>
