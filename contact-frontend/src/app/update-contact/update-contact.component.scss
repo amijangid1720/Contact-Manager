@@ -25,10 +25,11 @@ h2{
   width: 85vw;
   height: max(50vh, auto);
   padding: 2vw;
+  background-color: rgba(255, 255, 255, 0.295);
 
   margin-top: 5vw;
-  background: #ffffff9e;
-  border-radius: 1.4vw;
+  // background: #ffffff9e;
+  // border-radius: 1.4vw;
   box-shadow: 0 26px 15px rgba(0, 5, 3, 0.5);
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -87,7 +88,7 @@ input.ng-invalid.ng-touched {
 
     margin-top: 5vw;
     background: #ffffff9e;
-    border-radius: 1.4vw;
+    // border-radius: 1.4vw;
     box-shadow: 0 26px 15px rgba(0, 5, 3, 0.5);
     // margin: auto;
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",

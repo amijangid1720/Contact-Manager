@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { ContactTableComponent } from './contact-table/contact-table.component';
 
 const routes: Routes = [
+  
   {
     path: 'login',
     component: LoginComponent,

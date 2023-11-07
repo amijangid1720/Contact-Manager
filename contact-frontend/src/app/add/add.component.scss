@@ -2,14 +2,15 @@ $color_1: #fff;
 $background-color_1: #5441bd;
 $background-color_2: #51508e;
 
-.body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// .body {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: rgba(255, 255, 255, 0.295) ;
+// }
 h2 {
   text-align: center;
-  color: #1d117acc;
+  color: #053B50;
   padding-top: 0.25vw;
   padding-bottom: 0.25vw;
   font-family: "Pacifico", cursive;
@@ -21,17 +22,23 @@ h2 {
   margin-top: 3vw;
 }
 .form-container {
-  width: 70vw;
+  width: 60vw;
   margin: 0 auto;
   padding: 20px;
+
+}
+.login{
+ 
+ 
+
 }
 .container {
-  width: 85vw;
-  height: max(50vh, auto);
+  width: 75vw;
+  // height: max(50vh, auto);
   padding: 2vw;
-
+  background-color:red;
   margin-top: 5vw;
-  background: #ffffff9e;
+  // background:  rgba(255, 255, 255, 0.295);
   border-radius: 1.4vw;
   box-shadow: 0 26px 15px rgba(0, 5, 3, 0.5);
   // margin: auto;
@@ -64,7 +71,7 @@ h2 {
 }
 
 .btn-primary {
-  background-color: $background-color_1;
+  background-color: #053B50;
   color: $color_1;
   padding: 10px 20px;
   width: 100%;
@@ -79,9 +86,7 @@ h2 {
 input.ng-invalid.ng-touched {
   border: 1.75px solid rgb(171, 83, 83);
 }
-.backR {
-  display: none;
-}
+
 .form-parent {
   display: flex;
   justify-content: center;
@@ -104,7 +109,7 @@ input.ng-invalid.ng-touched {
 
     margin-top: 5vw;
     background: #ffffff9e;
-    border-radius: 1.4vw;
+    // border-radius: 1.4vw;
     box-shadow: 0 26px 15px rgba(0, 5, 3, 0.5);
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
       "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -113,6 +118,6 @@ input.ng-invalid.ng-touched {
   .form-container {
     width: 35vw;
     margin: 0 auto;
-    padding: 20px;
+    // padding: 20px;
   }
 }

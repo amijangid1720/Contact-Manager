@@ -65,7 +65,7 @@ const config: SocialAuthServiceConfig = {
     ConfirmDialogModule,
     HttpClientModule,
 
-    PaginatorModule 
+    PaginatorModule,
 
     PasswordModule
 

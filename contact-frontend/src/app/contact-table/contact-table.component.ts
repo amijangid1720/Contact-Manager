@@ -5,7 +5,8 @@ import {
   faTrashCan,
   faArrowRightFromBracket,
   faCaretUp,
-  faCaretDown
+  faCaretDown,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
 
@@ -31,6 +32,7 @@ export class ContactTableComponent implements OnInit {
   faTrashCan = faTrashCan;
   faCaretUp =faCaretUp;
   faCaretDown = faCaretDown;
+  faSearch = faSearch;
   faArrowRightFromBracket = faArrowRightFromBracket;
   contacts!: any[];
   data1!: any;
@@ -52,7 +54,7 @@ export class ContactTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
+    
     this.loadContacts();
   }
  
@@ -65,6 +67,7 @@ export class ContactTableComponent implements OnInit {
       (response: any) => {
         if (response && Array.isArray(response.content)) {
           // Map contacts without modifying the original response
+          
           const mappedContacts = response.content.map((contact: any) => ({
             id: contact.id,
             name: contact.firstname + ' ' + contact.lastname,
@@ -72,7 +75,11 @@ export class ContactTableComponent implements OnInit {
             phoneno: contact.phoneno,
             work: contact.work,
           }));
-  
+           console.log(mappedContacts);
+           this.data1 = mappedContacts;
+        
+           
+           
           // Sort the mappedContacts array based on the selected field and order
           mappedContacts.sort((a: any, b: any) => {
             const valueA = a[this.sortField];
@@ -118,23 +125,6 @@ export class ContactTableComponent implements OnInit {
   }
 
 
-  onScroll(event: any) {
-    // Check if the user has scrolled to the bottom
-
-
-    console.log('Scroll event triggered!');
-    console.log('Scroll top:', event.target.scrollTop);
-    console.log('Container height:', event.target.offsetHeight);
-    console.log('Total content height:', event.target.scrollHeight);
-  
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      this.first += this.rows; // Increment the offset
-      this.loadContacts(); // Load more contacts
-    }
-  }
-
-
-
     onPageChange(event: any) {
         this.first = event.first;
         this.rows = event.rows;
@@ -177,9 +167,12 @@ export class ContactTableComponent implements OnInit {
   }
 
   onDeleteContact(contactId: string) {
+    console.log(contactId);
+    
     this.confirmationService.confirm({
       accept: () => {
         const dub = this.data1[contactId].id;
+        console.log(dub);
         this.manipulateuser.deleteContact(dub).subscribe(
           () => {
             this.messageService.add({

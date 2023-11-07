@@ -4,20 +4,47 @@
 >
   <app-navbar1></app-navbar1>
 
-  <div class="color-overlay" *ngIf="!loggedin">
+<div class="color-overlay" *ngIf="isLoggedout()">
     <div>
       <h1>Smart Contact Manager</h1>
       <p class="">
         Start collecting your conatcts in a very smart way. We provide very
         efficient and smarter way of handling conatcts.
       </p>
-      <p><a routerLink="">Get Start</a></p>
+      <button routerLink="/login">Get Start</button>
     </div>
-    <!-- <div>
-      <img class="img1" src="../../assets/phone7.png" />
-    </div> -->
+  
   </div>
-  <div class="section">
+
+  <div class="container-div"  *ngIf="!isLoggedout()">
+  <div class="menu">
+    <div class="sidenav" id="mySidenav" >
+      <nav class="sidebar">
+
+        <ul class="nav flex-column">
+          <!-- <li class="nav-item">
+            <a class="nav-link active" routerLink=""  routerLinkActive="active-link">
+              Home <i class="fa-regular fa-house" style="color: #dee4e9"></i
+            ></a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="dashboard"  routerLinkActive="active-link"> My Contacts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/add"  routerLinkActive="active-link"> Add Contacts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/sdf"  routerLinkActive="active-link"> Profile </a>
+        
+        </ul>
+      </nav>
+    </div>
+  
+
+  </div>
+  <div class="section" >
+    
     <router-outlet></router-outlet>
   </div>
+</div>
 </div>

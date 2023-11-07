@@ -1,42 +1,61 @@
-<div class="search-bar">
-  <input type="text" [(ngModel)]="searchTerm" placeholder="Search contacts" />
-  <button (click)="searchContacts()">Search</button>
-</div>
+<div class="wrapper">
+
 
 <div>
-  <div class="section" >
-    <table class="table table-hover" >
+  <div class="section">
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search contacts" />
+      <!-- <fa-icon
+        [icon]="faSearch"
+        size="2x"
+        [styles]="{ stroke: 'red', color: '#272829' }"
+        
+        >Update >
+      </fa-icon> -->
+      <button (click)="searchContacts()">Search</button>
+    </div>
+    
+    <table class="table table-hover">
       <thead>
         <tr class="">
           <th class="head" scope="col-1">#</th>
-          <th class="head" scope="col-3" (click)="setSortField('name')" >Name  <fa-icon
-            [icon]="faCaretUp"
-            size="1x"
-            [ngStyle]="{display: sortField === 'name' && sortOrder === 'asc' ? 'inline' : 'none' }"
-          ></fa-icon>
-          <fa-icon
-            [icon]="faCaretDown"
-            size="1x"
-            [ngStyle]="{ display: sortField === 'name' && sortOrder === 'desc' ? 'inline' : 'none' }"
-          ></fa-icon></th>
+          <th class="head" scope="col-3" (click)="setSortField('name')">
+            Name
+            <fa-icon
+              [icon]="faCaretUp"
+              size="1x"
+              [ngStyle]="{
+                display:
+                  sortField === 'name' && sortOrder === 'asc'
+                    ? 'inline'
+                    : 'none'
+              }"
+            ></fa-icon>
+            <fa-icon
+              [icon]="faCaretDown"
+              size="1x"
+              [ngStyle]="{
+                display:
+                  sortField === 'name' && sortOrder === 'desc'
+                    ? 'inline'
+                    : 'none'
+              }"
+            ></fa-icon>
+          </th>
           <th class="head" scope="col-3">Email</th>
-          <th class="head" scope="col-2">Phoneno</th> 
+          <th class="head" scope="col-2">Phoneno</th>
           <th class="head" scope="col-2">work</th>
-     
 
           <th class="head" scope="col-4">Options</th>
         </tr>
       </thead>
-      <tbody >
-        <tr class="table-body"  *ngFor="let contact of contacts; index as i">
+      <tbody>
+        <tr class="table-body" *ngFor="let contact of contacts; index as i">
           <td scope="col-1">{{ i + 1 }}</td>
-          <td scope="col-2">{{ contact.firstname+contact.lastname }}</td>
+          <td scope="col-3">{{ contact.name }}</td>
           <td scope="col-3">{{ contact.email }}</td>
           <td scope="col-2">{{ contact.phoneno }}</td>
-
           <td scope="col-2">{{ contact.work }}</td>
-
-         
 
           <td scope="col-4">
             <div class="container-fluid">
@@ -45,7 +64,7 @@
                   <fa-icon
                     [icon]="faPen"
                     size="2x"
-                    [styles]="{ stroke: 'red', color: '#1e0863' }"
+                    [styles]="{ stroke: 'red', color: '#021d27' }"
                     (click)="updateContact(contact, contact.id)"
                     >Update >
                   </fa-icon>
@@ -54,7 +73,7 @@
                   <fa-icon
                     [icon]="faTrashCan"
                     size="2x"
-                    [styles]="{ stroke: 'red', color: '#1e0863' }"
+                    [styles]="{ stroke: 'red', color: '#021d27' }"
                     (click)="onDeleteContact(i.toString())"
                   ></fa-icon>
                 </div>
@@ -63,18 +82,17 @@
           </td>
         </tr>
       </tbody>
-  
     </table>
-  </div>
-  <div>
     <p-paginator
       (onPageChange)="onPageChange($event)"
       [first]="first"
       [rows]="rows"
       [totalRecords]="120"
       [rowsPerPageOptions]="[10, 20, 30]"
+      class="pagenation"
     ></p-paginator>
   </div>
+  <div></div>
 </div>
 <p-toast
   [showTransformOptions]="'translateY(100%)'"
@@ -107,3 +125,4 @@
     ></button>
   </ng-template>
 </p-confirmDialog>
+</div>
