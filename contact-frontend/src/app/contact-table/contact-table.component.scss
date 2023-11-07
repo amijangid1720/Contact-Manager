@@ -80,13 +80,14 @@ table {
 .search-bar{
   display: flex;
   flex-direction: row;
+  margin-bottom: .5vw;
  
   // margin-bottom: 80px;
 }
 input{
   width: 600px;
   height: 50px;
-  width: 60%;
+  width: 70%;
   border-radius: 1vw;
   padding: 1vw;
 }
@@ -94,7 +95,7 @@ button{
   width: 200px;
   height: 50px;
     background-color: rgba(255, 255, 255, 0.13);
-    width: 20%;
+    width: 10%;
     border-radius: 10px;
     color: white;
 }
@@ -111,7 +112,7 @@ button{
   border-collapse: separate;
   border-spacing: 0;
   width: 80%;
-  border-radius: 10px; /* Adjust the value for desired corner radius */
+  border-radius: 14px; /* Adjust the value for desired corner radius */
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.295); /* Adjust the alpha value for transparency */
   border: 1px solid #ddd;

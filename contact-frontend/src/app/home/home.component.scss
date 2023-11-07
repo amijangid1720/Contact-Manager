@@ -48,12 +48,14 @@ color: #acbac7;
     // border: 1px solid red;
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.13);
+    // background-color: rgba(255, 255, 255, 0.13);
+    background-color: #02202C;
 }
 .section{
     height: 100vh;
     // border: 1px solid red;
     width: 80%;
+    margin-top: 1vw;
     margin-left: 7vw;
     // margin:4vw;  
 }

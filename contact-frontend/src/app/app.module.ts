@@ -28,6 +28,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { PaginatorModule } from 'primeng/paginator';
 import { PasswordModule } from 'primeng/password';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ProfileComponent } from './profile/profile.component';
 const config: SocialAuthServiceConfig = {
   providers: [
     {
@@ -51,6 +54,7 @@ const config: SocialAuthServiceConfig = {
     AddComponent,
     UpdateContactComponent,
     HomeComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,9 @@ const config: SocialAuthServiceConfig = {
 
     PaginatorModule,
 
-    PasswordModule
+    PasswordModule,
+    AvatarModule,
+    AvatarGroupModule
 
   ],
 

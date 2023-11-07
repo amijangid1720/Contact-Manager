@@ -2,11 +2,11 @@ $color_1: #fff;
 $background-color_1: #5441bd;
 $background-color_2: #51508e;
 
-.body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// .body {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 h2{
     text-align: center;
     color: #04364A;
@@ -21,13 +21,14 @@ h2{
   margin: 0 auto;
   padding: 20px;
 }
-.container {
-  width: 85vw;
+.login {
+  width: 40vw;
   height: max(50vh, auto);
   padding: 2vw;
+  margin: 9vw;
   background-color: rgba(255, 255, 255, 0.295);
-
-  margin-top: 5vw;
+border-radius: 1.4vw;
+  margin-top: 1vw;
   // background: #ffffff9e;
   // border-radius: 1.4vw;
   box-shadow: 0 26px 15px rgba(0, 5, 3, 0.5);
@@ -40,6 +41,7 @@ h2{
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
+  background-color: rgb(211, 208, 208);
   border-radius: 1vw;
   height: 2.6vw;
 }
@@ -52,6 +54,7 @@ h2{
   padding-left: 8px;
   font-size: 1.2em;
   border: 1px solid #ccc;
+  background-color: rgb(211, 208, 208);
 }
 
 .select-field:focus {
@@ -85,7 +88,7 @@ input.ng-invalid.ng-touched {
     width: 40vw;
     height: max(50vh, auto);
     padding: 2vw;
-
+    border-radius: 1.4vw;
     margin-top: 5vw;
     background: #ffffff9e;
     // border-radius: 1.4vw;

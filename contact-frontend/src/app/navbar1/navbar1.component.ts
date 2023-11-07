@@ -4,6 +4,7 @@ import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
+
 @Component({
   selector: 'app-navbar1',
   templateUrl: './navbar1.component.html',
