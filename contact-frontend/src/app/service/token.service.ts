@@ -41,6 +41,9 @@ export class TokenService {
     return this.http.get(`${environment.backendUrl}/api/v1/contacts/info`);
 
   }
+  public fetchToken():any{
+    return localStorage.getItem('token');
+  }
 
 
 }

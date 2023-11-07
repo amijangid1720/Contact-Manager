@@ -11,7 +11,7 @@ export class ToasterService {
     this.messageService.add({
       severity: 'success',
       summary: 'Success',
-      detail: 'Contact Updated ',
+      detail: 'Contact Updated '
     });
   }
 
