@@ -12,15 +12,24 @@
 .section {
   display: flex;
   justify-content: center;
+  // overflow-y: auto;
+
+  // height: 500px;
 }
 table {
   width: 55vw;
   display: table;
-  border-collapse: collapse;
+  // border-collapse: collapse;
+
+  
   background-color: opacity($color: #0c3d75);
 }
-td {
+
+
+.second{
+  
 }
+
 .head {
   background-color: #04364a;
   color: white;
@@ -30,12 +39,10 @@ td {
 }
 .table-body {
   text-align: center;
-  height: 6vh;
+  // height: 6vh;
   background-color: opacity($color: #0c3d75);
 }
-// th{
-//     width: auto;
-// }
+
 button {
   // padding-right: .3vw;
   background-color: #176b87;

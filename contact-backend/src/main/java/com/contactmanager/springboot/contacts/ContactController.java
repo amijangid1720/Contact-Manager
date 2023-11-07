@@ -7,12 +7,17 @@ import com.contactmanager.springboot.security.user.User;
 //import com.contactmanager.springboot.security.user.UserSession;
 import com.contactmanager.springboot.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -93,16 +98,51 @@ public class ContactController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
-    @GetMapping("/findAll")
-    public  List<Contact> findAllContacts(Authentication authentication) throws Exception
-    {
-        User user =userService.loadUserByEmail(authentication.getName());
-        System.out.println(user);
-        List<Contact> contactList=contactRepository.findByUserId(user.getId());
-        System.out.println(user);
-        return contactList;
+//    @GetMapping("/findAll")
+//    public  List<Contact> findAllContacts(Authentication authentication) throws Exception
+//    {
+//        User user =userService.loadUserByEmail(authentication.getName());
+//        System.out.println(user);
+//        List<Contact> contactList=contactRepository.findByUserId(user.getId());
+//        System.out.println(user);
+//        return contactList;
+//
+//    }
 
+    @GetMapping("/findAll")
+    public Page<Contact> findAllContacts(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            Authentication authentication
+    ) throws Exception {
+        User user = userService.loadUserByEmail(authentication.getName());
+        Pageable pageable = PageRequest.of(page, size);
+        return contactRepository.findByUserId(user.getId(), pageable);
     }
+
+
+
+//    @GetMapping("/findAll")
+//    public Page<Contact> findAllContacts(
+//            @RequestParam(name = "page", defaultValue = "0") int page,
+//            @RequestParam(name = "size", defaultValue = "10") int size,
+//            @RequestParam(name = "sortField", defaultValue = "name") String sortField,
+//            @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder,
+//            Authentication authentication
+//    ) throws Exception {
+//        User user = userService.loadUserByEmail(authentication.getName());
+//
+//        Pageable pageable;
+//
+//        if (!sortField.isEmpty()) {
+//            Sort sort = Sort.by(sortOrder.equalsIgnoreCase("asc") ? Sort.Order.asc(sortField) : Sort.Order.desc(sortField));
+//            pageable = PageRequest.of(page, size, sort);
+//        } else {
+//            pageable = PageRequest.of(page, size);
+//        }
+//
+//        return contactRepository.findByUserId(user.getId(), pageable);
+//    }
 
 
     //id of the contact whose we want to update
