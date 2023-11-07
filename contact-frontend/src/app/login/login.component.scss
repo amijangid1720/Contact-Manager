@@ -5,6 +5,10 @@
   align-items: center; /* Vertically center the child */
   height: 100vh; /* Make the login container fill the full viewport height */
 }
+.error-message {
+  color: #ff0000a7; /* Red color for error messages */ /* Add some spacing below the input field */
+  margin-bottom: 1.5rem;
+}
 
 .container {
   width: 30vw;
@@ -29,7 +33,7 @@ h2 {
 
 input {
   border-radius: 15px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
   width: 100%;
   border:none;
   height: 3rem;

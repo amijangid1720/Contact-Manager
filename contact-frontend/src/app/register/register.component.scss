@@ -1,53 +1,13 @@
-// $color_1: #277582;
-// $color_2: #021814;
-// $color_3: white;
-// $font-family_1: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-// $background-color_1: #021814;
-
-// .container {
-// 	width: 382px;
-// 	padding: 80px;
-// 	background: #285a509e;
-// 	border-radius: 15px;
-// 	margin: auto;
-// 	font-family: $font-family_1;
-// }
-// h2 {
-// 	text-align: center;
-// 	color: #176B87;
-// 	padding: 20px;
-// 	font-family: $font-family_1;
-// }
-// input {
-// 	width: 300px;
-// 	height: 30px;
-// 	border: none;
-// 	border-radius: 3px;
-// 	padding-left: 8px;
-// }
-// label {
-// 	color: #176B87;
-// 	font-size: 17px;
-// }
-// button {
-// 	width: 100px;
-// 	height: 30px;
-// 	border: none;
-// 	border-radius: 3px;
-// 	background-color: #176B87;
-// 	margin-right: 25px;
-// 	color: $color_3;
-// }
-// a {
-// 	color: $color_3;
-// 	font-family: $font-family_1;
-// 	text-decoration: none;
-// }
 
 .login {
   // background-image: linear-gradient(to right, red ,#aba4ddcc);
   margin-top: 4vw;
 }
+.error-message {
+  color: #ff0000a7; /* Red color for error messages */ /* Add some spacing below the input field */
+  margin-bottom: 1.5rem;
+}
+
 .container {
   width: 35vw;
   // height: 30vw;
@@ -82,7 +42,23 @@ input {
 
   /* margin-left: 0.8vw; */
 }
+// ::ng-deep .p-element{
+//   border: none;
+//   border-radius: 1vw;
+//   margin-bottom: 1vw;
+//   font-size: 1.2em;
+//   width: 100%;
+//   margin-left: 0;
+// }
+::ng-deep .p-component {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  height: 2.6vw;
+  border-radius: 1vw;
+  margin-bottom: 1vw;
 
+}
 select {
   margin-bottom: 1vw;
 }

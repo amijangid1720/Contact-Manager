@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StorageService } from './storage.service';
 import { environment } from '../environment';
 
 @Injectable({
@@ -10,7 +9,7 @@ import { environment } from '../environment';
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private storageService: StorageService
+
   ) {}
 
   sendTokenToBackend(idToken: String): Observable<any> {

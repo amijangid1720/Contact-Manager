@@ -33,16 +33,56 @@ export class RegisterComponent {
       "gender": this.gender,
     };
     this.http
-      .post(`${environment.apiUrl}auth/register`, bodyData, {
-        responseType: 'text',
-      })
-      .subscribe((resultData: any) => {
-        console.log(resultData);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Registration Successful ! ',
+    .post(`${environment.backendUrl}/api/v1/auth/check-duplicate`, {
+      email: this.email,
+      phoneno: this.phoneno,
+    })
+    .subscribe((resultData: any) => {
+      console.log(resultData, "hjkh");
+      
+      if (resultData.emailExists || resultData.phoneExists) {
+        // Email or phone number already exists, show an error message
+        if(resultData.emailExists && resultData.phoneExists)
+        {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Email And Phone Number Exists! ',
+          });
+        }
+
+        if (resultData.emailExists) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Email Exists! ',
+          });
+        }
+
+        else if (resultData.phoneExists){
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Phone Number Exists! ',
+          });
+        }
+      }else{
+        this.http
+        .post(`${environment.backendUrl}/ap1/v1/auth/register`, bodyData, {
+          responseType: 'text',
+        })
+        .subscribe((resultData: any) => {
+          console.log(resultData);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Registration Successful ! ',
+          });
         });
-      });
-  }
+      }
+
+   
+  });
+  
+}
 }
