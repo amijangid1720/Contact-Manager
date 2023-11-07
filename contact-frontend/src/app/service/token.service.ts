@@ -17,36 +17,30 @@ export class TokenService {
   }
 
   public getToken(email :string,password:string) :Observable<any>{
-    // Send a GET request to your server's token retrieval endpoint
-    // Adjust the URL as needed
+  
     const params = {
       email: email,
       password: password
     };
-    return this.http.post(`${environment.apiUrl}auth/authenticate`, { ... params });
+    return this.http.post(`${environment.backendUrl}/api/v1/auth/authenticate`, { ... params });
   }
 
   public isAuthenticated(): boolean {
-    const token = localStorage.getItem('token'); // Assuming the token is stored in local storage
+    const token = localStorage.getItem('token');
 
-    // Check if the token is present and valid (you'll need to implement this validation logic)
+   
     if (token) {
-      // Implement your token validation logic here
-      // You might want to check token expiration, signature, etc.
-      return true; // Return true if the token is valid
+     
+      return true; 
     }
 
-    return false; // No valid token
+    return false; 
   }
 
   public getUserName(): Observable<any>{
-    return this.http.get(`${environment.apiUrl}contacts/info`);
+    return this.http.get(`${environment.backendUrl}/api/v1/contacts/info`);
 
   }
 
-  public fetchToken():any{
-    return localStorage.getItem('token');
 
-  }
 }
-

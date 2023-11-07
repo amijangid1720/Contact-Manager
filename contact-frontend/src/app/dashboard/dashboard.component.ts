@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { StorageService } from '../service/storage.service';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +12,6 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 export class DashboardComponent  implements OnInit{
   faArrowRightFromBracket = faArrowRightFromBracket;
   constructor(private router: Router,
-    private storageService: StorageService,
     private authService: AuthService,
     private renderer: Renderer2,
     private el: ElementRef,

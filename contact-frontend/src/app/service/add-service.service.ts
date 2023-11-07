@@ -7,20 +7,20 @@ import { environment } from '../environment';
   providedIn: 'root',
 })
 export class AddServiceService {
-  private baseUrl = `${environment.apiUrl}contacts/contactinfo`;
+  private infoUrl = `${environment.backendUrl}/api/v1/contacts/contactinfo`;
   constructor(private http: HttpClient) {}
 
   public addContact(contact: Object): Observable<any> {
-    return this.http.post(`${environment.apiUrl}contacts/`, contact);
+    return this.http.post(`${environment.backendUrl}/api/v1contacts/`, contact);
   }
 
   getContactById(contactId: number): Observable<any> {
-    const url = `${this.baseUrl}/${contactId}`;
+    const url = `${this.infoUrl}/${contactId}`;
     return this.http.get(url);
   }
 
   updateContact(contact: Object, contactId: number): Observable<any> {
-    const url = `${environment.apiUrl}contacts/update/${contactId}`; // Adjust the URL to match your backend endpoint
+    const url = `${environment.backendUrl}/api/v1/contacts/update/${contactId}`; 
 
     return this.http.put(url, contact);
   }

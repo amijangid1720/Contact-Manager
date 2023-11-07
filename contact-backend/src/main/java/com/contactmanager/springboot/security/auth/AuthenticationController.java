@@ -1,5 +1,6 @@
 package com.contactmanager.springboot.security.auth;
 
+import com.contactmanager.springboot.services.UserInfoService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -8,6 +9,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +19,11 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping("api/v1/auth")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class AuthenticationController {
-
-
+    @Autowired
+    UserInfoService userInfoService;
     private final com.contactmanager.springboot.security.auth.AuthenticationService service;
 
     @PostMapping("/register")
@@ -88,4 +91,13 @@ public class AuthenticationController {
 
 
     }
+    @PostMapping("/check-duplicate")
+    public DuplicateCheckResponse checkDuplicate(@RequestBody DuplicateCheckRequest request) {
+        boolean emailExists = userInfoService.checkEmailExists(request.getEmail());
+        boolean phoneExists = userInfoService.checkPhoneExists(request.getPhoneno());
+
+        return new DuplicateCheckResponse(emailExists, phoneExists);
+    }
+
+
 }

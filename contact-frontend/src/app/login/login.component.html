@@ -3,22 +3,47 @@
   <div class="container conatiner-fluid card">
     <h2>Login</h2>
     <form id="" method="" action="">
-      <input pInputText name="username" id="username" [(ngModel)]="loginData.email" placeholder="Username"/>
+      <input
+        type="email"
+        pInputText
+        name="username"
+        id="username"
+        [(ngModel)]="loginData.email"
+        placeholder="Username"
+        #username="ngModel"
+        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+        required
+      />
+
+      <div *ngIf="username.invalid && (username.dirty || username.touched)">
+        <div *ngIf="username?.errors?.['required']" class="error-message">
+          *Email is required.
+        </div>
+        <div *ngIf="username?.errors?.['pattern']" class="error-message">
+          Please enter a valid email address.
+        </div>
+      </div>
       <div class="as">
-        <p-password  name="password" [(ngModel)]="loginData.password" [toggleMask]="true" placeholder=" Password"> </p-password>
+        <p-password
+          [(ngModel)]="loginData.password"
+          name="password"
+          [feedback]="false"
+          [toggleMask]="true"
+          placeholder=" Password"
+          required
+        ></p-password>
       </div>
       <button class="btn1" (click)="login()">LogIn</button>
     </form>
 
     <h4>OR</h4>
 
-    <div style="display: flex; justify-content: center; align-items: center;">
+    <div style="display: flex; justify-content: center; align-items: center">
       <asl-google-signin-button
         type="standard"
         size="large"
         width="300vw"
         style="
-
           display: flex;
           justify-content: center;
           align-items: center;

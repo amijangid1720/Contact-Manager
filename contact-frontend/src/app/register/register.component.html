@@ -8,16 +8,36 @@
         id=""
         placeholder="Enter Your First Name"
         [(ngModel)]="firstname"
+        #first="ngModel"
+        required
         [ngModelOptions]="{ standalone: true }"
+        pattern="[A-Za-z]+"
       />
+      <div *ngIf="first.invalid && (first.dirty || first.touched)">
+        <div *ngIf="first?.errors?.['required']" class="error-message">
+          *First Name is required.
+        </div>
+        <div *ngIf="first?.errors?.['pattern']" class="error-message">
+          *First Name should contain only alphabets
+        </div>
+      </div>
+
       <input
         type="text"
-        name=""
+        name="lastname"
         id=""
+        pInputText
         placeholder="Enter Your Last Name"
         [(ngModel)]="lastname"
+        #last="ngModel"
+        required
         [ngModelOptions]="{ standalone: true }"
       />
+      <div *ngIf="last.invalid && (last.dirty || last.touched)">
+        <div *ngIf="last?.errors?.['required']" class="error-message">
+          *Last Name is required.
+        </div>
+      </div>
 
       <input
         type="email"
@@ -25,24 +45,42 @@
         id=""
         placeholder="Enter Your Email"
         [(ngModel)]="email"
+        #username="ngModel"
+        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+        required
         [ngModelOptions]="{ standalone: true }"
       />
-      <input
-        type="Password"
-        name=""
-        id=""
-        placeholder="Enter Password"
+      <div *ngIf="username.invalid && (username.dirty || username.touched)">
+        <div *ngIf="username?.errors?.['required']" class="error-message">
+          *Email is required.
+        </div>
+        <div *ngIf="username?.errors?.['pattern']" class="error-message">
+          Please enter a valid email address.
+        </div>
+      </div>
+     
+      <p-password
         [(ngModel)]="password"
-        [ngModelOptions]="{ standalone: true }"
-      />
+        [toggleMask]="true"
+        placeholder=" Password"
+      ></p-password>
+
       <input
         type="text"
         name=""
         id=""
         placeholder="Enter Your Phone Number"
         [(ngModel)]="phoneno"
+        #phonenoInput="ngModel"
+        pattern="^[0-9]{10}$"
+        required
         [ngModelOptions]="{ standalone: true }"
       />
+      <div *ngIf="phonenoInput.invalid && (phonenoInput.dirty || phonenoInput.touched)">
+        <div  *ngIf="phonenoInput?.errors?.['required']" class="error-message">*Phone number is required.</div>
+        <div *ngIf="phonenoInput.errors?.['pattern']" class="error-message">*Phone number must be 10 digits long and contain only numbers.</div>
+      </div> 
+    
       <div class="form-group">
         <select
           id="gender"
@@ -61,8 +99,9 @@
       </div>
       <input
         type="text"
-        name=""
+        name="address"
         id=""
+        pInputText
         placeholder="Enter Address"
         [(ngModel)]="address"
         [ngModelOptions]="{ standalone: true }"

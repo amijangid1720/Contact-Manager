@@ -1,5 +1,4 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { StorageService } from '../service/storage.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
@@ -13,7 +12,6 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 export class Navbar1Component {
   constructor(
     private router: Router,
-    private storageService: StorageService,
     private authService: AuthService,
     private renderer: Renderer2,
     private el: ElementRef,

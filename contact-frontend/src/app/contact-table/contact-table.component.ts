@@ -59,7 +59,7 @@ export class ContactTableComponent implements OnInit {
   searchContacts() {
     if (this.searchTerm) {
       // Make an HTTP request to fetch matching contacts
-      this.http.get<any[]>(`${environment.apiUrl}contacts/search/${this.searchTerm}`).subscribe(
+      this.http.get<any[]>(`${environment.backendUrl}/ap1/v1/contacts/search/${this.searchTerm}`).subscribe(
         (data) => {
           console.log(data)
           this.contacts = data; // Update the contacts array with the search results
@@ -104,6 +104,11 @@ export class ContactTableComponent implements OnInit {
           },
           (error) => {
             console.error('Error deleting contact:', error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error deleting contact',
+            })
           }
         );
       },
