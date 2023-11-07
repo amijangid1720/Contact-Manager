@@ -15,6 +15,8 @@ import { AddServiceService } from '../service/add-service.service';
 import { ToasterService } from '../service/toaster.service';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService, ConfirmEventType } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { environment } from '../environment';
 
 
 
@@ -50,6 +52,7 @@ export class ContactTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.loadContacts();
   }
  
@@ -140,6 +143,35 @@ export class ContactTableComponent implements OnInit {
        this.loadContacts();
     }
 
+
+
+  searchContacts() {
+    if (this.searchTerm) {
+      // Make an HTTP request to fetch matching contacts
+      this.http.get<any[]>(`${environment.apiUrl}contacts/search/${this.searchTerm}`).subscribe(
+        (data) => {
+          console.log(data)
+          this.contacts = data; // Update the contacts array with the search results
+          console.log("This is this.contacts");
+          console.log(this.contacts);
+          
+          
+        },
+        (error) => {
+          console.error('Error fetching contacts:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Could not find any matching contact',
+          })
+        }
+      );
+    } else {
+      // Handle when the search input is empty, e.g., display all contacts
+      this.contacts = []; // Clear the search results
+    }
+  }
+
   updateContact(contact: object, id: number) {
     this.router.navigate(['update-contact', id]);
   }
@@ -175,8 +207,8 @@ export class ContactTableComponent implements OnInit {
             break;
           case ConfirmEventType.CANCEL:
             this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
+              severity: 'error',
+              summary: 'Error',
               detail: 'You have cancelled',
             });
             break;

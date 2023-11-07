@@ -3,41 +3,27 @@
   <div class="container conatiner-fluid card">
     <h2>Login</h2>
     <form id="" method="" action="">
-      <input
-        type="text"
-        name=""
-        id="email"
-        placeholder="Enter Your Name"
-        [(ngModel)]="loginData.email"
-        [ngModelOptions]="{ standalone: true }"
-      />
-
-      <input
-        type="Password"
-        name="password"
-        id=""
-        placeholder="Enter Password"
-        [(ngModel)]="loginData.password"
-        [ngModelOptions]="{ standalone: true }"
-      />
-
+      <input pInputText name="username" id="username" [(ngModel)]="loginData.email" placeholder="Username"/>
+      <div class="as">
+        <p-password  name="password" [(ngModel)]="loginData.password" [toggleMask]="true" placeholder=" Password"> </p-password>
+      </div>
       <button class="btn1" (click)="login()">LogIn</button>
     </form>
 
-    <h3>OR</h3>
+    <h4>OR</h4>
 
-    <div style="display: flex; justify-content: center">
+    <div style="display: flex; justify-content: center; align-items: center;">
       <asl-google-signin-button
         type="standard"
         size="large"
-        width="3vw"
+        width="300vw"
         style="
+
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 10%;
-          width: 5vw;
           size: large;
+          margin-top: 1rem;
         "
       >
         <span (click)="signInWithGoogle()">Login with Google</span>

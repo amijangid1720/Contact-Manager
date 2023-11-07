@@ -17,7 +17,7 @@ import { AuthService } from '../service/auth.service';
 export class LoginComponent implements OnInit {
   user!: SocialUser;
   loggedIn!: boolean;
-
+  value!: string;
   loginData = {
     email: 'mkumari@gmail.com',
     password: '1234@',

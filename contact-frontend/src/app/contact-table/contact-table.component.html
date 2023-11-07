@@ -1,11 +1,6 @@
-<div class="input-group">
-  <div class="form-outline">
-    <input type="search" id="form1" class="form-control" />
-    <!-- <label class="form-label" for="form1">Search</label> -->
-  </div>
-  <!-- <button type="button" class="btn btn-primary">
-    <i class="fas fa-search"></i>
-  </button> -->
+<div class="search-bar">
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Search contacts" />
+  <button (click)="searchContacts()">Search</button>
 </div>
 
 <div>
@@ -25,18 +20,24 @@
             [ngStyle]="{ display: sortField === 'name' && sortOrder === 'desc' ? 'inline' : 'none' }"
           ></fa-icon></th>
           <th class="head" scope="col-3">Email</th>
-          <th class="head" scope="col-2">Phoneno</th>
+          <th class="head" scope="col-2">Phoneno</th> 
           <th class="head" scope="col-2">work</th>
+     
+
           <th class="head" scope="col-4">Options</th>
         </tr>
       </thead>
       <tbody >
         <tr class="table-body"  *ngFor="let contact of contacts; index as i">
           <td scope="col-1">{{ i + 1 }}</td>
-          <td scope="col-2">{{ contact.name }}</td>
+          <td scope="col-2">{{ contact.firstname+contact.lastname }}</td>
           <td scope="col-3">{{ contact.email }}</td>
           <td scope="col-2">{{ contact.phoneno }}</td>
+
           <td scope="col-2">{{ contact.work }}</td>
+
+         
+
           <td scope="col-4">
             <div class="container-fluid">
               <div class="icon row">
@@ -82,7 +83,7 @@
   [showTransformOptions]="'translateX(100%)'"
 ></p-toast>
 <!-- for confirmation dialog -->
-<p-confirmDialog #cd [style]="{ width: '50vw' }">
+<p-confirmDialog #cd [style]="{ width: '30vw' }">
   <ng-template pTemplate="header">
     <h3>Confirmation</h3>
   </ng-template>
