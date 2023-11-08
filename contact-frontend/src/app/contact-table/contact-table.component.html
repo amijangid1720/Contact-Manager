@@ -42,7 +42,26 @@
               }"
             ></fa-icon>
           </th>
-          <th class="head" scope="col-3">Email</th>
+          <th class="head" scope="col-3" (click)="setSortField('email')" >Email <fa-icon
+            [icon]="faCaretUp"
+            size="1x"
+            [ngStyle]="{
+              display:
+                sortField === 'email' && sortOrder === 'asc'
+                  ? 'inline'
+                  : 'none'
+            }"
+          ></fa-icon>
+          <fa-icon
+            [icon]="faCaretDown"
+            size="1x"
+            [ngStyle]="{
+              display:
+                sortField === 'email' && sortOrder === 'desc'
+                  ? 'inline'
+                  : 'none'
+            }"
+          ></fa-icon> </th>
           <th class="head" scope="col-2">Phoneno</th>
           <th class="head" scope="col-2">work</th>
 

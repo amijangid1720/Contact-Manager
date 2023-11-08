@@ -77,9 +77,6 @@ export class ContactTableComponent implements OnInit {
           }));
            console.log(mappedContacts);
            this.data1 = mappedContacts;
-        
-           
-           
           // Sort the mappedContacts array based on the selected field and order
           mappedContacts.sort((a: any, b: any) => {
             const valueA = a[this.sortField];
@@ -91,15 +88,12 @@ export class ContactTableComponent implements OnInit {
   
             return this.sortOrder === 'asc' ? strValueA.localeCompare(strValueB) : strValueB.localeCompare(strValueA);
           });
-  
           // Update the contacts array after mapping and sorting
           this.contacts = mappedContacts;
-  
           console.log('Mapped and Sorted Contacts:', this.contacts);
         } else {
           console.error('Unexpected API response format. Data:', response);
         }
-  
         this.loading = false;
       },
       (error) => {
@@ -133,6 +127,18 @@ export class ContactTableComponent implements OnInit {
        this.loadContacts();
     }
 
+    setdata(contact: any){
+      this.contacts = contact.map((contact:any) => ({
+        id: contact.id,
+        name: contact.firstname + ' ' + contact.lastname,
+        firstname: contact.firstname ,
+        lastname: contact.lastname,
+        email: contact.email,
+        phoneno: contact.phoneno,
+        work:contact.work
+      }));
+    };
+  
 
 
   searchContacts() {
@@ -142,6 +148,7 @@ export class ContactTableComponent implements OnInit {
         (data) => {
           console.log(data)
           this.contacts = data; // Update the contacts array with the search results
+          this.setdata(this.contacts);
           console.log("This is this.contacts");
           console.log(this.contacts);
           
@@ -159,6 +166,7 @@ export class ContactTableComponent implements OnInit {
     } else {
       // Handle when the search input is empty, e.g., display all contacts
       this.contacts = []; // Clear the search results
+
     }
   }
 
@@ -166,6 +174,7 @@ export class ContactTableComponent implements OnInit {
     this.router.navigate(['update-contact', id]);
   }
 
+  
   onDeleteContact(contactId: string) {
     console.log(contactId);
     
@@ -215,3 +224,5 @@ export class ContactTableComponent implements OnInit {
     });
   }
 }
+
+
