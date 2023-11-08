@@ -68,7 +68,7 @@ export class RegisterComponent {
         }
       }else{
         this.http
-        .post(`${environment.backendUrl}/ap1/v1/auth/register`, bodyData, {
+        .post(`${environment.backendUrl}/api/v1/auth/register`, bodyData, {
           responseType: 'text',
         })
         .subscribe((resultData: any) => {
