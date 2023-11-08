@@ -11,7 +11,7 @@ export class AddServiceService {
   constructor(private http: HttpClient) {}
 
   public addContact(contact: Object): Observable<any> {
-    return this.http.post(`${environment.backendUrl}/api/v1contacts/`, contact);
+    return this.http.post(`${environment.backendUrl}/api/v1/contacts/`, contact);
   }
 
   getContactById(contactId: number): Observable<any> {
