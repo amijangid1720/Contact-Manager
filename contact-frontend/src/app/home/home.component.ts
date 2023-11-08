@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TokenService } from '../service/token.service';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,13 +9,20 @@ import { TokenService } from '../service/token.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor( private tokenservice: TokenService) {}
-  loggedin!:boolean;
+  constructor( private tokenservice: TokenService,
+    private authService:AuthService,
+    private router:Router) {}
 
   ngOnInit()
   {
-    this.loggedin= this.tokenservice.isLoggedin();
-    console.log();
-    
+   
   }
+
+  isLoggedout():boolean{
+    if(this.tokenservice.fetchToken())
+    return false;
+    else
+    return true;
+  }
+ 
 }

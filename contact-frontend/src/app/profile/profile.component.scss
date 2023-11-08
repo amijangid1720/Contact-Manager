@@ -1,0 +1,99 @@
+// .card {
+//     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+//     background-color: rgba(255, 255, 255, 0.801);
+//     width: 25vw;
+//     // max-width: 300px;
+// margin-left: 15vw;
+//     text-align: center;
+//     font-family: arial;
+//     margin-top: 10vh;
+//     padding: 2w;
+//   }
+
+//   .card-foot{
+//     padding: 2v;
+//   }
+// h2{
+//   font-family: 'Times New Roman', Times, serif;
+//   color: #053B50;
+// background-color: rgba(255, 255, 255, 0.13);}
+//   .title {
+//     color: grey;
+//     font-size: 18px;
+//   }
+//   h1{
+//     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+//     font-size: 2vw;
+//     color: #053B50;
+//   }
+  
+//   button {
+//     border: none;
+//     outline: 0;
+//     display: inline-block;
+//     padding: 8px;
+//     color: white;
+//     background-color: #000;
+//     text-align: center;
+//     cursor: pointer;
+//     width: 100%;
+//     font-size: 18px;
+//   }
+  
+  
+  
+//   button:hover, a:hover {
+//     opacity: 0.7;
+//   }
+
+
+body {
+  background: rgb(99, 39, 120)
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #BA68C8
+}
+
+.profile-button {
+  background: rgb(99, 39, 120);
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: #682773
+}
+
+.profile-button:focus {
+  background: #682773;
+  box-shadow: none
+}
+
+.profile-button:active {
+  background: #682773;
+  box-shadow: none
+}
+
+.back:hover {
+  color: #682773;
+  cursor: pointer
+}
+
+.labels {
+  font-size: 11px
+}
+
+.add-experience:hover {
+  background: #BA68C8;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #BA68C8
+}
+
+.container{
+  width:75%;
+  background-color: rgba(255, 255, 255, 0.295);
+  border-radius: 1.4vw;
+}

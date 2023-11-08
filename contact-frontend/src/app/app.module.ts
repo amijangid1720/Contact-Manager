@@ -25,7 +25,12 @@ import { HomeComponent } from './home/home.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+import { PaginatorModule } from 'primeng/paginator';
 import { PasswordModule } from 'primeng/password';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ProfileComponent } from './profile/profile.component';
 const config: SocialAuthServiceConfig = {
   providers: [
     {
@@ -49,6 +54,7 @@ const config: SocialAuthServiceConfig = {
     AddComponent,
     UpdateContactComponent,
     HomeComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,13 @@ const config: SocialAuthServiceConfig = {
     ToastModule,
     ConfirmDialogModule,
     HttpClientModule,
-    PasswordModule
+
+    PaginatorModule,
+
+    PasswordModule,
+    AvatarModule,
+    AvatarGroupModule
+
   ],
 
   providers: [
