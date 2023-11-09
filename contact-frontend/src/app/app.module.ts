@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule ,HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TooltipModule } from 'primeng/tooltip';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthInterceptorService} from './service/auth-interceptor.service'; // Import your interceptor
+import { AuthInterceptorService } from './service/auth-interceptor.service'; // Import your interceptor
 import {
   GoogleLoginProvider,
   SocialAuthServiceConfig,
@@ -68,13 +70,12 @@ const config: SocialAuthServiceConfig = {
     ToastModule,
     ConfirmDialogModule,
     HttpClientModule,
-
+    TooltipModule,
     PaginatorModule,
 
     PasswordModule,
     AvatarModule,
-    AvatarGroupModule
-
+    AvatarGroupModule,
   ],
 
   providers: [
@@ -87,7 +88,7 @@ const config: SocialAuthServiceConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService, // Add your interceptor here
       multi: true,
-    }
+    },
   ],
   bootstrap: [AppComponent],
 })

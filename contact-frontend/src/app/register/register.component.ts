@@ -2,7 +2,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { environment } from '../environment';
 import { MessageService } from 'primeng/api';
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -17,12 +16,10 @@ export class RegisterComponent {
   phoneno: string = '';
   gender: string = '';
   address: string = '';
-
   constructor(private http: HttpClient,
     private messageService: MessageService,) {}
   register() {
     console.log('hiiiiii');
-
     let bodyData = {
       "firstname": this.firstname,
       "lastname": this.lastname,
@@ -39,7 +36,6 @@ export class RegisterComponent {
     })
     .subscribe((resultData: any) => {
       console.log(resultData, "hjkh");
-      
       if (resultData.emailExists || resultData.phoneExists) {
         // Email or phone number already exists, show an error message
         if(resultData.emailExists && resultData.phoneExists)
@@ -50,7 +46,6 @@ export class RegisterComponent {
             detail: 'Email And Phone Number Exists! ',
           });
         }
-
         if (resultData.emailExists) {
           this.messageService.add({
             severity: 'error',
@@ -58,7 +53,6 @@ export class RegisterComponent {
             detail: 'Email Exists! ',
           });
         }
-
         else if (resultData.phoneExists){
           this.messageService.add({
             severity: 'error',
@@ -68,7 +62,7 @@ export class RegisterComponent {
         }
       }else{
         this.http
-        .post(`${environment.backendUrl}/ap1/v1/auth/register`, bodyData, {
+        .post(`${environment.backendUrl}/api/v1/auth/register`, bodyData, {
           responseType: 'text',
         })
         .subscribe((resultData: any) => {
@@ -79,10 +73,11 @@ export class RegisterComponent {
             detail: 'Registration Successful ! ',
           });
         });
+        setTimeout(
+          ()=>{
+            window.location.reload();
+          },1000)
       }
-
-   
   });
-  
 }
 }
