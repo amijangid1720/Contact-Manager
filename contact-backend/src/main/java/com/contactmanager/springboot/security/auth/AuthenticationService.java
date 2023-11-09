@@ -71,6 +71,16 @@ public class AuthenticationService {
                 .expired(false)
                 .build();
         tokenRepository.save(token);
+
+        // Save refresh token
+//        var refreshTokenEntity = Token.builder()
+//                .userEmail(userEmail)
+//                .token(refreshToken)
+//                .tokenType(TokenType.REFRESH)
+//                .revoked(false)
+//                .expired(false)
+//                .build();
+//        tokenRepository.save(refreshTokenEntity);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -87,6 +97,9 @@ public class AuthenticationService {
         saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
+
+
+
 
     private void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());

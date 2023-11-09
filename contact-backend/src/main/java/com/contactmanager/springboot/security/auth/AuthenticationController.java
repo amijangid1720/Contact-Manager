@@ -1,5 +1,7 @@
 package com.contactmanager.springboot.security.auth;
 
+import com.contactmanager.springboot.security.services.UserService;
+import com.contactmanager.springboot.security.user.User;
 import com.contactmanager.springboot.services.UserInfoService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -22,6 +24,8 @@ import java.util.Collections;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class AuthenticationController {
+    @Autowired
+    private UserService userService;
     @Autowired
     UserInfoService userInfoService;
     private final com.contactmanager.springboot.security.auth.AuthenticationService service;
@@ -70,10 +74,17 @@ public class AuthenticationController {
                 GoogleIdToken.Payload payload = googleIdToken.getPayload();
                 String userId = payload.getSubject();
                 System.out.println("User ID: " + userId);
+                String googleEmail = payload.getEmail();
+                System.out.println("User email: " + googleEmail);
                 System.out.println(payload.getEmail());
+                String firstName = (String) payload.get("given_name"); // Extract first name from the payload
+                String lastName = (String) payload.get("family_name");
+
+
+                // Authenticate the user via Google email
+                User user = userService.loadUserByGoogleEmail(googleEmail, firstName, lastName);
 
                 // Add your logic to process the verified ID token
-                // ...
                 com.contactmanager.springboot.security.auth.AuthenticationResponse response = service.authenticateViaGoogle(payload.getEmail());
 
                 System.out.println("response.toString()");

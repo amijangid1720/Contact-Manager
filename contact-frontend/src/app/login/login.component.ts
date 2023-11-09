@@ -9,6 +9,8 @@ import {
 } from '@abacritt/angularx-social-login';
 import { AuthService } from '../service/auth.service';
 import { MessageService } from 'primeng/api';
+import { tap } from 'rxjs';
+import { environment } from '../environment';
 
 @Component({
   selector: 'app-login',
@@ -32,32 +34,30 @@ export class LoginComponent implements OnInit {
     private messageService:MessageService
   ) {}
 
-  ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = user != null;
-      console.log(user);
-      console.log('token: ' + user.idToken);
-      const googleIdToken = user.idToken;
+  ngOnInit() {
+    this.authService.authState.subscribe(user => {
+    this.user = user;
+    console.log(user);
+    console.log(user.idToken);
+    console.log(user.name);
+    environment.username=user.name;
+    console.log("name", environment.username);
+    
+  
+    this.authBackendService.sendTokenToBackend(this.user.idToken).pipe(
+      tap((data: any) => {
+        console.log('success');
+        console.log(data);
+        const gtoken = data.token;
 
-      //   /// send id token to the backend
-      this.authBackendService.sendTokenToBackend(googleIdToken).subscribe({
-        next: (res) => {
-          console.log(res);
-          if (this.loggedIn) {
-            this.signOut();
-          }
-          localStorage.setItem('token', res.token);
-          this.router.navigateByUrl('table');
 
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    });
-  }
-
+        console.log('Received gtoken:', gtoken);
+        localStorage.setItem('token', gtoken);
+        this.router.navigateByUrl('dashboard');
+      })
+    ).subscribe();
+  });
+}
   //for login usinfg username-password
   login() {
     // request to generate token

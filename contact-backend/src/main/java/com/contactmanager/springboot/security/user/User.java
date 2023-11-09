@@ -33,8 +33,8 @@ public class User implements UserDetails {
     @Column(name = "email",unique = true,nullable = false) //@Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "password",nullable = false)
-    private String password;
+    @Column(name = "password",nullable = true)
+    private String password="";
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore

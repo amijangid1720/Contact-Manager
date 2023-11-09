@@ -12,7 +12,6 @@ import { ContactTableComponent } from './contact-table/contact-table.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
- 
   {
     path: 'login',
     component: LoginComponent,
@@ -27,7 +26,8 @@ const routes: Routes = [
   //   canActivate: [authGuard],
   // },
   {
-    path:'navbar1', component:Navbar1Component
+    path: 'navbar1',
+    component: Navbar1Component,
   },
   // {
   //   path: 'api/v1/contacts/add',
@@ -35,28 +35,44 @@ const routes: Routes = [
   //   canActivate: [authGuard],
   // },
   // { path: 'update-contact/:id',component:UpdateContactComponent},
-  {path:'',component:HomeComponent,
-    children:[
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      // {
+      //   path: '',
+      //   redirectTo: 'dashboard', // Redirect to 'dashboard' when the path is empty
+      //   pathMatch: 'full',
+      // },
       {
         path: 'dashboard',
-        component: DashboardComponent,canActivate: [authGuard],
+        component: DashboardComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'update-contact/:id',
-        component:UpdateContactComponent,canActivate: [authGuard],
+        component: UpdateContactComponent,
+        canActivate: [authGuard],
       },
       {
-        path:'add',
-        component: AddComponent,canActivate: [authGuard],
+        path: 'add',
+        component: AddComponent,
+        canActivate: [authGuard],
       },
 
-      {path:'table',
-    component:ContactTableComponent,canActivate: [authGuard],},
-    {
-      path:'profile', component:ProfileComponent,canActivate: [authGuard],
-    },
-    ]
-}
+      {
+        path: 'table',
+        component: ContactTableComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [authGuard],
+      },
+      
+    ],
+  },
 ];
 
 @NgModule({

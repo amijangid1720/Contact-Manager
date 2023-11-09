@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { environment } from '../environment';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class Navbar1Component {
   }
   loggedin!:boolean;
   faArrowRightFromBracket = faArrowRightFromBracket;
-  firstName:string="";
+  firstName:string=environment.username;
+  
 
   ngOnInit(){
     this.loggedin= this.tokenservice.isLoggedin();
@@ -32,7 +34,8 @@ export class Navbar1Component {
       this.tokenservice.getUserName().subscribe({
         next: (res) => {
           console.log(res);
-          this.firstName = res.firstName;
+         
+          this.firstName = res.firstName;;
         },
         error: (err) => {
           console.log(err);
