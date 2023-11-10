@@ -10,6 +10,7 @@ import { UpdateContactComponent } from './update-contact/update-contact.componen
 import { HomeComponent } from './home/home.component';
 import { ContactTableComponent } from './contact-table/contact-table.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,9 @@ const routes: Routes = [
   {
     path: 'navbar1',
     component: Navbar1Component,
+  },
+  {
+    path:'userdetails' , component:UserDetailsFormComponent
   },
   // {
   //   path: 'api/v1/contacts/add',
@@ -49,6 +53,7 @@ const routes: Routes = [
         component: DashboardComponent,
         canActivate: [authGuard],
       },
+      
       {
         path: 'update-contact/:id',
         component: UpdateContactComponent,

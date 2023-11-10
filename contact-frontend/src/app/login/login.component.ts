@@ -41,7 +41,9 @@ export class LoginComponent implements OnInit {
     console.log(user.idToken);
     console.log(user.name);
     environment.username=user.name;
-    console.log("name", environment.username);
+    // console.log("name", environment.username);
+    
+    
     
   
     this.authBackendService.sendTokenToBackend(this.user.idToken).pipe(
@@ -49,11 +51,14 @@ export class LoginComponent implements OnInit {
         console.log('success');
         console.log(data);
         const gtoken = data.token;
-
+       
+        localStorage.setItem("user_id:", data.userId)
+        
 
         console.log('Received gtoken:', gtoken);
+        
         localStorage.setItem('token', gtoken);
-        this.router.navigateByUrl('dashboard');
+        this.router.navigateByUrl('userdetails');
       })
     ).subscribe();
   });

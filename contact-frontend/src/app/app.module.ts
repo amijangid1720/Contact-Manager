@@ -31,6 +31,7 @@ import { PasswordModule } from 'primeng/password';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ProfileComponent } from './profile/profile.component';
+import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
 const config: SocialAuthServiceConfig = {
   providers: [
     {
@@ -55,6 +56,7 @@ const config: SocialAuthServiceConfig = {
     UpdateContactComponent,
     HomeComponent,
     ProfileComponent,
+    UserDetailsFormComponent,
   ],
   imports: [
     BrowserModule,

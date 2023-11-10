@@ -86,10 +86,12 @@ public class AuthenticationController {
 
                 // Add your logic to process the verified ID token
                 com.contactmanager.springboot.security.auth.AuthenticationResponse response = service.authenticateViaGoogle(payload.getEmail());
-
+                System.out.println("response");
                 System.out.println("response.toString()");
+
                 System.out.println(response.toString());
-                return ResponseEntity.ok().body("{\"token\": \""+response.getToken()+"\"}");
+                String jsonResponse = "{\"token\": \"" + response.getToken() + "\", \"userId\": \"" + user.getId() + "\"}";
+                return ResponseEntity.ok().body(jsonResponse);
             } else {
                 System.out.println("Invalid ID token.");
                 return ResponseEntity.badRequest().body("{\"error\": \"Invalid ID token\"}");

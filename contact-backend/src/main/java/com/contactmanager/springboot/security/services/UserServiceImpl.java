@@ -65,7 +65,8 @@ public class UserServiceImpl implements UserService {
         UserInfo userInfo = UserInfo.builder()
                 .firstName(firstName)  // Set the actual first name extracted from Google login response
                 .lastName(lastName)    // Set the actual last name extracted from Google login response
-                .email(email)           // Set email from the Google login response
+                .email(email)
+                .phoneno("default number")// Set email from the Google login response
                 .user(newUser)          // Set the User entity for UserInfo
                 .build();
 

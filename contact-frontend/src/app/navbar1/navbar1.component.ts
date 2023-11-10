@@ -27,7 +27,7 @@ export class Navbar1Component {
 
   ngOnInit(){
     this.loggedin= this.tokenservice.isLoggedin();
-    console.log();
+    console.log(this.loggedin);
     const yourAuthToken = localStorage.getItem('token');
  
     if (yourAuthToken !== null) { // Check if it's not null
