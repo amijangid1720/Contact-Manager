@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -25,5 +26,11 @@ export class UserDetailsFormComponent {
    const userid = localStorage.getItem('user_id');
    console.log("user", userid);
    
+  }
+
+  onSubmit(userForm:NgForm){
+    if(userForm.valid){
+    
+    }
   }
 }

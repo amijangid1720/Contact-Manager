@@ -1,8 +1,8 @@
 <div class="container-fluid">
-    <h2 class="text-center">Update Contact</h2>
+    <h2 class="text-center">Fill User Details</h2>
     <form
-      #contactForm="ngForm"
-      
+      #userForm="ngForm"
+      (ngSubmit)="onSubmit(userForm)"
       class="form-container"
     >
       <div class="row">
@@ -109,7 +109,7 @@
         <button
           type="submit"
           class="btn btn-primary"
-          [disabled]="!contactForm.valid"
+          [disabled]="!userForm.valid"
         >
           Submit
         </button>

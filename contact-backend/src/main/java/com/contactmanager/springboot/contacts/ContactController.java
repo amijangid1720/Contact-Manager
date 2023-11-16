@@ -1,6 +1,8 @@
 package com.contactmanager.springboot.contacts;
 
 import com.contactmanager.springboot.Entity.UserInfo;
+import com.contactmanager.springboot.Entity.UserInfoRequest;
+import com.contactmanager.springboot.Repository.UserInfoRepository;
 import com.contactmanager.springboot.security.Repository.UserRepository;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
@@ -40,6 +42,9 @@ public class ContactController {
 
     @Autowired
     ContactRepository contactRepository;
+
+    @Autowired
+    UserInfoRepository userInfoRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -100,16 +105,7 @@ public class ContactController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
-//    @GetMapping("/findAll")
-//    public  List<Contact> findAllContacts(Authentication authentication) throws Exception
-//    {
-//        User user =userService.loadUserByEmail(authentication.getName());
-//        System.out.println(user);
-//        List<Contact> contactList=contactRepository.findByUserId(user.getId());
-//        System.out.println(user);
-//        return contactList;
-//
-//    }
+
 
     @GetMapping("/findAll")
     public Page<Contact> findAllContacts(
@@ -124,27 +120,6 @@ public class ContactController {
 
 
 
-//    @GetMapping("/findAll")
-//    public Page<Contact> findAllContacts(
-//            @RequestParam(name = "page", defaultValue = "0") int page,
-//            @RequestParam(name = "size", defaultValue = "10") int size,
-//            @RequestParam(name = "sortField", defaultValue = "name") String sortField,
-//            @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder,
-//            Authentication authentication
-//    ) throws Exception {
-//        User user = userService.loadUserByEmail(authentication.getName());
-//
-//        Pageable pageable;
-//
-//        if (!sortField.isEmpty()) {
-//            Sort sort = Sort.by(sortOrder.equalsIgnoreCase("asc") ? Sort.Order.asc(sortField) : Sort.Order.desc(sortField));
-//            pageable = PageRequest.of(page, size, sort);
-//        } else {
-//            pageable = PageRequest.of(page, size);
-//        }
-//
-//        return contactRepository.findByUserId(user.getId(), pageable);
-//    }
 
 
     //id of the contact whose we want to update
@@ -165,6 +140,25 @@ public class ContactController {
         contact.setUser(loggedInUser);
         contactRepository.save(contact);
         return contact;
+    }
+
+//update details of user using his id
+    @PutMapping("/updateuser/{id}")
+    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
+
+        User loggedInUser = userService.loadUserByEmail(authentication.getName());
+        UserInfo userInfo = userInfoRepository.getById(id);
+        userInfo.setFirstName(userInfoRequest.getFirstName());
+        userInfo.setLastName(userInfoRequest.getLastName());
+        userInfo.setGender(userInfoRequest.getGender());
+        userInfo.setEmail(userInfoRequest.getEmail());
+        userInfo.setAddress(userInfoRequest.getAddress());
+        userInfo.setPhoneno(userInfoRequest.getPhoneno());
+
+        // Set the logged-in user as the owner of the contact
+        userInfo.setUser(loggedInUser);
+        userInfoRepository.save(userInfo);
+        return userInfo;
     }
 
     @GetMapping("/contactinfo/{id}")
