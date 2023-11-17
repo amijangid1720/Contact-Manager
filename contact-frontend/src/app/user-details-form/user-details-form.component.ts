@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ManipulateUserService } from '../service/manipulate-user.service';
-import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-user-details-form',
@@ -68,12 +68,6 @@ onSubmit(userForm: NgForm) {
       console.error("user_id is null in localStorage");
     }
   }
-
-  onSubmit(userForm:NgForm){
-    if(userForm.valid){
-    
-    }
-  }
 }
-
+  
 }
