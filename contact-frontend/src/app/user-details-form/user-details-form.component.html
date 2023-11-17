@@ -1,6 +1,8 @@
 <div class="container-fluid">
-    <h2 class="text-center">Update Contact</h2>
+    <h2 class="text-center">Fill User Details</h2>
     <form
+      #userForm="ngForm"
+      (ngSubmit)="onSubmit(userForm)"
       #userForm="ngForm"
       (ngSubmit)="onSubmit(userForm)"
       class="form-container"

@@ -24,4 +24,10 @@ export class AddServiceService {
 
     return this.http.put(url, contact);
   }
+
+  updateUser(user:Object, userId:number): Observable<any>{
+const url = `${environment.backendUrl}/api/v1/conatcts/updateuser/${userId}`;
+
+return this.http.put(url,user);
+  }
 }

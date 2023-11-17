@@ -3,6 +3,8 @@ package com.contactmanager.springboot.contacts;
 import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.Entity.UserInfoRequest;
 import com.contactmanager.springboot.Repository.UserInfoRepository;
+import com.contactmanager.springboot.Entity.UserInfoRequest;
+import com.contactmanager.springboot.Repository.UserInfoRepository;
 import com.contactmanager.springboot.security.Repository.UserRepository;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
@@ -40,6 +42,12 @@ public class ContactController {
 
     @Autowired
     ContactRepository contactRepository;
+
+    @Autowired
+    UserInfoRepository userInfoRepository;
+
+    @Autowired
+    UserInfoRepository userInfoRepository;
 
     @Autowired
     UserInfoRepository userInfoRepository;
@@ -101,6 +109,7 @@ public class ContactController {
         }
     }
 
+
     @GetMapping("/findAll")
     public Page<Contact> findAllContacts(
             @RequestParam(name = "page", defaultValue = "0") int page,
@@ -114,6 +123,9 @@ public class ContactController {
 
 
 
+
+
+    //id of the contact whose we want to update
     @PutMapping("/update/{id}")
     public  Contact updateContact(@RequestBody ContactRequest contactRequest,@PathVariable Integer id, Authentication authentication)throws Exception{
 
@@ -131,6 +143,25 @@ public class ContactController {
         contact.setUser(loggedInUser);
         contactRepository.save(contact);
         return contact;
+    }
+
+//update details of user using his id
+    @PutMapping("/updateuser/{id}")
+    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
+
+        User loggedInUser = userService.loadUserByEmail(authentication.getName());
+        UserInfo userInfo = userInfoRepository.getById(id);
+        userInfo.setFirstName(userInfoRequest.getFirstName());
+        userInfo.setLastName(userInfoRequest.getLastName());
+        userInfo.setGender(userInfoRequest.getGender());
+        userInfo.setEmail(userInfoRequest.getEmail());
+        userInfo.setAddress(userInfoRequest.getAddress());
+        userInfo.setPhoneno(userInfoRequest.getPhoneno());
+
+        // Set the logged-in user as the owner of the contact
+        userInfo.setUser(loggedInUser);
+        userInfoRepository.save(userInfo);
+        return userInfo;
     }
 
     @GetMapping("/contactinfo/{id}")
