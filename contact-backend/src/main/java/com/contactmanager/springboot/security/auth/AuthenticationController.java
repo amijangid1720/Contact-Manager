@@ -1,5 +1,6 @@
 package com.contactmanager.springboot.security.auth;
 
+import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
 import com.contactmanager.springboot.services.UserInfoService;
@@ -24,6 +25,7 @@ import java.util.Collections;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class AuthenticationController {
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -54,7 +56,7 @@ public class AuthenticationController {
 //        return ResponseEntity.ok().body("{\"message\": \"ID token received successfully\"}");
 //    }
     @PostMapping("/google")
-    public ResponseEntity<String> authenticateGoogle(@RequestBody String idToken) throws  Exception{
+    public ResponseEntity<String> authenticateGoogle(@RequestBody String idToken) throws Exception {
         try {
             // Initialize the Google API client
             HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
@@ -84,13 +86,15 @@ public class AuthenticationController {
                 // Authenticate the user via Google email
                 User user = userService.loadUserByGoogleEmail(googleEmail, firstName, lastName);
 
+                
+
                 // Add your logic to process the verified ID token
                 com.contactmanager.springboot.security.auth.AuthenticationResponse response = service.authenticateViaGoogle(payload.getEmail());
                 System.out.println("response");
                 System.out.println("response.toString()");
 
                 System.out.println(response.toString());
-                String jsonResponse = "{\"token\": \"" + response.getToken() + "\", \"userId\": \"" + user.getId() + "\"}";
+                String jsonResponse = "{\"token\": \"" + response.getToken() + "\", \"userId\": \"" + user.getId() + "\"  }";
                 return ResponseEntity.ok().body(jsonResponse);
             } else {
                 System.out.println("Invalid ID token.");
@@ -104,6 +108,7 @@ public class AuthenticationController {
 
 
     }
+
     @PostMapping("/check-duplicate")
     public DuplicateCheckResponse checkDuplicate(@RequestBody DuplicateCheckRequest request) {
         boolean emailExists = userInfoService.checkEmailExists(request.getEmail());

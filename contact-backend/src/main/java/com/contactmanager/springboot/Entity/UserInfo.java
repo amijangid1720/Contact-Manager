@@ -27,8 +27,11 @@ public class UserInfo {
     @Column(name = "email",unique = true,nullable = false) //@Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "phoneno",unique = true,nullable = false)
+    @Column(name = "phoneno",nullable = true)
     private String phoneno;
+
+
+
 
     @Column(name="gender")
     private String gender;

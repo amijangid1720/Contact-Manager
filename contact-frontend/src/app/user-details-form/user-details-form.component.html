@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <h2 class="text-center">Update Contact</h2>
     <form
-      #contactForm="ngForm"
-      
+      #userForm="ngForm"
+      (ngSubmit)="onSubmit(userForm)"
       class="form-container"
     >
       <div class="row">
@@ -17,7 +17,7 @@
               ngModel
               required
               #fname="ngModel"
-              [(ngModel)]="user.firstname"
+              [(ngModel)]="user.firstName"
             />
           </div>
         </div>
@@ -32,7 +32,7 @@
               class="input-field form-control"
               ngModel
               required
-              [(ngModel)]="user.lastname"
+              [(ngModel)]="user.lastName"
             />
           </div>
         </div>
@@ -52,17 +52,6 @@
         />
       </div>
 
-      <div class="form-group">
-        <input
-          type="text"
-          id="work"
-          name="work"
-          placeholder="Enter Work Description"
-          class="input-field form-control"
-          ngModel
-          [(ngModel)]="user.work"
-        />
-      </div>
 
       <div class="form-group">
         <input
@@ -96,12 +85,12 @@
 
       <div class="form-group">
         <textarea
-          id="description"
-          name="description"
-          placeholder="Enter Description Of The Contact"
+          id="address"
+          name="address"
+          placeholder="Enter your  address"
           class="input-field form-control"
           ngModel
-          [(ngModel)]="user.description"
+          [(ngModel)]="user.address"
         ></textarea>
       </div>
 
@@ -109,7 +98,7 @@
         <button
           type="submit"
           class="btn btn-primary"
-          [disabled]="!contactForm.valid"
+          [disabled]="!userForm.valid" [disabled]="isButtonDisabled"
         >
           Submit
         </button>

@@ -1,6 +1,8 @@
 package com.contactmanager.springboot.contacts;
 
 import com.contactmanager.springboot.Entity.UserInfo;
+import com.contactmanager.springboot.Entity.UserInfoRequest;
+import com.contactmanager.springboot.Repository.UserInfoRepository;
 import com.contactmanager.springboot.security.Repository.UserRepository;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
@@ -35,12 +37,12 @@ public class ContactController {
     @Autowired
     UserInfoService userInfoService;
 
-//    @Autowired
-//    private UserSession userSession;
 
     @Autowired
     ContactRepository contactRepository;
 
+    @Autowired
+    UserInfoRepository userInfoRepository;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -65,10 +67,8 @@ public class ContactController {
 
         // Set the logged-in user as the owner of the contact
       contact.setUser(loggedInUser);
-
         // Save the contact
         contactService.addContact(contact);
-
 //        contactService.addContact(contact);
         return ResponseEntity.ok(contactRequest);
     }
@@ -100,16 +100,6 @@ public class ContactController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
-//    @GetMapping("/findAll")
-//    public  List<Contact> findAllContacts(Authentication authentication) throws Exception
-//    {
-//        User user =userService.loadUserByEmail(authentication.getName());
-//        System.out.println(user);
-//        List<Contact> contactList=contactRepository.findByUserId(user.getId());
-//        System.out.println(user);
-//        return contactList;
-//
-//    }
 
     @GetMapping("/findAll")
     public Page<Contact> findAllContacts(
@@ -124,30 +114,6 @@ public class ContactController {
 
 
 
-//    @GetMapping("/findAll")
-//    public Page<Contact> findAllContacts(
-//            @RequestParam(name = "page", defaultValue = "0") int page,
-//            @RequestParam(name = "size", defaultValue = "10") int size,
-//            @RequestParam(name = "sortField", defaultValue = "name") String sortField,
-//            @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder,
-//            Authentication authentication
-//    ) throws Exception {
-//        User user = userService.loadUserByEmail(authentication.getName());
-//
-//        Pageable pageable;
-//
-//        if (!sortField.isEmpty()) {
-//            Sort sort = Sort.by(sortOrder.equalsIgnoreCase("asc") ? Sort.Order.asc(sortField) : Sort.Order.desc(sortField));
-//            pageable = PageRequest.of(page, size, sort);
-//        } else {
-//            pageable = PageRequest.of(page, size);
-//        }
-//
-//        return contactRepository.findByUserId(user.getId(), pageable);
-//    }
-
-
-    //id of the contact whose we want to update
     @PutMapping("/update/{id}")
     public  Contact updateContact(@RequestBody ContactRequest contactRequest,@PathVariable Integer id, Authentication authentication)throws Exception{
 
@@ -168,14 +134,43 @@ public class ContactController {
     }
 
     @GetMapping("/contactinfo/{id}")
-    public ResponseEntity<Contact> getContactInfo(@PathVariable Integer id)
-    {
+    public ResponseEntity<Contact> getContactInfo(@PathVariable Integer id) {
         Contact contactInfo = contactRepository.getById(id);
         if (contactInfo == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(contactInfo);
     }
+
+    //to get details of the user
+    @GetMapping("/userinfo/{id}")
+    public ResponseEntity<UserInfo> getUserInfo(@PathVariable Integer id){
+        UserInfo userinfo = userInfoRepository.findByUserId(id);
+        if(userinfo == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(userinfo);
+    }
+
+    //updating details of the user
+    @PutMapping("/updateUser/{id}")
+    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
+
+        User loggedInUser = userService.loadUserByEmail(authentication.getName());
+        UserInfo userInfo = userInfoRepository.findByUserId(id);
+        userInfo.setFirstName(userInfoRequest.getFirstName());
+        userInfo.setLastName(userInfoRequest.getLastName());
+        userInfo.setGender(userInfoRequest.getGender());
+        userInfo.setEmail(userInfoRequest.getEmail());
+        userInfo.setAddress(userInfoRequest.getAddress());
+        userInfo.setPhoneno(userInfoRequest.getPhoneno());
+
+        // Set the logged-in user as the owner of the contact
+        userInfo.setUser(loggedInUser);
+       userInfoRepository.save(userInfo);
+        return userInfo;
+    }
+
     @GetMapping("/info")
     public ResponseEntity<UserInfo> getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
 

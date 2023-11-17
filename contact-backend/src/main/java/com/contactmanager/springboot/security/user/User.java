@@ -18,11 +18,12 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 
 @Entity
-@Table(name="user_login")
+@Table(name = "user_login")
 public class User implements UserDetails {
 
     @Id
@@ -30,11 +31,11 @@ public class User implements UserDetails {
     // or GenerationType.SEQUENCE, GenerationType.TABLE, or GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "email",unique = true,nullable = false) //@Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false) //@Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "password",nullable = true)
-    private String password="";
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -44,7 +45,8 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany
-    private List<Token>tokens;
+    private List<Token> tokens;
+
     public User(String email, String password) {
 
         this.email = email;
@@ -60,30 +62,10 @@ public class User implements UserDetails {
                 '}';
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override

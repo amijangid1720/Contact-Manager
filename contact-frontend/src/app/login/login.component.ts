@@ -52,12 +52,12 @@ export class LoginComponent implements OnInit {
         console.log(data);
         const gtoken = data.token;
        
-        localStorage.setItem("user_id:", data.userId)
-        
+        localStorage.setItem("user_id", data.userId)
 
         console.log('Received gtoken:', gtoken);
         
         localStorage.setItem('token', gtoken);
+      
         this.router.navigateByUrl('userdetails');
       })
     ).subscribe();

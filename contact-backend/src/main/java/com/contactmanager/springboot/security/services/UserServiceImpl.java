@@ -8,6 +8,7 @@ import com.contactmanager.springboot.security.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
         // Set a default password if it's null
         if (newUser.getPassword() == null || newUser.getPassword().isEmpty()) {
-            newUser.setPassword("defaultPassword");
+            newUser.setPassword(new BCryptPasswordEncoder().encode("defaultPassword"));
         }
 
         // Save the user to the repository
@@ -66,7 +67,8 @@ public class UserServiceImpl implements UserService {
                 .firstName(firstName)  // Set the actual first name extracted from Google login response
                 .lastName(lastName)    // Set the actual last name extracted from Google login response
                 .email(email)
-                .phoneno("default number")// Set email from the Google login response
+
+                // Set email from the Google login response
                 .user(newUser)          // Set the User entity for UserInfo
                 .build();
 

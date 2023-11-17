@@ -1,9 +1,6 @@
 package com.contactmanager.springboot.security.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
@@ -17,6 +14,6 @@ public class RegisterRequest {
     private String phoneno;
     private String gender;
     private String address;
-
+    private Boolean  detailsFilled;
 
 }
