@@ -3,6 +3,8 @@ package com.contactmanager.springboot.services;
 
 import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.Repository.UserInfoRepository;
+import com.contactmanager.springboot.security.Repository.UserRepository;
+import com.contactmanager.springboot.security.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ import java.util.Optional;
 public class UserInfoService {
     @Autowired
     UserInfoRepository userInfoRepository;
+
+    @Autowired
+    UserRepository userRepository;
     public UserInfo getUserInfo(String username) {
         Optional<UserInfo> userInfo=userInfoRepository.findByEmail(username);
         if (userInfo.isPresent()) {
@@ -22,6 +27,20 @@ public class UserInfoService {
         }
     }
 
+
+
+    public void markDetailsAsFilled(Integer id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            UserInfo userInfo = user.getUserInfo();
+            if (userInfo != null) {
+                userInfo.setDetailsFilled(true);
+                userInfoRepository.save(userInfo);
+            }
+        }
+
+    }
     public boolean checkEmailExists(String email) {
 
         Optional<UserInfo> userInfo=userInfoRepository.findByEmail(email);

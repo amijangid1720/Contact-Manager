@@ -17,6 +17,7 @@ export class UserDetailsFormComponent {
     phoneno: '',
     gender: '',
     address: '',
+    detailsFilled: false,
   };
   user_id!: number;
   isButtonDisabled: boolean = false;
@@ -49,9 +50,19 @@ onSubmit(userForm: NgForm) {
     if (userId !== null) {
       const parsedUserId = parseInt(userId, 10);
       if (!isNaN(parsedUserId)) {
-        this.manipulateUserService.updateUser(this.user, parsedUserId).subscribe({
+        this.manipulateUserService.updateUser(this.user, parsedUserId,).subscribe({
           next: (res) => {
             console.log(res);
+            this.user.detailsFilled = true;
+
+            this.manipulateUserService.updateDetailsFilled(parsedUserId).subscribe({
+              next: (updateRes) => {
+                console.log(updateRes);
+              },
+              error: (updateErr) => {
+                console.error(updateErr);
+              }
+            })
 
             setTimeout(() => {
              this.router.navigateByUrl('dashboard');

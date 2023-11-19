@@ -46,11 +46,7 @@ public class ContactController {
     @Autowired
     UserInfoRepository userInfoRepository;
 
-    @Autowired
-    UserInfoRepository userInfoRepository;
 
-    @Autowired
-    UserInfoRepository userInfoRepository;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -84,13 +80,6 @@ public class ContactController {
 
 
     //id of the contact who we want to delete
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<String>  DeleteContact(@PathVariable Integer id, Authentication authentication){
-//        System.out.println(authentication.getName());
-//        contactRepository.deleteById(id);
-//        return ResponseEntity.ok("deleted: " + id);
-//    }
-
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map<String, Object>> deleteContact(@PathVariable Integer id, Authentication authentication) {
@@ -146,23 +135,26 @@ public class ContactController {
     }
 
 //update details of user using his id
-    @PutMapping("/updateuser/{id}")
-    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
+//    @PutMapping("/updateuser/{id}")
+//    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
+//
+//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
+//        UserInfo userInfo = userInfoRepository.getById(id);
+//        userInfo.setFirstName(userInfoRequest.getFirstName());
+//        userInfo.setLastName(userInfoRequest.getLastName());
+//        userInfo.setGender(userInfoRequest.getGender());
+//        userInfo.setEmail(userInfoRequest.getEmail());
+//        userInfo.setAddress(userInfoRequest.getAddress());
+//        userInfo.setPhoneno(userInfoRequest.getPhoneno());
+//
+//        // Set the logged-in user as the owner of the contact
+//        userInfo.setUser(loggedInUser);
+//        userInfoRepository.save(userInfo);
+//        return userInfo;
 
-        User loggedInUser = userService.loadUserByEmail(authentication.getName());
-        UserInfo userInfo = userInfoRepository.getById(id);
-        userInfo.setFirstName(userInfoRequest.getFirstName());
-        userInfo.setLastName(userInfoRequest.getLastName());
-        userInfo.setGender(userInfoRequest.getGender());
-        userInfo.setEmail(userInfoRequest.getEmail());
-        userInfo.setAddress(userInfoRequest.getAddress());
-        userInfo.setPhoneno(userInfoRequest.getPhoneno());
 
-        // Set the logged-in user as the owner of the contact
-        userInfo.setUser(loggedInUser);
-        userInfoRepository.save(userInfo);
-        return userInfo;
-    }
+
+
 
     @GetMapping("/contactinfo/{id}")
     public ResponseEntity<Contact> getContactInfo(@PathVariable Integer id) {
@@ -183,6 +175,7 @@ public class ContactController {
         return ResponseEntity.ok(userinfo);
     }
 
+
     //updating details of the user
     @PutMapping("/updateUser/{id}")
     public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
@@ -202,6 +195,16 @@ public class ContactController {
         return userInfo;
     }
 
+
+    @PutMapping("updateDetailsFilled/{id}")
+    public ResponseEntity<String> userDetailsFilled(@PathVariable Integer id){
+        try {
+            userInfoService.markDetailsAsFilled(id);
+            return ResponseEntity.ok().body("Details marked as filled successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Failed to update detailsFilled");
+        }
+    }
     @GetMapping("/info")
     public ResponseEntity<UserInfo> getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
 

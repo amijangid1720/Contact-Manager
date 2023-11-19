@@ -25,6 +25,12 @@ export class ManipulateUserService implements OnInit {
      return this.http.put(url,user);
   }
  
+
+updateDetailsFilled(userid:number):Observable<any>{
+  const url = `${environment.backendUrl}/api/v1/contacts/updateDetailsFilled/${userid}`;
+  return this.http.put(url,userid);
+}
+  
   deleteContact(id: string): Observable<any> {
     return this.http.delete(
       `${environment.backendUrl}/api/v1/contacts/delete/${id}`

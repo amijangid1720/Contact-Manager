@@ -12,5 +12,5 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,Integer> {
     Optional<UserInfo> findByEmail(String email);
     UserInfo findByUserId(Integer id);
     Optional<UserInfo> findByPhoneno(String phoneno);
-    List<UserInfo> findByUserId(Integer id);
+//    List<UserInfo> findByUserId(Integer id);
 }

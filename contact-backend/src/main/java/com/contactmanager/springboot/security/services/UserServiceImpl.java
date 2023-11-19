@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
                 .firstName(firstName)  // Set the actual first name extracted from Google login response
                 .lastName(lastName)    // Set the actual last name extracted from Google login response
                 .email(email)
-
+                .detailsFilled(false)
                 // Set email from the Google login response
                 .user(newUser)          // Set the User entity for UserInfo
                 .build();
@@ -77,5 +77,8 @@ public class UserServiceImpl implements UserService {
 
         // Return the created user
         return newUser;
+
+
+
     }
 }

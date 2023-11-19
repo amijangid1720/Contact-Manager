@@ -86,7 +86,21 @@ public class AuthenticationController {
                 // Authenticate the user via Google email
                 User user = userService.loadUserByGoogleEmail(googleEmail, firstName, lastName);
 
-                
+
+                // Check if details are filled
+                boolean detailsFilled =user.getUserInfo() != null && user.getUserInfo().isDetailsFilled();
+
+
+                String redirectPath;
+                if (!detailsFilled) {
+                    // User details not filled, redirect to the user details form
+                    redirectPath = "/userdetails";
+                } else {
+                    // User details filled, redirect to the dashboard
+                    redirectPath = "/dashboard";
+                }
+
+
 
                 // Add your logic to process the verified ID token
                 com.contactmanager.springboot.security.auth.AuthenticationResponse response = service.authenticateViaGoogle(payload.getEmail());
@@ -94,7 +108,7 @@ public class AuthenticationController {
                 System.out.println("response.toString()");
 
                 System.out.println(response.toString());
-                String jsonResponse = "{\"token\": \"" + response.getToken() + "\", \"userId\": \"" + user.getId() + "\"  }";
+                String jsonResponse = "{\"token\": \"" + response.getToken() + "\", \"userId\": \"" + user.getId() + "\", \"redirect\": \"" + redirectPath + "\"}";
                 return ResponseEntity.ok().body(jsonResponse);
             } else {
                 System.out.println("Invalid ID token.");

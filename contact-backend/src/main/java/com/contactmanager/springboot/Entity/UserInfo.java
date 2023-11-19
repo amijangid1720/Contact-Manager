@@ -31,13 +31,16 @@ public class UserInfo {
     private String phoneno;
 
 
-
-
     @Column(name="gender")
     private String gender;
 
     @Column(name = "address")
     private String address;
+
+
+    @Getter
+    @Column(name = "detailsFilled")
+    private Boolean detailsFilled;
 
     @OneToOne
     @JoinColumn(name = "userid") // This column references the "id" column in the "user_login" table
@@ -54,7 +57,12 @@ public class UserInfo {
                 ", phoneno='" + phoneno + '\'' +
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
+                ", detailsFilled=" + detailsFilled +
                 ", user=" + user +
                 '}';
+    }
+
+    public boolean isDetailsFilled() {
+        return detailsFilled != null && detailsFilled;
     }
 }

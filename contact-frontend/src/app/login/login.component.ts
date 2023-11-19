@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         
         localStorage.setItem('token', gtoken);
       
-        this.router.navigateByUrl('userdetails');
+        this.router.navigate([data.redirect]);
       })
     ).subscribe();
   });
