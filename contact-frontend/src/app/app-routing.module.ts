@@ -31,7 +31,8 @@ const routes: Routes = [
     component: Navbar1Component,
   },
   {
-    path:'userdetails' , component:UserDetailsFormComponent
+    path:'userdetails' , component:UserDetailsFormComponent,
+    canActivate:[authGuard,]
   },
   // {
   //   path: 'api/v1/contacts/add',

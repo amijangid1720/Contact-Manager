@@ -2,31 +2,26 @@ $color_1: #fff;
 $background-color_1: #5441bd;
 $background-color_2: #51508e;
 
-// .body {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   background-color: rgba(255, 255, 255, 0.295) ;
-// }
+
 h2 {
   text-align: center;
-  color: #053B50;
+  color: #021b25;
   padding-top: 0.25vw;
   padding-bottom: 0.25vw;
   font-family: "Pacifico", cursive;
   font-size: 2rem;
-  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 }
+.error-message {
+  color: #ff1f02; /* Red color for error messages */ /* Add some spacing below the input field */
+  margin-bottom: 1.5rem;
+ 
+}
+
 .back {
   margin-left: 2vw;
   margin-top: 3vw;
 }
-// .form-container {
-//   width: 60vw;
-//   margin: 0 auto;
-//   padding: 20px;
 
-// }
 
 .login {
   width: 40vw;
@@ -36,43 +31,41 @@ h2 {
   background-color: rgba(255, 255, 255, 0.295);
 border-radius: 1.4vw;
   margin-top: 1vw;
-  // background: #ffffff9e;
-  // border-radius: 1.4vw;
+
   box-shadow: 0 26px 15px rgba(0, 5, 3, 0.5);
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 
-.input-field {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 1vw;
-  background-color: rgb(211, 208, 208);
-  height: 2.6vw;
+.input-field{
+  border: none;
+  background-color:  rgba(255, 255, 255, 0.5);
+  border-bottom: 4px solid #053B50 ;
+  color: white;
+  text-align: start;
+  width: 95%;
+  outline: none;
+  
 }
 
-.select-field {
-  width: 100%;
-  height: 6vh;
-  margin-bottom: 20px;
-  border-radius: 1vw;
-  padding-left: 8px;
-  font-size: 1.2em;
-  border: 1px solid #ccc;
-  background-color: rgb(211, 208, 208);
-  
+.select-field{
+  border: none;
+  background-color:  rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid #053B50 ;
+  text-align: start;
+  width: 95%;
+  height: 5vh;
 }
 
 .select-field:focus {
   outline: none; 
 }
 
-.btn-primary {
+.btn {
   background-color: #053B50;
   color: $color_1;
+  margin-top: 10vw;
   padding: 10px 20px;
   width: 100%;
   border: none;
@@ -91,6 +84,7 @@ input.ng-invalid.ng-touched {
   display: flex;
   justify-content: center;
   margin-left: -10vw;
+  
 }
 @media screen and (max-width: 800px) {
   .input-field {
@@ -102,19 +96,30 @@ input.ng-invalid.ng-touched {
   }
 }
 
+
 @media only screen and (min-width: 900px) {
-  .container {
-    width: 40vw;
-    height: max(50vh, auto);
-    padding: 2vw;
-    border-radius: 1.4vw;
-    margin-top: 5vw;
-    background: #ffffff9e;
-    // border-radius: 1.4vw;
-    box-shadow: 0 26px 15px rgba(0, 5, 3, 0.5);
-    // margin: auto;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  // .container {
+  //   width: 40vw;
+  //   height: max(50vh, auto);
+  //   padding: 2vw;
+  //   border-radius: 1.4vw;
+  //   margin-top: 5vw;
+  //   background: #ffffff9e;
+  //   // border-radius: 1.4vw;
+  //   box-shadow: 0 26px 15px rgba(0, 5, 3, 0.5);
+  //   // margin: auto;
+  //   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+  //     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  // }
+  textarea{
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid #053B50 ;
+    color: white;
+    text-align: start;
+    width: 95%;
+    height: 5vh;
+    margin-bottom: 7vh;
   }
 
   .form-container {

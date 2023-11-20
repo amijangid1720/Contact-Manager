@@ -150,14 +150,18 @@
       alt="male"
       style="width: 100%"
     /> 
-    </div>
+
+   
   </div>
+  <span class="span">{{ Name }}</span> 
+    </div>
+   
   <div class="menu2">
     <div class="box-menu">
     <form #userForm="ngForm"
   (ngSubmit)="onSubmit(userForm)" class="form-container">
   <div class="row mt-3">
-    <div class="col-md-12 form-group" >
+    <div class="col-md-12 form-group box1" >
       <label class="labels">First Name</label
       ><input
       type="text"
@@ -169,11 +173,22 @@
       required
       #fname="ngModel"
       [(ngModel)]="user.firstName"
+      [ngModelOptions]="{ standalone: true }"
+        pattern="[A-Za-z]+"
     />
+     <div *ngIf="fname.invalid && (fname.dirty || fname.touched)">
+      <div *ngIf="fname?.errors?.['required']" class="error-message">
+        *First Name is required.
+      </div>
+      <div *ngIf="fname?.errors?.['pattern']" class="error-message">
+        *First Name should contain only alphabets
+      </div>
+    </div>
     </div>
   </div>
+
   <div class="row mt-3">
-    <div class="col-md-12 form-group">
+    <div class="col-md-12 form-group box1">
       <label class="labels">Last Name</label
       > <input
       type="text"
@@ -184,11 +199,22 @@
       ngModel
       required
       [(ngModel)]="user.lastName"
+      #lname="ngModel"
+      pattern="[A-Za-z]+"
+      [ngModelOptions]="{ standalone: true }"
     />
+    </div>
+    <div *ngIf="lname.invalid && (lname.dirty || lname.touched)">
+      <div *ngIf="lname?.errors?.['required']" class="error-message">
+        *Last Name is required.
+      </div>
+      <div *ngIf="lname?.errors?.['pattern']" class="error-message">
+        *Last Name should contain only alphabets
+      </div>
     </div>
   </div>
   <div class="row mt-3">
-    <div class="col-md-12 form-group">
+    <div class="col-md-12 form-group box1">
       <label class="labels">Mobile Number</label
       > <input
       type="tel"
@@ -199,9 +225,17 @@
       ngModel
       required
       [(ngModel)]="user.phoneno"
+      #phonenoInput="ngModel"
+      pattern="^[0-9]{10}$"
+      [ngModelOptions]="{ standalone: true }"
     />
     </div>
-    <div class="col-md-12 form-group" >
+    <div *ngIf="phonenoInput.invalid && (phonenoInput.dirty || phonenoInput.touched)">
+      <div  *ngIf="phonenoInput?.errors?.['required']" class="error-message">*Phone number is required.</div>
+      <div *ngIf="phonenoInput.errors?.['pattern']" class="error-message">*Phone number must be 10 digits long and contain only numbers.</div>
+    </div>
+
+    <div class="col-md-12 form-group box1" >
       <label class="labels">Address Line 1</label
       > <textarea
       id="address"
@@ -210,10 +244,12 @@
       class="input-field form-control"
       ngModel
       [(ngModel)]="user.address"
+      pInputText
+      [ngModelOptions]="{ standalone: true }"
     ></textarea>
     </div>
 
-    <div class="col-md-12 form-group">
+    <div class="col-md-12 form-group box1">
       <label class="labels">Email ID</label
       > <input
       type="email"
@@ -225,10 +261,20 @@
       required
       email
       [(ngModel)]="user.email"
+      #username="ngModel"
+      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
     />
     </div>
+    <div *ngIf="username.invalid && (username.dirty || username.touched)">
+      <div *ngIf="username?.errors?.['required']" class="error-message">
+        *Email is required.
+      </div>
+      <div *ngIf="username?.errors?.['pattern']" class="error-message">
+        Please enter a valid email address.
+      </div>
 
-  </div>
+</div>
+</div>
 
 
 
@@ -236,6 +282,7 @@
   <button
     type="submit"
     class="btn btn-primary"
+    [disabled]="!userForm.valid" [disabled]="isButtonDisabled"
   >
     Submit
   </button>

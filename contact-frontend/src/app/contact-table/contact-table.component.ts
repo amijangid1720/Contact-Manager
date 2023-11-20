@@ -6,7 +6,8 @@ import {
   faArrowRightFromBracket,
   faCaretUp,
   faCaretDown,
-  faSearch
+  faSearch,
+  faMagnifyingGlass
 } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
 
@@ -33,6 +34,7 @@ export class ContactTableComponent implements OnInit {
   faCaretUp =faCaretUp;
   faCaretDown = faCaretDown;
   faSearch = faSearch;
+  faMagnifyingGlass = faMagnifyingGlass;
   faArrowRightFromBracket = faArrowRightFromBracket;
   contacts!: any[];
   data1!: any;
@@ -74,6 +76,7 @@ export class ContactTableComponent implements OnInit {
             email: contact.email,
             phoneno: contact.phoneno,
             work: contact.work,
+            gender:contact.gender,
           }));
            console.log(mappedContacts);
            this.data1 = mappedContacts;

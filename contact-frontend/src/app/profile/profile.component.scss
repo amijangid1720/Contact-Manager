@@ -58,46 +58,115 @@
 .container-div{
 display: flex;
 flex-direction: row;
-
+margin:5%;
 
 
 
 }
 .menu{
-  height: 100vh;
+  height: 70vh;
   width :20%;
-  border-radius: 1px solid;
-  border-color: red;
+  border-top-left-radius: 2vw;
+  border-bottom-left-radius: 2vw;
   background-color: #032837;
  
 
 }
+
+.error-message {
+  color: #ff0000; /* Red color for error messages */ /* Add some spacing below the input field */
+  margin-top: 2%;
+}
+
 .menu2{
-  height: 100vh;
-  width: 80%;
-  background-color: rgb(6, 88, 99);
+  height: 70vh;
+  width: 60%;
+  background-color: rgba(255, 255, 255, 0.295);
+ padding: 1%;
   margin-right: 10%;
+  border-top-right-radius: 2vw;
+  border-bottom-right-radius: 2vw;
 }
 .image{
-  height:35vh;
+  height:25vh;
   width: 70%;
   margin-top: 20%;
   margin-left: 14%;
 
 }
 .box-menu{
-  margin: 13%;
+  margin:5%;
+ align-items: center;
 }
 .btn-primary {
   background-color: #053B50;
-  color: black;
-  padding: 10px 20px;
+  color: rgb(245, 236, 236);
+  padding: 11px 11px;
   width: 100%;
   border: none;
   border-radius: 1vw;
   margin: auto;
+  margin-top: 4vh;
   cursor: pointer;
+
   &:hover {
     background-color:#053B50 ;
   }
+}
+label{
+  color: #021b25;
+  font-size: 1.2em;
+  font-weight: 600;
+  font-style: bold;
+  text-align: start;
+}
+input{
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #053B50 ;
+  color: white;
+  text-align: start;
+  width: 95%;
+  outline: none;
+
+}
+
+input:focus {
+  background-color:transparent;
+  color: white;
+  border: 3px solid #053B50;
+  
+}
+textarea{
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #053B50 ;
+  color: white;
+  text-align: start;
+  width: 95%;
+  height: 5vh;
+}
+textarea:focus {
+  background-color:transparent;
+  color: white;
+  border: 3px solid #053B50;
+  
+}
+.box1{
+  padding: 1.2%;
+}
+.span
+{
+  font-family: cursive;
+ font-size: 1em;
+ font-weight: 400;
+
+ padding: 3%;
+ padding-top: 5%;
+
+ margin: 15%;
+ margin-top: 10%;
+ word-wrap: break-word;
+ word-break: keep-all;
+ text-align: center;
 }

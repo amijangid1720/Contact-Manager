@@ -31,38 +31,39 @@ export class LoginComponent implements OnInit {
     private tokenService: TokenService,
     private authService: SocialAuthService,
     private authBackendService: AuthService,
-    private messageService:MessageService
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
-    this.authService.authState.subscribe(user => {
-    this.user = user;
-    console.log(user);
-    console.log(user.idToken);
-    console.log(user.name);
-    environment.username=user.name;
-    // console.log("name", environment.username);
-    
-    
-    
-  
-    this.authBackendService.sendTokenToBackend(this.user.idToken).pipe(
-      tap((data: any) => {
-        console.log('success');
-        console.log(data);
-        const gtoken = data.token;
-       
-        localStorage.setItem("user_id", data.userId)
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(user);
+      console.log(user.idToken);
+      console.log(user.name);
+      environment.username = user.name;
 
-        console.log('Received gtoken:', gtoken);
-        
-        localStorage.setItem('token', gtoken);
-      
-        this.router.navigate([data.redirect]);
-      })
-    ).subscribe();
-  });
-}
+      // console.log("name", environment.username);
+
+      this.authBackendService
+        .sendTokenToBackend(this.user.idToken)
+        .pipe(
+          tap((data: any) => {
+            console.log('success');
+            console.log(data);
+            const gtoken = data.token;
+            // console.log(localStorage);
+            localStorage.setItem('user_id', data.userId);
+
+            console.log('Received gtoken:', gtoken);
+
+            localStorage.setItem('token', gtoken);
+
+            this.router.navigate([data.redirect]);
+          })
+        )
+        .subscribe();
+    });
+  }
   //for login usinfg username-password
   login() {
     // request to generate token

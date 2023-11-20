@@ -71,8 +71,10 @@ a{
  color: #acbac7;
 }
 a:hover,.active-link{
-    border: 1px solid white;
-    box-shadow: rgba(58, 57, 57, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  
+    background-color: #021d27;
+    box-shadow: 10px 10px 5px rgba(65, 66, 66, 0.26);
+    // box-shadow: rgba(58, 57, 57, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     color: white;
 }
 .bottom{

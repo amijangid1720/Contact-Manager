@@ -28,7 +28,7 @@ export class ProfileComponent {
   };
   user_id!:number;
   selectedFile: File | null = null;
-  
+  isButtonDisabled:boolean=false;
   constructor(
     private http: HttpClient,
     private manipulateuser: ManipulateUserService,
@@ -48,7 +48,7 @@ export class ProfileComponent {
       this.user=data;
       this.firstName =data.firstName;
       this.lastName = data.lastName;
-      this.Name = data.firstName + data.lastName;
+      this.Name = data.firstName +" "+ data.lastName;
       this.email = data.email;
       this.gender=data.gender
       console.log("user",this.user);
@@ -64,7 +64,7 @@ onFileSelected(event: any) {
   this.selectedFile = event.target.files[0] as File;
 }
 onSubmit(userForm: NgForm) {
-  
+  this.isButtonDisabled = true;
   if (userForm.valid) {
     const userId = localStorage.getItem('user_id');
     if (userId !== null) {
