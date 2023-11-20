@@ -17,6 +17,7 @@ public class UserInfoRequest {
     private String phoneno;
     private String gender;
     private String address;
+    private String profilePicture;
 
     @Override
     public String toString() {
@@ -27,6 +28,7 @@ public class UserInfoRequest {
                 ", phoneno='" + phoneno + '\'' +
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
                 '}';
     }
 }

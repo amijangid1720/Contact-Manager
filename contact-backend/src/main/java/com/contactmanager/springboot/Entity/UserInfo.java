@@ -42,6 +42,9 @@ public class UserInfo {
     @Column(name = "detailsFilled")
     private Boolean detailsFilled;
 
+    @Column(name = "profilePicture")
+    private String profilePicture;
+
     @OneToOne
     @JoinColumn(name = "userid") // This column references the "id" column in the "user_login" table
     @JsonIgnore
@@ -58,6 +61,7 @@ public class UserInfo {
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
                 ", detailsFilled=" + detailsFilled +
+                ", profilePicture='" + profilePicture + '\'' +
                 ", user=" + user +
                 '}';
     }

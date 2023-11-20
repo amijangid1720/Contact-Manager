@@ -30,6 +30,13 @@ updateDetailsFilled(userid:number):Observable<any>{
   const url = `${environment.backendUrl}/api/v1/contacts/updateDetailsFilled/${userid}`;
   return this.http.put(url,userid);
 }
+
+
+uploadProfilePicture(formData: FormData,userid:number): Observable<any> {
+  const uploadUrl = `${environment.backendUrl}/upload-profile-picture/${userid}`; // Replace with your actual upload endpoint
+
+  return this.http.post(uploadUrl, formData);
+}
   
   deleteContact(id: string): Observable<any> {
     return this.http.delete(

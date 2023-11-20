@@ -9,6 +9,7 @@ import com.contactmanager.springboot.security.Repository.UserRepository;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
 //import com.contactmanager.springboot.security.user.UserSession;
+import com.contactmanager.springboot.services.FileStorageService;
 import com.contactmanager.springboot.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -21,9 +22,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 
-
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +41,8 @@ public class ContactController {
     @Autowired
     UserInfoService userInfoService;
 
+    @Autowired
+    FileStorageService fileStorageService;
 
     @Autowired
     ContactRepository contactRepository;
@@ -195,6 +199,28 @@ public class ContactController {
         return userInfo;
     }
 
+    //upload profile photo
+    @PostMapping("/upload-profile-picture/{userid}")
+    public ResponseEntity<String> handleFileUpload(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("userId") Integer userId) {
+
+        UserInfo userInfo = userInfoRepository.findById(userId).orElse(null);
+
+        if (userInfo == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            String fileName = fileStorageService.storeFile(file);
+            userInfo.setProfilePicture(fileName);
+            userInfoRepository.save(userInfo);
+
+            return new ResponseEntity<>("File uploaded successfully!", HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Error uploading file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @PutMapping("updateDetailsFilled/{id}")
     public ResponseEntity<String> userDetailsFilled(@PathVariable Integer id){
