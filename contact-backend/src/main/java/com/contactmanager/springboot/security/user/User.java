@@ -2,6 +2,7 @@ package com.contactmanager.springboot.security.user;
 
 import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.contacts.Contact;
+import com.contactmanager.springboot.security.token.RefreshToken;
 import com.contactmanager.springboot.security.token.Token;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -50,7 +51,9 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
     }
-
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    private RefreshToken refreshToken;
     @Override
     public String toString() {
         return "User{" +

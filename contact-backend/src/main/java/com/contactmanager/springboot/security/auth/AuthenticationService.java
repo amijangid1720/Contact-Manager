@@ -3,10 +3,9 @@ package com.contactmanager.springboot.security.auth;
 import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.Repository.UserInfoRepository;
 import com.contactmanager.springboot.security.Repository.UserRepository;
+import com.contactmanager.springboot.security.services.RefreshTokenService;
 import com.contactmanager.springboot.security.services.jwtService;
-import com.contactmanager.springboot.security.token.Token;
-import com.contactmanager.springboot.security.token.TokenRepository;
-import com.contactmanager.springboot.security.token.TokenType;
+import com.contactmanager.springboot.security.token.*;
 import com.contactmanager.springboot.security.user.User;
 import com.contactmanager.springboot.security.user.Role;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +29,12 @@ public class AuthenticationService {
 
     @Autowired
     private final TokenRepository tokenRepository;
+
+    @Autowired
+    private final RefreshTokenService refreshTokenService;
+
+    @Autowired
+    RefreshTokenRepository refreshTokenRepository;
 
     @Autowired
     private UserInfoRepository userInfoRepository;
@@ -73,6 +78,9 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
+
+
+
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -84,8 +92,11 @@ public class AuthenticationService {
         var user=repository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken=JwtService.generateToken(user);
+        var refreshToken=refreshTokenService.createRefreshToken(request.getEmail());
+
         saveUserToken(user, jwtToken);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+
+        return AuthenticationResponse.builder().token(jwtToken).refreshToken(refreshToken.getToken().toString()).build();
     }
 
     private void revokeAllUserTokens(User user) {

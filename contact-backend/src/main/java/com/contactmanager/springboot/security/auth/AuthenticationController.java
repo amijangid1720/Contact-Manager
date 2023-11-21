@@ -1,5 +1,9 @@
 package com.contactmanager.springboot.security.auth;
 
+import com.contactmanager.springboot.security.services.RefreshTokenService;
+import com.contactmanager.springboot.security.services.jwtService;
+import com.contactmanager.springboot.security.token.RefreshToken;
+import com.contactmanager.springboot.security.user.User;
 import com.contactmanager.springboot.services.UserInfoService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -24,8 +28,14 @@ import java.util.Collections;
 public class AuthenticationController {
     @Autowired
     UserInfoService userInfoService;
-    private final com.contactmanager.springboot.security.auth.AuthenticationService service;
 
+    @Autowired
+    private final com.contactmanager.springboot.security.auth.AuthenticationService service;
+    @Autowired
+    private final jwtService jwtservice;
+
+    @Autowired
+    private RefreshTokenService refreshTokenService;
     @PostMapping("/register")
     public ResponseEntity<com.contactmanager.springboot.security.auth.AuthenticationResponse> register(
             @RequestBody com.contactmanager.springboot.security.auth.RegisterRequest request
@@ -99,5 +109,18 @@ public class AuthenticationController {
         return new DuplicateCheckResponse(emailExists, phoneExists);
     }
 
+    @PostMapping("/refresh")
+    public AuthenticationResponse refreshJwtToken(@RequestBody RefreshTokenRequest refreshTokenRequest)
+    {
+        RefreshToken refreshToken=refreshTokenService.verifyRefreshToken(refreshTokenRequest.getRefreshToken());
+
+        User user=refreshToken.getUser();
+        String token =this.jwtservice.generateToken(user);
+        return AuthenticationResponse.builder()
+                .token(token)
+                .refreshToken(refreshToken.getToken())
+                .build();
+
+    }
 
 }

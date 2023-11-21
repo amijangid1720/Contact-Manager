@@ -25,7 +25,15 @@ import java.util.Base64;
 public class jwtService {
     @Autowired
     UserRepository userRepository;
-    private static final String SECRET_KEY="5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+    @Value("${contact-manager.app.SECRET_KEY}")
+    private String SECRET_KEY;
+
+    @Value("${contact-manager.app.REFRESH_SECRET_KEY}")
+    private String REFRESH_SECRET_KEY;
+
+    @Value("${contact-manager.app.tokenValidity}")
+    private Long TOKEN_VALIDITY;
+
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -58,7 +66,7 @@ public class jwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 120))
+                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
 
@@ -84,4 +92,6 @@ public class jwtService {
         byte[] keyBytes= Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
+
 }
