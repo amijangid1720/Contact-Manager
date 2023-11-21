@@ -2,7 +2,7 @@ import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
-import { faArrowRightFromBracket,faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket,faUser, faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../environment';
 import { LoginService } from '../service/login.service';
 
@@ -22,30 +22,11 @@ export class Navbar1Component {
   ) {}
   loggedin!: boolean;
   faUser = faUser;
+  faPowerOff = faPowerOff;
   faArrowRightFromBracket = faArrowRightFromBracket;
   firstName: string = environment.username;
 
-  // ngOnInit(){
-  //   this.loggedin= this.tokenservice.isLoggedin();
-  //   console.log(this.loggedin);
-  //   const yourAuthToken = localStorage.getItem('token');
-
-  //   if (yourAuthToken !== null) { // Check if it's not null
-  //     this.tokenservice.getUserName().subscribe({
-  //       next: (res) => {
-  //         console.log(res);
-
-  //         this.firstName = res.firstName;;
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //       },
-  //     });
-  //   } else {
-  //     console.error("Token not found in localStorage."); // Handle this case
-  //     this.signOut();
-  //   }
-  // }
+  
   ngOnInit() {
     this.loggedin = this.tokenservice.isLoggedin();
     console.log(this.loggedin);

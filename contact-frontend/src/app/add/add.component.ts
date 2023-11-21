@@ -34,24 +34,56 @@ export class AddComponent {
    description:"",
   };
   searchTerm:string="";
+ 
+
   onSubmit(contactForm: NgForm) {
     if (contactForm.valid) {
-      this.addService.addContact(this.contact).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.toasterService.showContactAdded();
-          setTimeout(()=>{
-            this.router.navigateByUrl('/dashboard');
-          },1000)
-          
-        },
-        error: (err) => {
-          console.log(err);
-        },
+      const phoneno = this.contact.phoneno;
+      const phone = parseInt(phoneno, 10);
+  
+      this.addService.checkContact(this.contact.email, phone).subscribe((resultData: any) => {
+        console.log(resultData, 'hjkh');
+  
+        if (resultData.emailExists || resultData.phoneExists) {
+          if (resultData.emailExists && resultData.phoneExists) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Email And Phone Number Exists!',
+            });
+          } else if (resultData.emailExists) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Email Exists! ',
+            });
+          } else if (resultData.phoneExists) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Phone Number Exists! ',
+            });
+          }
+        } else {
+          this.addService.addContact(this.contact).subscribe({
+            next: (res) => {
+              console.log(res);
+              this.toasterService.showContactAdded();
+              setTimeout(() => {
+                this.router.navigateByUrl('/dashboard');
+              }, 1000);
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+        }
       });
-
     } else {
-      // Handle form validation errors
+      // handle errors
+      console.log("error");
     }
   }
-}
+  }
+
+   

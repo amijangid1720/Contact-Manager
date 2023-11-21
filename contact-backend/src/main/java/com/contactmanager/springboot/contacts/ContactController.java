@@ -6,6 +6,8 @@ import com.contactmanager.springboot.Repository.UserInfoRepository;
 import com.contactmanager.springboot.Entity.UserInfoRequest;
 import com.contactmanager.springboot.Repository.UserInfoRepository;
 import com.contactmanager.springboot.security.Repository.UserRepository;
+import com.contactmanager.springboot.security.auth.DuplicateCheckRequest;
+import com.contactmanager.springboot.security.auth.DuplicateCheckResponse;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
 //import com.contactmanager.springboot.security.user.UserSession;
@@ -58,9 +60,6 @@ public class ContactController {
     @PostMapping("/")
     public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication)
    {
-//        User loggedInUser = userSession.getCurrentUser();
-
-//        // Get the currently authenticated user
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
 
         // Create a Contact object and associate it with the logged-in user
@@ -74,17 +73,15 @@ public class ContactController {
         contact.setPhoneno(contactRequest.getPhoneno());
 
         // Set the logged-in user as the owner of the contact
-      contact.setUser(loggedInUser);
+        contact.setUser(loggedInUser);
         // Save the contact
         contactService.addContact(contact);
-//        contactService.addContact(contact);
         return ResponseEntity.ok(contactRequest);
     }
 
 
 
     //id of the contact who we want to delete
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map<String, Object>> deleteContact(@PathVariable Integer id, Authentication authentication) {
         System.out.println(authentication.getName());
@@ -254,4 +251,13 @@ public class ContactController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }
     }
+
+    @PostMapping("/checkDuplicateContact")
+    public DuplicateCheckResponse checkDuplicateContact(@RequestBody DuplicateCheckRequest request) {
+        boolean emailExists = contactService.checkEmailExists(request.getEmail());
+        boolean phoneExists = contactService.checkPhoneExists(request.getPhoneno());
+
+        return new DuplicateCheckResponse(emailExists, phoneExists);
+    }
+
 }
