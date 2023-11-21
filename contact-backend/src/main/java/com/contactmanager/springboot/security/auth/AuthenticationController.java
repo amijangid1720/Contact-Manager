@@ -110,16 +110,17 @@ public class AuthenticationController {
     }
 
     @PostMapping("/refresh")
-    public AuthenticationResponse refreshJwtToken(@RequestBody RefreshTokenRequest refreshTokenRequest)
+    public ResponseEntity<AuthenticationResponse> refreshJwtToken(@RequestBody RefreshTokenRequest refreshTokenRequest)
     {
         RefreshToken refreshToken=refreshTokenService.verifyRefreshToken(refreshTokenRequest.getRefreshToken());
 
         User user=refreshToken.getUser();
         String token =this.jwtservice.generateToken(user);
-        return AuthenticationResponse.builder()
+        AuthenticationResponse response= AuthenticationResponse.builder()
                 .token(token)
                 .refreshToken(refreshToken.getToken())
                 .build();
+        return ResponseEntity.ok(response);
 
     }
 
