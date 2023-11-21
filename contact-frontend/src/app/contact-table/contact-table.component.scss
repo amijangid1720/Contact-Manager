@@ -5,11 +5,21 @@
   flex-direction: column;
  margin: 20px;
 }
-table {
-  width: 55vw;
-  margin-top: 20px;
-  border-radius: 20px;
-  background-color: opacity($color: #0c3d75);
+// table {
+//   width: 55vw;
+//   margin-top: 20px;
+//   border-radius: 20px;
+//   background-color: opacity($color: #0c3d75);
+
+// }
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.295);
+  border: 1px solid #ddd;
 }
 
 
@@ -33,18 +43,6 @@ table {
   background-color: opacity($color: #0c3d75);
 }
 
-// button {
-//   // padding-right: .3vw;
-//   background-color: #176b87;
-//   margin-right: 1vw;
-//   width: 5vw;
-//   align-items: center;
-//   color: white;
-// }
-
-.fa-2x {
-  font-size: 100em;
-}
 .iconspace {
   display: grid;
   height: 6vh;
@@ -67,7 +65,7 @@ input{
   border-top-left-radius: 1.5vw;
   border-bottom-left-radius: 1.5vw;
   background-color: rgba(255, 255, 255, 0.527);
-  color: rgb(214, 221, 226) !important;
+  color: rgb(0, 6, 10) !important;
 
   border: none;
 }
@@ -79,7 +77,7 @@ input:focus{
 
 input[type="text"]::placeholder {
   
-  color: rgb(24, 19, 19); /* Replace with the desired color code */
+  color: rgb(54, 51, 51); /* Replace with the desired color code */
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .search{
@@ -107,6 +105,12 @@ input[type="text"]::placeholder {
     background-color: #021d27;
 
   }
+ 
+    .image img {
+      width: 20px; /* Adjust the width of the image for smaller screens */
+      height: 20px; /* Adjust the height of the image for smaller screens */
+      margin-right: 5px; /* Adjust margin for smaller screens */
+    }
 
   .iconspace {
     display: grid;
@@ -119,29 +123,9 @@ input[type="text"]::placeholder {
   flex-direction: column;
   justify-content: center;
 }
-// .search-bar{
-//   display: flex;
-//   flex-direction: row;
-//   margin-bottom: .5vw;
- 
-//   // margin-bottom: 80px;
-// }
-
-// input{
-//   width: 600px;
-//   height: 50px;
-//   width: 70%;
-//   border-radius: 1vw;
-//   padding: 1vw;
-// }
-// button{
-//   width: 200px;
-//   height: 50px;
-//     background-color: rgba(255, 255, 255, 0.13);
-//     width: 10%;
-//     border-radius: 10px;
-// //     color: white;
-// }
+.imagebox{
+  padding-left: 10px;
+}
 
 
 .pagenation{
@@ -151,6 +135,16 @@ input[type="text"]::placeholder {
 .image{
   text-align: center;
 }
+
+
+.image img {
+  width: 100px; /* Adjust the width of the image to make it an icon size */
+  height: 50px; /* Adjust the height of the image to make it an icon size */
+  // border-radius: 80%; /* Make the image circular */
+  border: 2px solid rgb(5, 0, 0); /* Add a border around the image */
+  margin-right: 20px; /* Add some margin to the right of the image */
+}
+
 .table {
   border-collapse: separate;
   border-spacing: 0;
@@ -162,11 +156,13 @@ input[type="text"]::placeholder {
 
 }
 
+
 .table thead th,
 .table tbody td {
    /* Add border color if needed */
-  padding: 8px;
+   padding: 10px;
   text-align: left;
+  padding-top: 3vh;
 }
 
 .table thead th {
@@ -200,6 +196,27 @@ input[type="text"]::placeholder {
 //   background-color: red;
 // }
 
+@media screen and (max-width: 771px) {
+  .table thead {
+    display: none;
+  }
 
+  .table tbody td {
+    display: block;
+    text-align: left;
+    padding: 8px;
+  }
+
+  .table tbody td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .table tbody td:last-child {
+    border-bottom: none;
+  }
+}
 
 

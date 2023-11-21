@@ -71,7 +71,7 @@
       </thead>
       <tbody>
         <tr class="table-body" *ngFor="let contact of contacts; index as i">
-          <td scope="col-1">   
+          <td scope="col-1" class="imagebox">   
             <div class="image">
             <img
             class="rounded-circle"
@@ -79,7 +79,7 @@
             *ngIf="contact.gender== 'Female'"
             src="../../assets/girl.png"
             alt="female"
-            style="width:20%"
+             style="width:60%"
           />
           <img
             class="rounded-circle"
@@ -87,7 +87,7 @@
             *ngIf="contact.gender === 'Male'"
             src="../../assets/boy.jpg"
             alt="male"
-            style="width: 20%"
+            style="width: 60%"
           /> 
            </div>
           </td>
