@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  //for login usinfg username-password
+  //for login usinfg username-passwordAmi@1234
   login() {
     // request to generate token
     this.tokenService
