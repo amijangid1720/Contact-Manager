@@ -18,7 +18,7 @@
   width: 100%;
   border-radius: 14px;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.295);
+  background-color: #ffffff4b;
   border: 1px solid #ddd;
 }
 
@@ -64,11 +64,19 @@ input{
   padding-left:4%;
   border-top-left-radius: 1.5vw;
   border-bottom-left-radius: 1.5vw;
-  background-color: rgba(255, 255, 255, 0.527);
+  background-color: #ffffff86;
   color: rgb(0, 6, 10) !important;
 
   border: none;
 }
+
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 
 input:focus{
   outline: none;

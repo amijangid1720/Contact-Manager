@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { ContactTableComponent } from './contact-table/contact-table.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 const routes: Routes = [
   {
@@ -76,6 +77,11 @@ const routes: Routes = [
         component: ProfileComponent,
         canActivate: [authGuard],
       },
+      {
+        path:'favorite',
+        component:FavoriteComponent,
+        canActivate:[authGuard],
+      }
       
     ],
   },

@@ -17,6 +17,7 @@ public class ContactRequest {
     private String phoneno;
     private String gender;
     private String description;
+   private String favourite;
 
     // Constructors, getters, and setters
 

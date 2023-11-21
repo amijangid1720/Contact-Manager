@@ -7,6 +7,7 @@ import {
   faUserPlus,
   faUser,
   faLock,
+  faHeart
 } from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from '../service/login.service';
 
@@ -20,6 +21,7 @@ export class HomeComponent {
   faUserPlus = faUserPlus;
   faLock = faLock;
   faUser = faUser;
+  faHeart = faHeart;
   loggedin!: boolean;
   constructor(
     private tokenservice: TokenService,

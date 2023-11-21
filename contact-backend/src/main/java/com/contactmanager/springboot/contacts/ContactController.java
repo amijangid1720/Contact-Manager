@@ -28,13 +28,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins ="http://localhost:4200")
 @RequestMapping("api/v1/contacts")
 public class ContactController {
     @Autowired
@@ -71,7 +68,7 @@ public class ContactController {
         contact.setEmail(contactRequest.getEmail());
         contact.setDescription(contactRequest.getDescription());
         contact.setPhoneno(contactRequest.getPhoneno());
-
+        contact.setFavorite(false);
         // Set the logged-in user as the owner of the contact
         contact.setUser(loggedInUser);
         // Save the contact
@@ -100,16 +97,34 @@ public class ContactController {
     }
 
 
-    @GetMapping("/findAll")
-    public Page<Contact> findAllContacts(
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "10") int size,
-            Authentication authentication
-    ) throws Exception {
-        User user = userService.loadUserByEmail(authentication.getName());
-        Pageable pageable = PageRequest.of(page, size);
-        return contactRepository.findByUserId(user.getId(), pageable);
-    }
+//    @GetMapping("/findAll")
+//    public Page<Contact> findAllContacts(
+//            @RequestParam(name = "page", defaultValue = "0") int page,
+//            @RequestParam(name = "size", defaultValue = "10") int size,
+//            Authentication authentication
+//    ) throws Exception {
+//        User user = userService.loadUserByEmail(authentication.getName());
+//
+//        Pageable pageable = PageRequest.of(page, size);
+//        return contactRepository.findByUserId(user.getId(), pageable);
+//    }
+@GetMapping("/findAll")
+public ResponseEntity<contactResponse> findAllContacts(
+        @RequestParam(name = "page", defaultValue = "0") int page,
+        @RequestParam(name = "size", defaultValue = "10") int size,
+        Authentication authentication
+) throws Exception {
+    User user = userService.loadUserByEmail(authentication.getName());
+
+    Pageable pageable = PageRequest.of(page, size);
+    Page<Contact> contactPage = contactRepository.findByUserId(user.getId(), pageable);
+
+    contactResponse response = new contactResponse();
+    response.setContacts(contactPage.getContent());
+    response.setTotalContacts(contactPage.getTotalElements());
+
+    return ResponseEntity.ok(response);
+}
 
 
 
@@ -260,4 +275,20 @@ public class ContactController {
         return new DuplicateCheckResponse(emailExists, phoneExists);
     }
 
-}
+
+    // Add this method to your ContactController class
+    @PatchMapping("/{contactId}/favorite")
+    public ResponseEntity<Contact> toggleFavorite(@PathVariable Integer contactId, @RequestBody Boolean isFavorite) {
+        try {
+            Contact updatedContact = contactService.toggleFavorite(contactId, isFavorite);
+            return ResponseEntity.ok(updatedContact);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    }
+
+

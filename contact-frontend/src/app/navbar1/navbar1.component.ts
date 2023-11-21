@@ -2,7 +2,11 @@ import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
-import { faArrowRightFromBracket,faUser, faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRightFromBracket,
+  faUser,
+  faPowerOff,
+} from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../environment';
 import { LoginService } from '../service/login.service';
 
@@ -26,13 +30,14 @@ export class Navbar1Component {
   faArrowRightFromBracket = faArrowRightFromBracket;
   firstName: string = environment.username;
 
-  
   ngOnInit() {
     this.loggedin = this.tokenservice.isLoggedin();
     console.log(this.loggedin);
     const yourAuthToken = localStorage.getItem('token');
+    console.log(yourAuthToken);
 
-    if (yourAuthToken !== null) {
+    if (yourAuthToken) {
+      console.log('hi');
       this.tokenservice.getUserName().subscribe({
         next: (res) => {
           console.log(res);

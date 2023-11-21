@@ -16,6 +16,7 @@ import {
   SocialLoginModule,
   GoogleSigninButtonModule,
 } from '@abacritt/angularx-social-login';
+
 import { Navbar1Component } from './navbar1/navbar1.component';
 import { ContactTableComponent } from './contact-table/contact-table.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -32,6 +33,8 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ProfileComponent } from './profile/profile.component';
 import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
+import { FavoriteComponent } from './favorite/favorite.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 const config: SocialAuthServiceConfig = {
   providers: [
     {
@@ -57,6 +60,8 @@ const config: SocialAuthServiceConfig = {
     HomeComponent,
     ProfileComponent,
     UserDetailsFormComponent,
+    FavoriteComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -70,7 +75,7 @@ const config: SocialAuthServiceConfig = {
     ToastModule,
     ConfirmDialogModule,
     HttpClientModule,
-
+    MatProgressSpinnerModule,
     PaginatorModule,
 
     PasswordModule,

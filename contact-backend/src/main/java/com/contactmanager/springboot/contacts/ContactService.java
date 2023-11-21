@@ -11,6 +11,7 @@ import java.util.Optional;
 public class ContactService {
     @Autowired
     ContactRepository contactRepository;
+
     public void addContact(Contact contact) {
         contactRepository.save(contact);
     }
@@ -21,20 +22,30 @@ public class ContactService {
     }
 
 
-
     public boolean checkEmailExists(String email) {
 
-        Optional<Contact> contact=contactRepository.findByEmail(email);
-        if(contact.isEmpty()) return false;
+        Optional<Contact> contact = contactRepository.findByEmail(email);
+        if (contact.isEmpty()) return false;
         else return true;
     }
 
     public boolean checkPhoneExists(String phoneno) {
-        Optional<Contact> userInfo=contactRepository.findByPhoneno(phoneno);
+        Optional<Contact> userInfo = contactRepository.findByPhoneno(phoneno);
         System.out.println("------------------------------------------------------");
         System.out.println(userInfo);
-        if(userInfo.isEmpty()) return false;
+        if (userInfo.isEmpty()) return false;
         else return true;
     }
 
+    public Contact toggleFavorite(Integer contactId, Boolean favorite) {
+        Optional<Contact> optionalContact = contactRepository.findById(contactId);
+        if (optionalContact.isPresent()) {
+            Contact contact = optionalContact.get();
+            contact.setFavorite(favorite);
+            return contactRepository.save(contact);
+        } else {
+            System.out.println("no contact found with id :" + contactId);
+            return null;
+        }
+    }
 }

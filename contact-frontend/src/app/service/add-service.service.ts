@@ -35,4 +35,11 @@ return this.http.put(url,user);
          const url = `${environment.backendUrl}/api/v1/contacts/checkDuplicateContact`;
     return this.http.post(url, {email, phoneno})
         }
+
+
+        toggleFavorite(contactId: number, isFavorite: boolean): Observable<void> {
+          const url = `${environment.backendUrl}/api/v1/contacts/${contactId}/favorite`;
+          return this.http.patch<void>(url, isFavorite);  // Send only the boolean value
+        }
+        
 }

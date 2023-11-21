@@ -81,6 +81,27 @@
                 Profile
               </a>
             </li>
+
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                routerLink="favorite"
+                routerLinkActive="active-link"
+              >
+                <fa-icon
+                  [icon]="faHeart"
+                  size="2x"
+                  [styles]="{
+                    stroke: 'red',
+                    color: '#dfe2e7',
+                    'font-size': '20px',
+                    'margin-right': '12px'
+                  }"
+                ></fa-icon>
+                Favorite
+              </a>
+            </li>
+
             <li class="nav-item bottom">
               <a class="nav-link active" routerLink="" (click)="signOut()">
                 <fa-icon
