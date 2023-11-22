@@ -4,46 +4,41 @@ import { Observable } from 'rxjs';
 import { environment } from '../environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenService {
   constructor(private http: HttpClient) {}
 
-  public isLoggedin():boolean{
-    if(localStorage.getItem('token'))
-      return true;
-    else
-        return false;
+  public isLoggedin(): boolean {
+    if (localStorage.getItem('token')) return true;
+    else return false;
   }
 
-  public getToken(email :string,password:string) :Observable<any>{
-  
+  public getToken(email: string, password: string): Observable<any> {
     const params = {
       email: email,
-      password: password
+      password: password,
     };
-    return this.http.post(`${environment.backendUrl}/api/v1/auth/authenticate`, { ... params });
+    return this.http.post(
+      `${environment.backendUrl}/api/v1/auth/authenticate`,
+      { ...params }
+    );
   }
 
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
 
-   
     if (token) {
-     
-      return true; 
+      return true;
     }
 
-    return false; 
+    return false;
   }
 
-  public getUserName(): Observable<any>{
+  public getUserName(): Observable<any> {
     return this.http.get(`${environment.backendUrl}/api/v1/contacts/info`);
-
   }
-  public fetchToken():any{
+  public fetchToken(): any {
     return localStorage.getItem('token');
   }
-
-
 }

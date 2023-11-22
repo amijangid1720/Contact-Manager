@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     private tokenService: TokenService,
     private authService: SocialAuthService,
     private authBackendService: AuthService,
-    private messageService:MessageService
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
           }
           localStorage.setItem('token', res.token);
           this.router.navigateByUrl('table');
-
         },
         error: (err) => {
           console.log(err);
@@ -64,13 +63,15 @@ export class LoginComponent implements OnInit {
     this.tokenService
       .getToken(this.loginData.email, this.loginData.password)
       .subscribe(
-        (data: any) => {
+        (data: { token: string; refreshToken: string }) => {
           console.log('success');
           console.log(data);
           const token = data.token;
+          const refreshToken = data.refreshToken;
 
           // Store the token in a secure location (e.g., local storage)
           localStorage.setItem('token', token);
+          localStorage.setItem('refreshToken', refreshToken);
 
           // Redirect to the authenticated page (adjust the route as needed)
           this.router.navigateByUrl('dashboard');

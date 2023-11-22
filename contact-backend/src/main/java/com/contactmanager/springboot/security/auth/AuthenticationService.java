@@ -67,7 +67,7 @@ public class AuthenticationService {
 
     }
 
-    private void saveUserToken(User savedUser, String jwtToken) {
+    public void saveUserToken(User savedUser, String jwtToken) {
         var token= Token.builder()
                 .user(savedUser)
                 .token(jwtToken)
@@ -99,7 +99,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder().token(jwtToken).refreshToken(refreshToken.getToken()).build();
     }
 
-    private void revokeAllUserTokens(User user) {
+    public void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
         if (validUserTokens.isEmpty())
             return;

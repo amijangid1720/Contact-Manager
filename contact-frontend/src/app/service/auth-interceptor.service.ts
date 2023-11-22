@@ -1,30 +1,79 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, switchMap, take } from 'rxjs/operators';
 import { TokenService } from './token.service';
+import { TokenRefreshService } from './token-refresh.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthInterceptorService implements HttpInterceptor{
+export class AuthInterceptorService implements HttpInterceptor {
+  constructor(
+    private tokenService: TokenService,
+    private tokenRefreshService: TokenRefreshService
+  ) {}
 
-  constructor(private tokenService:TokenService) { }
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Retrieve the authentication token from local storage
-    const authToken = localStorage.getItem('token');
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    const authToken = this.tokenService.fetchToken();
 
-    // Clone the request and add the Authorization header if the token exists
     if (authToken) {
-      const modifiedRequest = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-      return next.handle(modifiedRequest);
-    } else {
-      // Handle the case where the authentication token is not available
-      return next.handle(request);
+      request = this.addToken(request, authToken);
     }
-  }
+
+    return next.handle(request).pipe(
+      catchError((error) => {
+        if (error.status === 401 || error.status == 403) {
+          // Token expired, attempt to refresh
+          console.log('Token Expired');
+
+          return this.handle401Error(request, next);
+        }
+
+        return throwError(error);
+      })
+    );
   }
 
+  private addToken(request: HttpRequest<any>, token: string): HttpRequest<any> {
+    return request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  private handle401Error(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<any> {
+    return this.tokenRefreshService.refresh().pipe(
+      take(1),
+      switchMap(
+        (response) => {
+          const newToken = response.token;
+
+          // Update the token in local storage
+          localStorage.setItem('token', newToken);
+
+          // Retry the request with the new token
+          request = this.addToken(request, newToken);
+          return next.handle(request);
+        },
+        (error) => {
+          // Handle refresh token error
+          console.error('Error refreshing token', error);
+          // You can propagate the error to the original observable
+        }
+      )
+    );
+  }
+}

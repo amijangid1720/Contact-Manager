@@ -3,6 +3,8 @@ package com.contactmanager.springboot.security.auth;
 import com.contactmanager.springboot.security.services.RefreshTokenService;
 import com.contactmanager.springboot.security.services.jwtService;
 import com.contactmanager.springboot.security.token.RefreshToken;
+import com.contactmanager.springboot.security.token.Token;
+import com.contactmanager.springboot.security.token.TokenRepository;
 import com.contactmanager.springboot.security.user.User;
 import com.contactmanager.springboot.services.UserInfoService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -12,6 +14,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,8 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 
+import static com.contactmanager.springboot.security.token.TokenType.BEARER;
+
 @RestController
 @RequestMapping("api/v1/auth")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -28,7 +33,8 @@ import java.util.Collections;
 public class AuthenticationController {
     @Autowired
     UserInfoService userInfoService;
-
+    @Autowired
+    TokenRepository tokenRepository;
     @Autowired
     private final com.contactmanager.springboot.security.auth.AuthenticationService service;
     @Autowired
@@ -116,6 +122,9 @@ public class AuthenticationController {
 
         User user=refreshToken.getUser();
         String token =this.jwtservice.generateToken(user);
+
+        service.revokeAllUserTokens(user);
+        service.saveUserToken(user,token);
         AuthenticationResponse response= AuthenticationResponse.builder()
                 .token(token)
                 .refreshToken(refreshToken.getToken())
