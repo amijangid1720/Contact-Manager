@@ -45,11 +45,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      // {
-      //   path: '',
-      //   redirectTo: 'dashboard', // Redirect to 'dashboard' when the path is empty
-      //   pathMatch: 'full',
-      // },
+      
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -81,10 +77,18 @@ const routes: Routes = [
         path:'favorite',
         component:FavoriteComponent,
         canActivate:[authGuard],
+        children:[
+          {
+            path: 'update-contact/:id',
+            component: UpdateContactComponent,
+            canActivate: [authGuard],
+          },
+        ]
       }
       
     ],
   },
+
 ];
 
 @NgModule({

@@ -97,17 +97,7 @@ public class ContactController {
     }
 
 
-//    @GetMapping("/findAll")
-//    public Page<Contact> findAllContacts(
-//            @RequestParam(name = "page", defaultValue = "0") int page,
-//            @RequestParam(name = "size", defaultValue = "10") int size,
-//            Authentication authentication
-//    ) throws Exception {
-//        User user = userService.loadUserByEmail(authentication.getName());
-//
-//        Pageable pageable = PageRequest.of(page, size);
-//        return contactRepository.findByUserId(user.getId(), pageable);
-//    }
+
 @GetMapping("/findAll")
 public ResponseEntity<contactResponse> findAllContacts(
         @RequestParam(name = "page", defaultValue = "0") int page,
@@ -262,6 +252,16 @@ public ResponseEntity<contactResponse> findAllContacts(
         try {
             List<Contact> matchingContacts = contactService.searchContacts(searchQuery);
             return ResponseEntity.ok(matchingContacts);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
+        }
+    }
+
+    @GetMapping("/favorite/{userid}")
+    public ResponseEntity<List<Contact>> favoriteContacts(@PathVariable Integer userid) {
+        try {
+            List<Contact> favorite = contactService.favoriteContacts(userid);
+            return ResponseEntity.ok(favorite);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }

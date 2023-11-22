@@ -15,6 +15,11 @@ export class ManipulateUserService implements OnInit {
     return this.http.get(`${environment.backendUrl}/api/v1/contacts/findAll?page=${page}&size=${size}`);
   }
 
+  getFavorite(userid:number):Observable<any>{
+    const url = `${environment.backendUrl}/api/v1/contacts/favorite/${userid}`;
+    return this.http.get(url);
+
+  }
   getUserById(userid: number): Observable<any> {
     const url = `${environment.backendUrl}/api/v1/contacts/userinfo/${userid}`;
     return this.http.get(url);

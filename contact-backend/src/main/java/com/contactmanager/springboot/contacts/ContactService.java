@@ -21,6 +21,9 @@ public class ContactService {
         return contactRepository.searchContacts(search);
     }
 
+    public List<Contact> favoriteContacts(Integer userId) {
+        return contactRepository.findByUserIdAndFavorite(userId, true);
+    }
 
     public boolean checkEmailExists(String email) {
 
