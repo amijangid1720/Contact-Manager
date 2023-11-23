@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
     private authService: SocialAuthService,
     private authBackendService: AuthService,
     private messageService: MessageService
-    private messageService: MessageService
   ) {}
 
   ngOnInit() {

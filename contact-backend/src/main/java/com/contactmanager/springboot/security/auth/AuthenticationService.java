@@ -73,7 +73,7 @@ public class AuthenticationService {
 
     }
 
-    private void saveUserToken(User savedUser, String jwtToken) {
+    public void saveUserToken(User savedUser, String jwtToken) {
         var token = Token.builder()
                 .user(savedUser)
                 .token(jwtToken)
