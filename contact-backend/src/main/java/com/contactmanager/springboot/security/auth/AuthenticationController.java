@@ -128,6 +128,7 @@ public class AuthenticationController {
         AuthenticationResponse response= AuthenticationResponse.builder()
                 .token(token)
                 .refreshToken(refreshToken.getToken())
+                .userid(user.getId())
                 .build();
         return ResponseEntity.ok(response);
 

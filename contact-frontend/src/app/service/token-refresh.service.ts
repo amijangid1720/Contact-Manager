@@ -12,6 +12,8 @@ export class TokenRefreshService {
 
   refresh(): Observable<any> {
     const refreshToken = localStorage.getItem('refreshToken');
+    console.log("calling refresh api");
+    
     const url = `${environment.backendUrl}/api/v1/auth/refresh`;
 
     return this.http.post(url, { refreshToken: refreshToken });

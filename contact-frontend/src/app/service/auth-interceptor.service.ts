@@ -5,8 +5,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, catchError, filter, switchMap, take, throwError } from 'rxjs';
 import { TokenService } from './token.service';
 import { TokenRefreshService } from './token-refresh.service';
 
@@ -14,66 +13,92 @@ import { TokenRefreshService } from './token-refresh.service';
   providedIn: 'root',
 })
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor(
-    private tokenService: TokenService,
-    private tokenRefreshService: TokenRefreshService
-  ) {}
+  private isRefreshing = false;
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
+    null
+  );
+  constructor(private tokenRefreshService: TokenRefreshService) {}
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    // Retrieve the authentication token from local storage
+    const authToken = localStorage.getItem('token');
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const authToken = this.tokenService.fetchToken();
-
+    // Clone the request and add the Authorization header if the token exists
     if (authToken) {
-      request = this.addToken(request, authToken);
+      const modifiedRequest = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      return next.handle(modifiedRequest).pipe(
+        catchError((error) => {
+          console.log('The error occuring during request');
+          console.log(error);
+          localStorage.removeItem('token');
+          if (error.status == 403 || error.status == 401) {
+            
+            return this.handleRefreshToken(request, next);
+          }
+
+          else
+          return throwError(() => error);
+        })
+      );
+    } else {
+      
+      return next.handle(request);
     }
+  }
+  handleRefreshToken(request: HttpRequest<any>, next: HttpHandler): any {
+    console.log('entering refresh logic');
+    return this.tokenRefreshService.refresh().pipe(
+      switchMap((data: any) => {
+        console.log('consoling data returned from refresh method');
 
-    return next.handle(request).pipe(
-      catchError((error) => {
-        if (error.status === 401 || error.status == 403) {
-          // Token expired, attempt to refresh
-          console.log('Token Expired');
+        console.log(data);
+        localStorage.setItem('token', data.token)
+        const newToken = data.token;
+        localStorage.setItem('refreshToken', data.refreshToken);
+        console.log("REQUEST   ",request)
+        return next.handle(
 
-          return this.handle401Error(request, next);
-        }
-
-        return throwError(error);
+          request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${newToken}`,
+            },
+          })
+          
+        );
       })
     );
   }
+  // private addToken(request: HttpRequest<any>, token: string) {
+  //   return request.clone({
+  //     setHeaders: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  // }
 
-  private addToken(request: HttpRequest<any>, token: string): HttpRequest<any> {
-    return request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  }
+  // private handleRefreshToken(request: HttpRequest<any>, next: HttpHandler) {
+  //   if (!this.isRefreshing) {
+  //     this.isRefreshing = true;
+  //     this.refreshTokenSubject.next(null);
 
-  private handle401Error(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<any> {
-    return this.tokenRefreshService.refresh().pipe(
-      take(1),
-      switchMap(
-        (response) => {
-          const newToken = response.token;
-
-          // Update the token in local storage
-          localStorage.setItem('token', newToken);
-
-          // Retry the request with the new token
-          request = this.addToken(request, newToken);
-          return next.handle(request);
-        },
-        (error) => {
-          // Handle refresh token error
-          console.error('Error refreshing token', error);
-          // You can propagate the error to the original observable
-        }
-      )
-    );
-  }
+  //     return this.tokenRefreshService.refresh().pipe(
+  //       switchMap((Token: any) => {
+  //         this.isRefreshing = false;
+  //         this.refreshTokenSubject.next(Token.token);
+  //         return next.handle(this.addToken(request, Token.token));
+  //       })
+  //     );
+  //   } else {
+  //     return this.refreshTokenSubject.pipe(
+  //       filter((token) => token != null),
+  //       take(1),
+  //       switchMap((jwt) => {
+  //         return next.handle(this.addToken(request, jwt));
+  //       })
+  //     );
+  //   }
+  // }
 }

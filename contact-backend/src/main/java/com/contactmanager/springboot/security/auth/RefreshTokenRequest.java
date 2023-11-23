@@ -10,4 +10,5 @@ import lombok.*;
 @ToString
 public class RefreshTokenRequest {
     private String refreshToken;
+
 }

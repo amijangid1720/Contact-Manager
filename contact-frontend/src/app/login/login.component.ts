@@ -63,15 +63,17 @@ export class LoginComponent implements OnInit {
     this.tokenService
       .getToken(this.loginData.email, this.loginData.password)
       .subscribe(
-        (data: { token: string; refreshToken: string }) => {
+        (data: { token: string,refreshToken: string,userid:string }) => {
           console.log('success');
           console.log(data);
           const token = data.token;
           const refreshToken = data.refreshToken;
+          const user_id=data.userid;
 
           // Store the token in a secure location (e.g., local storage)
           localStorage.setItem('token', token);
           localStorage.setItem('refreshToken', refreshToken);
+          localStorage.setItem('user_id', user_id);
 
           // Redirect to the authenticated page (adjust the route as needed)
           this.router.navigateByUrl('dashboard');
