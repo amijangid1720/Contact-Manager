@@ -9,6 +9,7 @@ faEnvelope,
 faPhone,
 faMinus
 } from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-favorite',
   templateUrl: './favorite.component.html',
@@ -21,9 +22,11 @@ export class FavoriteComponent {
   faPhone=faPhone;
   faMinus=faMinus;
   editingContactId: number | null = null;
+ 
   constructor(
     private manipulateuser: ManipulateUserService,
-    private router: Router
+    private router: Router,
+    private messageService:MessageService
   ) {}
 
   ngOnInit(): void {
@@ -62,9 +65,16 @@ export class FavoriteComponent {
     // Call the service method to remove the contact
     this.manipulateuser.removeFromFavorites(contactId).subscribe(() => {
       console.log("removed from fav");
-      
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Deleted',
+        detail: 'Favorite contact removed',
+      });
       // After successful removal, reload the favorite contacts
-      this.loadFavorite();
+      setTimeout(()=>{
+        this.loadFavorite();
+      },200)
+      
     });
 
 }

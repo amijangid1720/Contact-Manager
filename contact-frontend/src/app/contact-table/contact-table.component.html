@@ -127,8 +127,8 @@
                         color: '#021d27',
                         'font-size': '20px'
                       }"
-                      (click)="updateContact(contact, contact.id)"
-                      >Update >
+                      (click)="updateContact(contact, contact.id)" pTooltip="Edit"
+                      >
                     </fa-icon>
                   </div>
                   <div class="col">
@@ -140,7 +140,7 @@
                         color: '#021d27',
                         'font-size': '20px'
                       }"
-                      (click)="onDeleteContact(i.toString())"
+                      (click)="onDeleteContact(i.toString())" pTooltip="Delete"
                     ></fa-icon>
                   </div>
                   <div class="col">
@@ -150,7 +150,7 @@
                       [ngStyle]="{
                         color: contact.favorite ? '#021d27' : '#9EB8D9'
                       }"
-                      (click)="toggleFavorite(contact)"
+                      (click)="toggleFavorite(contact)" pTooltip="Favorite"
                       [styles]="{ 'font-size': '23px' }"
                     ></fa-icon>
                   </div>

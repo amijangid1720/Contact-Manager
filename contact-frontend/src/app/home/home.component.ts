@@ -7,7 +7,7 @@ import {
   faUserPlus,
   faUser,
   faLock,
-  faHeart
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from '../service/login.service';
 

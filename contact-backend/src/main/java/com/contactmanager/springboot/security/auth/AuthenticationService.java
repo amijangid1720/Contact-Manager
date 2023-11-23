@@ -67,9 +67,10 @@ public class AuthenticationService {
         // Save the UserInfo entity to the user_info table
         userInfoRepository.save(userInfo);
         var jwtToken = JwtService.generateToken(user);
+        var refreshToken=refreshTokenService.createRefreshToken(request.getEmail());
         revokeAllUserTokens(savedUser);
         saveUserToken(savedUser, jwtToken);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder().token(jwtToken).refreshToken(refreshToken.getToken()).userid(savedUser.getId()).build();
 
     }
 

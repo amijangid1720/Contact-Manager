@@ -27,7 +27,7 @@
           
           <div class="fav4 d-flex  justify-content-between">
           <h4 class="card-title name">{{ capitalizeFirstLetter(contact.firstname) + " " + contact.lastname}}</h4>
-          <div class=" del"  pInputText pTooltip="Enter your username"  (click)="removeFromFavorites(contact.id)">  <fa-icon
+          <div class=" del"  pInputText pTooltip="Remove"  (click)="removeFromFavorites(contact.id)">  <fa-icon
             [icon]="faMinus"
             size="2x" 
             [styles]="{ stroke: 'red', color: 'red;', 'font-size': '16px' ,'padding-right':'.5vw'}"
@@ -59,3 +59,7 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+<p-toast>[showTransformOptions]="'translateY(100%)'"
+  [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'1000ms'"
+  [showTransformOptions]="'translateX(100%)'"</p-toast>

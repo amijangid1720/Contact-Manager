@@ -44,7 +44,7 @@ removeFromFavorites(contactId: number):Observable<any>{
 
 
 uploadProfilePicture(formData: FormData,userid:number): Observable<any> {
-  const uploadUrl = `${environment.backendUrl}/upload-profile-picture/${userid}`; // Replace with your actual upload endpoint
+  const uploadUrl = `${environment.backendUrl}/api/v1/upload-profile-picture/${userid}`; // Replace with your actual upload endpoint
 
   return this.http.post(uploadUrl, formData);
 }

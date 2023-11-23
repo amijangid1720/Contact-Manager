@@ -5,6 +5,7 @@ import { TokenService } from '../service/token.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToasterService } from '../service/toaster.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-profile',
@@ -36,7 +37,7 @@ export class ProfileComponent {
     private manipulateuser: ManipulateUserService,
     private tokenservice: TokenService,
     private router:Router,
-    private toasterService: ToasterService
+    private messageService: MessageService
   
   ) {}
 
@@ -68,6 +69,7 @@ onFileSelected(event: any) {
 }
 onSubmit(userForm: NgForm) {
   this.isButtonDisabled = true;
+  
   if (userForm.valid) {
     const userId = localStorage.getItem('user_id');
     if (userId !== null) {
@@ -77,7 +79,11 @@ onSubmit(userForm: NgForm) {
           next: (res) => {
             console.log(res);
             // this.uploadProfilePicture(parsedUserId);
-            this.toasterService.showUserUpdated() ;
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Profile Updated Successfully',
+            });
           },
           error: (err) => {
             console.log(err);
