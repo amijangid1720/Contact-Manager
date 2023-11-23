@@ -6,17 +6,27 @@
           type="text"
           [(ngModel)]="searchTerm"
           placeholder="Search contacts"
+          style="color: black"
         />
-        <!-- <fa-icon
-        [icon]="faSearch"
-        size="2x"
-        [styles]="{ stroke: 'red', color: '#272829' }"
-        
-        >Update >
-      </fa-icon> -->
-        <button (click)="searchContacts()">Search</button>
+        <button class="search" (click)="searchContacts()">
+          <fa-icon
+            [icon]="faMagnifyingGlass"
+            size="2x"
+            [styles]="{ stroke: 'red', color: '#021D27;', 'font-size': '20px' }"
+          ></fa-icon>
+        </button>
       </div>
-
+      <hr
+        style="
+          height: 4px;
+          width: 80%;
+          text-align: left;
+          margin-left: 0;
+          border-width: 3px;
+          color: rgb(0, 0, 0);
+        "
+      />
+   
       <table class="table table-hover">
         <thead>
           <tr class="">
@@ -44,21 +54,58 @@
                 }"
               ></fa-icon>
             </th>
-            <th class="head" scope="col-3">Email</th>
+            <th class="head" scope="col-3" (click)="setSortField('email')">
+              Email
+              <fa-icon
+                [icon]="faCaretUp"
+                size="1x"
+                [ngStyle]="{
+                  display:
+                    sortField === 'email' && sortOrder === 'asc'
+                      ? 'inline'
+                      : 'none'
+                }"
+              ></fa-icon>
+              <fa-icon
+                [icon]="faCaretDown"
+                size="1x"
+                [ngStyle]="{
+                  display:
+                    sortField === 'email' && sortOrder === 'desc'
+                      ? 'inline'
+                      : 'none'
+                }"
+              ></fa-icon>
+            </th>
             <th class="head" scope="col-2">Phoneno</th>
             <th class="head" scope="col-2">work</th>
-
             <th class="head" scope="col-4">Options</th>
           </tr>
         </thead>
         <tbody>
           <tr class="table-body" *ngFor="let contact of contacts; index as i">
-            <td scope="col-1">{{ i + 1 }}</td>
+            <td scope="col-1" class="imagebox">
+              <div class="image">
+                <img
+                  class="rounded-circle"
+                  *ngIf="contact.gender == 'Female'"
+                  src="../../assets/girl.png"
+                  alt="female"
+                  style="width: 60%"
+                />
+                <img
+                  class="rounded-circle"
+                  *ngIf="contact.gender === 'Male'"
+                  src="../../assets/boy.jpg"
+                  alt="male"
+                  style="width: 60%"
+                />
+              </div>
+            </td>
             <td scope="col-3">{{ contact.name }}</td>
             <td scope="col-3">{{ contact.email }}</td>
             <td scope="col-2">{{ contact.phoneno }}</td>
             <td scope="col-2">{{ contact.work }}</td>
-
             <td scope="col-4">
               <div class="container-fluid">
                 <div class="icon row">
@@ -66,9 +113,11 @@
                     <fa-icon
                       [icon]="faPen"
                       size="2x"
-                      [styles]="{ stroke: 'red', color: '#021d27' }"
-                      pTooltip="Update Contact"
-                      tooltipPosition="top"
+                      [styles]="{
+                        stroke: 'red',
+                        color: '#021D27',
+                        'font-size': '20px'
+                      }"
                       (click)="updateContact(contact, contact.id)"
                       >Update >
                     </fa-icon>
@@ -77,10 +126,23 @@
                     <fa-icon
                       [icon]="faTrashCan"
                       size="2x"
-                      [styles]="{ stroke: 'red', color: '#021d27' }"
-                      pTooltip="Delete Contact"
-                      tooltipPosition="top"
+                      [styles]="{
+                        stroke: 'red',
+                        color: '#021D27',
+                        'font-size': '20px'
+                      }"
                       (click)="onDeleteContact(i.toString())"
+                    ></fa-icon>
+                  </div>
+                  <div class="col">
+                    <fa-icon
+                      [icon]="faHeart"
+                      size="2x"
+                      [ngStyle]="{
+                        color: contact.favorite ? '#021D27' : '#9EB8D9'
+                      }"
+                      
+                      [styles]="{ 'font-size': '23px' }"
                     ></fa-icon>
                   </div>
                 </div>
@@ -93,13 +155,13 @@
         (onPageChange)="onPageChange($event)"
         [first]="first"
         [rows]="rows"
-        [totalRecords]="120"
-        [rowsPerPageOptions]="[10, 20, 30]"
+        [totalRecords]="totalRecords"
+        [rowsPerPageOptions]="[5, 10, 15]"
         class="pagenation"
       ></p-paginator>
     </div>
-    <div></div>
   </div>
+</div>
   <p-toast
     [showTransformOptions]="'translateY(100%)'"
     [showTransitionOptions]="'1000ms'"
@@ -116,9 +178,11 @@
     </ng-template>
     <ng-template pTemplate="footer">
       <button
+        class="confirm"
         type="button"
         pButton
         icon="pi pi-times"
+        style="margin: 4%; background-color: #032B3A"
         label="No"
         (click)="cd.reject()"
       ></button>
@@ -126,9 +190,9 @@
         type="button"
         pButton
         icon="pi pi-check"
+        style="margin: 4%; background-color: #032B3A"
         label="Yes"
         (click)="cd.accept()"
       ></button>
     </ng-template>
   </p-confirmDialog>
-</div>

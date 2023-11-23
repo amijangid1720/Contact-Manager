@@ -5,9 +5,9 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, filter, switchMap, take, throwError } from 'rxjs';
-import { TokenService } from './token.service';
+import { BehaviorSubject, Observable, catchError, filter, switchMap, take, tap, throwError } from 'rxjs';
 import { TokenRefreshService } from './token-refresh.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +17,14 @@ export class AuthInterceptorService implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
     null
   );
-  constructor(private tokenRefreshService: TokenRefreshService) {}
+  constructor(private tokenRefreshService: TokenRefreshService,
+    private router:Router) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    // Retrieve the authentication token from local storage
+    console.log("1) Intercepting Request",request);
+    
     const authToken = localStorage.getItem('token');
 
-    // Clone the request and add the Authorization header if the token exists
+   
     if (authToken) {
       const modifiedRequest = request.clone({
         setHeaders: {
@@ -30,12 +32,20 @@ export class AuthInterceptorService implements HttpInterceptor {
         },
       });
       return next.handle(modifiedRequest).pipe(
+        tap((response) => {
+          console.log("2)Request with token added",modifiedRequest);
+          console.log('Successful response of above request:',JSON.stringify(response) );
+         
+        }),
         catchError((error) => {
-          console.log('The error occuring during request');
+          console.log('3)The error occuring during request');
+          console.log('4)The URL giving above error is',error.url);
+          
           console.log(error);
           localStorage.removeItem('token');
           if (error.status == 403 || error.status == 401) {
-            
+            this.router.navigateByUrl('');
+            //this.router.navigateByUrl(error.url);
             return this.handleRefreshToken(request, next);
           }
 
@@ -50,6 +60,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   }
   handleRefreshToken(request: HttpRequest<any>, next: HttpHandler): any {
     console.log('entering refresh logic');
+    console.log("Request 1",request)
     return this.tokenRefreshService.refresh().pipe(
       switchMap((data: any) => {
         console.log('consoling data returned from refresh method');
@@ -58,7 +69,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         localStorage.setItem('token', data.token)
         const newToken = data.token;
         localStorage.setItem('refreshToken', data.refreshToken);
-        console.log("REQUEST   ",request)
+        
         return next.handle(
 
           request.clone({
@@ -67,38 +78,17 @@ export class AuthInterceptorService implements HttpInterceptor {
             },
           })
           
+        ).pipe(
+          tap(response=>{
+            console.log("Response of Refresh Handle")
+          }),
+          catchError(error=>{
+            console.log("Error of Refresh Handle")
+            return throwError(() => error);
+          })
         );
       })
     );
   }
-  // private addToken(request: HttpRequest<any>, token: string) {
-  //   return request.clone({
-  //     setHeaders: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  // }
-
-  // private handleRefreshToken(request: HttpRequest<any>, next: HttpHandler) {
-  //   if (!this.isRefreshing) {
-  //     this.isRefreshing = true;
-  //     this.refreshTokenSubject.next(null);
-
-  //     return this.tokenRefreshService.refresh().pipe(
-  //       switchMap((Token: any) => {
-  //         this.isRefreshing = false;
-  //         this.refreshTokenSubject.next(Token.token);
-  //         return next.handle(this.addToken(request, Token.token));
-  //       })
-  //     );
-  //   } else {
-  //     return this.refreshTokenSubject.pipe(
-  //       filter((token) => token != null),
-  //       take(1),
-  //       switchMap((jwt) => {
-  //         return next.handle(this.addToken(request, jwt));
-  //       })
-  //     );
-  //   }
-  // }
+ 
 }

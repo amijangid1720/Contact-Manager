@@ -7,6 +7,9 @@ import {
   faCaretUp,
   faCaretDown,
   faSearch,
+  faMagnifyingGlass,
+  faStar,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
 
@@ -30,16 +33,20 @@ export class ContactTableComponent implements OnInit {
   faTrashCan = faTrashCan;
   faCaretUp = faCaretUp;
   faCaretDown = faCaretDown;
+  faHeart = faHeart;
   faSearch = faSearch;
+  faMagnifyingGlass = faMagnifyingGlass;
   faArrowRightFromBracket = faArrowRightFromBracket;
   contacts!: any[];
   data1!: any;
   searchTerm: string = '';
   first: number = 0;
-  rows: number = 10;
+  rows: number = 5;
+  totalRecords!: number;
   loading: boolean = false;
   sortField: string = 'name';
   sortOrder: string = 'asc';
+  
 
   constructor(
     private http: HttpClient,
@@ -55,55 +62,109 @@ export class ContactTableComponent implements OnInit {
     this.loadContacts();
   }
 
-  loadContacts() {
-    this.manipulateuser
-      .getContacts(this.first / this.rows, this.rows)
-      .subscribe(
-        (response: any) => {
-          if (response && Array.isArray(response.content)) {
-            // Map contacts without modifying the original response
+  // loadContacts() {
+  //   this.manipulateuser
+  //     .getContacts(this.first / this.rows, this.rows)
+  //     .subscribe(
+  //       (response: any) => {
+  //         if (response && Array.isArray(response.content)) {
+  //           // Map contacts without modifying the original response
 
-            const mappedContacts = response.content.map((contact: any) => ({
-              id: contact.id,
-              name: contact.firstname + ' ' + contact.lastname,
-              email: contact.email,
-              phoneno: contact.phoneno,
-              work: contact.work,
-            }));
-            console.log(mappedContacts);
-            this.data1 = mappedContacts;
+  //           const mappedContacts = response.content.map((contact: any) => ({
+  //             id: contact.id,
+  //             name: contact.firstname + ' ' + contact.lastname,
+  //             email: contact.email,
+  //             phoneno: contact.phoneno,
+  //             work: contact.work,
+  //             gender: contact.gender,
+  //             favorite: contact.favorite,
+  //           }));
+  //           console.log(mappedContacts.length);
+  //           this.totalRecords = response.totalElements; 
+  //           this.data1 = mappedContacts;
+  //           // Sort the mappedContacts array based on the selected field and order
+  //           mappedContacts.sort((a: any, b: any) => {
+  //             const valueA = a[this.sortField];
+  //             const valueB = b[this.sortField];
+
+  //             // Ensure the values are of string type before using localeCompare
+  //             const strValueA = String(valueA);
+  //             const strValueB = String(valueB);
+
+  //             return this.sortOrder === 'asc'
+  //               ? strValueA.localeCompare(strValueB)
+  //               : strValueB.localeCompare(strValueA);
+  //           });
+  //           // Update the contacts array after mapping and sorting
+  //           this.contacts = mappedContacts;
+  //           console.log('Mapped and Sorted Contacts:', this.contacts);
+  //         } else {
+  //           console.error('Unexpected API response format. Data:', response);
+  //         }
+  //         this.loading = false;
+  //       },
+  //       (error) => {
+  //         console.error('Error fetching contacts:', error);
+  //         this.loading = false;
+  //       }
+  //     );
+  // }
+
+
+
+  loadContacts() {
+    this.loading = true;
+    console.log('Loading started');
+  
+    setTimeout(() => {
+    this.manipulateuser.getContacts(this.first / this.rows, this.rows).subscribe(
+      (response: any) => {
+        if (response && Array.isArray(response.contacts)) {
+          const mappedContacts = response.contacts.map((contact: any) => ({
+            id: contact.id,
+            name: contact.firstname + ' ' + contact.lastname,
+            email: contact.email,
+            phoneno: contact.phoneno,
+            work: contact.work,
+            gender: contact.gender,
+            favorite: contact.favorite,
+          }));
+  
+          this.totalRecords = response.totalContacts;
+           console.log("total:" ,this.totalRecords);
+           this.data1 = mappedContacts;
 
             // Sort the mappedContacts array based on the selected field and order
-            mappedContacts.sort((a: any, b: any) => {
-              const valueA = a[this.sortField];
-              const valueB = b[this.sortField];
-
-              // Ensure the values are of string type before using localeCompare
-              const strValueA = String(valueA);
-              const strValueB = String(valueB);
-
-              return this.sortOrder === 'asc'
-                ? strValueA.localeCompare(strValueB)
-                : strValueB.localeCompare(strValueA);
-            });
-
-            // Update the contacts array after mapping and sorting
-            this.contacts = mappedContacts;
-
-            console.log('Mapped and Sorted Contacts:', this.contacts);
-          } else {
-            console.error('Unexpected API response format. Data:', response);
-          }
-
-          this.loading = false;
-        },
-        (error) => {
-          console.error('Error fetching contacts:', error);
-          this.loading = false;
+          mappedContacts.sort((a: any, b: any) => {
+            
+            const valueA = a[this.sortField];
+                        const valueB = b[this.sortField];
+          
+                        // Ensure the values are of string type before using localeCompare
+                        const strValueA = String(valueA);
+                        const strValueB = String(valueB);
+          
+                        return this.sortOrder === 'asc'
+                          ? strValueA.localeCompare(strValueB)
+                          : strValueB.localeCompare(strValueA);
+          });
+       // Update the contacts array after mapping and sorting
+          this.contacts = mappedContacts;
+          console.log('Mapped and Sorted Contacts:', this.contacts);
+        } else {
+          console.error('Unexpected API response format. Data:', response);
         }
-      );
-  }
+        this.loading = false;
+      },
+      (error) => {
+        console.error('Error fetching contacts:', error);
+        this.loading = false;
+      }
+    );
+  }, 500); 
+}
 
+  
   setSortField(field: string) {
     // Toggle the sort order if the same field is clicked again
     if (this.sortField === field) {
@@ -125,6 +186,18 @@ export class ContactTableComponent implements OnInit {
     this.loadContacts();
   }
 
+  setdata(contact: any) {
+    this.contacts = contact.map((contact: any) => ({
+      id: contact.id,
+      name: contact.firstname + ' ' + contact.lastname,
+      firstname: contact.firstname,
+      lastname: contact.lastname,
+      email: contact.email,
+      phoneno: contact.phoneno,
+      work: contact.work,
+    }));
+  }
+
   searchContacts() {
     if (this.searchTerm) {
       // Make an HTTP request to fetch matching contacts
@@ -136,6 +209,7 @@ export class ContactTableComponent implements OnInit {
           (data) => {
             console.log(data);
             this.contacts = data; // Update the contacts array with the search results
+            this.setdata(this.contacts);
             console.log('This is this.contacts');
             console.log(this.contacts);
           },
@@ -206,4 +280,16 @@ export class ContactTableComponent implements OnInit {
       },
     });
   }
+  // toggleFavorite(contact: any): void {
+  //   contact.favorite = !contact.favorite;
+  //   console.log('favorite');
+
+  //   // Update the favorite status on the server
+  //   this.addService
+  //     .toggleFavorite(contact.id, contact.favorite)
+  //     .subscribe(() => {
+  //       // Optional: Show a success message or handle other actions after a successful update
+  //       console.log('favorite');
+  //     });
+  // }
 }

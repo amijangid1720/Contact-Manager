@@ -112,14 +112,21 @@ public class ContactController {
 //    }
 
     @GetMapping("/findAll")
-    public Page<Contact> findAllContacts(
+    public ResponseEntity<contactResponse> findAllContacts(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size,
             Authentication authentication
     ) throws Exception {
         User user = userService.loadUserByEmail(authentication.getName());
+
         Pageable pageable = PageRequest.of(page, size);
-        return contactRepository.findByUserId(user.getId(), pageable);
+        Page<Contact> contactPage = contactRepository.findByUserId(user.getId(), pageable);
+
+        contactResponse response = new contactResponse();
+        response.setContacts(contactPage.getContent());
+        response.setTotalContacts(contactPage.getTotalElements());
+
+        return ResponseEntity.ok(response);
     }
 
 

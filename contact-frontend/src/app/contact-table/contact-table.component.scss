@@ -1,16 +1,25 @@
-
 .section {
   display: flex;
   justify-content: center;
   flex-direction: column;
  margin: 20px;
 }
-table {
-  width: 55vw;
-  margin-top: 20px;
-  border-radius: 20px;
-  background-color: opacity($color: #0c3d75);
-}
+// table {
+//   width: 55vw;
+//   margin-top: 20px;
+//   border-radius: 20px;
+//   background-color: opacity($color: #0c3d75);
+
+// }
+// .table {
+//   border-collapse: separate;
+//   border-spacing: 0;
+//   width: 100%;
+//   border-radius: 14px;
+//   overflow: hidden;
+//   background-color: #dfeaf06e;
+//   border: 1px solid #ddd;
+// }
 
 
 .section2{
@@ -21,7 +30,7 @@ table {
 }
 
 .head {
-  background-color: #04364a;
+  background-color: #043649;
   color: white;
   font-family: "Times New Roman", Times, serif;
   height: 5vh;
@@ -30,25 +39,61 @@ table {
 .table-body {
   text-align: center;
   // height: 6vh;
-  background-color: opacity($color: #0c3d75);
+  background-color: #dfeaf06e;
+  // background-color: opacity($color: #0c3d75);
 }
 
-button {
-  // padding-right: .3vw;
-  background-color: #176b87;
-  margin-right: 1vw;
-  width: 5vw;
-  align-items: center;
-  color: white;
-}
-
-.fa-2x {
-  font-size: 100em;
-}
 .iconspace {
   display: grid;
   height: 6vh;
   padding-left: 0.5vw;
+}
+
+.search-bar{
+  width: 80%;
+  height:  5vh;
+  display: flex;
+flex-direction: row;
+margin-bottom: 1.5vh;
+justify-content: end;}
+
+input{
+  width: 30%;
+  height: 5vh;
+  padding-left:4%;
+  border-top-left-radius: 1.5vw;
+  border-bottom-left-radius: 1.5vw;
+  background-color: #dfeaf06e;
+  color: rgb(0, 6, 10) !important;
+
+  border: none;
+}
+
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+input:focus{
+  outline: none;
+  outline-color: none;
+}
+
+input[type="text"]::placeholder {
+  
+  color: rgb(54, 51, 51); /* Replace with the desired color code */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.search{
+  width: 10%;
+  height: 5vh;
+  background-color: #dfeaf06e;
+  border-top-right-radius: 1.5vw;
+  border-bottom-right-radius: 1.5vw;
+  border: none;
 }
 
 @media screen and (max-width: 480px) {
@@ -61,10 +106,18 @@ button {
   }
   //     width: auto;
   // }
-  button {
+  .confirm {
     margin-right: 1vw;
     width: 2vw;
+    background-color: #021d27;
+
   }
+ 
+    .image img {
+      width: 20px; /* Adjust the width of the image for smaller screens */
+      height: 20px; /* Adjust the height of the image for smaller screens */
+      margin-right: 5px; /* Adjust margin for smaller screens */
+    }
 
   .iconspace {
     display: grid;
@@ -77,53 +130,50 @@ button {
   flex-direction: column;
   justify-content: center;
 }
-.search-bar{
-  display: flex;
-  flex-direction: row;
-  margin-bottom: .5vw;
- 
-  // margin-bottom: 80px;
+.imagebox{
+  padding-left: 10px;
 }
-input{
-  width: 600px;
-  height: 50px;
-  width: 70%;
-  border-radius: 1vw;
-  padding: 1vw;
-}
-// button{
-//   width: 200px;
-//   height: 50px;
-//     background-color: rgba(255, 255, 255, 0.13);
-//     width: 10%;
-//     border-radius: 10px;
-//     color: white;
-// }
 
-// .pagenation{
-//   width: 55vw;
-// }
+
 .pagenation{
   // background-color: rgba(255, 255, 255, 0.692);  
   width: 80%;
+}
+.pagenation .p-paginator {
+  background-color: black !important;
+}
+.image{
+  text-align: center;
+}
+
+
+.image img {
+  width: 100px; /* Adjust the width of the image to make it an icon size */
+  height: 50px; /* Adjust the height of the image to make it an icon size */
+  // border-radius: 80%; /* Make the image circular */
+  border: 2px solid rgb(5, 0, 0); /* Add a border around the image */
+  margin-right: 20px; /* Add some margin to the right of the image */
 }
 
 .table {
   border-collapse: separate;
   border-spacing: 0;
+  padding-top: 0;
   width: 80%;
-  border-radius: 14px; /* Adjust the value for desired corner radius */
+  border-radius: 2vw; /* Adjust the value for desired corner radius */
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.295); /* Adjust the alpha value for transparency */
-  border: 1px solid #ddd;
+  background-color: #dfeaf06e; /* Adjust the alpha value for transparency */
+  // border: 1px solid #ddd;
 
 }
+
 
 .table thead th,
 .table tbody td {
    /* Add border color if needed */
-  padding: 8px;
+   padding: 10px;
   text-align: left;
+  padding-top: 3vh;
 }
 
 .table thead th {
@@ -131,8 +181,9 @@ input{
 }
 
 .table tbody td {
-  background-color: rgba(0, 0, 0, 0.1); /* Adjust the alpha value for transparency */
-  color: white;
+  background-color: #dfeaf06e; /* Adjust the alpha value for transparency */
+  color: rgb(14, 0, 0);
+ border-bottom: 4px solid #043649;
 }
 
 .table tbody tr:hover {
@@ -141,13 +192,40 @@ input{
 
 
 
-.p-confirmDialog {
-  background-color: rgba(255, 255, 255, 0.8) !important; /* Adjust the alpha value for transparency */
-  box-shadow: none !important;
-  border-radius: 10px !important; /* Adjust the value for desired corner radius */
+// .p-confirmDialog {
+//   // background-color: rgba(255, 255, 255, 0.8) !important; /* Adjust the alpha value for transparency */
+//   box-shadow: none !important;
+//   border-radius: 10px !important; /* Adjust the value for desired corner radius */
+//   color: black;
+// }
+
+// .bottom{
+//   margin-top: 10vh;
+// }
+
+// .confirm{
+//   background-color: red;
+// }
+
+@media screen and (max-width: 771px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tbody td {
+    display: block;
+    text-align: left;
+    padding: 8px;
+  }
+
+  .table tbody td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .table tbody td:last-child {
+    border-bottom: none;
+  }
 }
-
-
-
-
-
