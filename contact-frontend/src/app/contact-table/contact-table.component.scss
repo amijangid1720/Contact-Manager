@@ -12,15 +12,15 @@
 //   background-color: opacity($color: #0c3d75);
 
 // }
-.table {
-  border-collapse: separate;
-  border-spacing: 0;
-  width: 100%;
-  border-radius: 14px;
-  overflow: hidden;
-  background-color: #ffffff4b;
-  border: 1px solid #ddd;
-}
+// .table {
+//   border-collapse: separate;
+//   border-spacing: 0;
+//   width: 100%;
+//   border-radius: 14px;
+//   overflow: hidden;
+//   background-color: #dfeaf06e;
+//   border: 1px solid #ddd;
+// }
 
 
 .section2{
@@ -31,7 +31,7 @@
 }
 
 .head {
-  background-color: #04364a;
+  background-color: #043649;
   color: white;
   font-family: "Times New Roman", Times, serif;
   height: 5vh;
@@ -40,7 +40,8 @@
 .table-body {
   text-align: center;
   // height: 6vh;
-  background-color: opacity($color: #0c3d75);
+  background-color: #dfeaf06e;
+  // background-color: opacity($color: #0c3d75);
 }
 
 .iconspace {
@@ -54,7 +55,6 @@
   height:  5vh;
   display: flex;
 flex-direction: row;
-
 margin-bottom: 15px;
 justify-content: end;}
 
@@ -64,7 +64,7 @@ input{
   padding-left:4%;
   border-top-left-radius: 1.5vw;
   border-bottom-left-radius: 1.5vw;
-  background-color: #ffffff86;
+  background-color: #dfeaf06e;
   color: rgb(0, 6, 10) !important;
 
   border: none;
@@ -91,7 +91,7 @@ input[type="text"]::placeholder {
 .search{
   width: 10%;
   height: 5vh;
-  background-color: rgba(255, 255, 255, 0.527);
+  background-color: #dfeaf06e;
   border-top-right-radius: 1.5vw;
   border-bottom-right-radius: 1.5vw;
   border: none;
@@ -140,6 +140,9 @@ input[type="text"]::placeholder {
   // background-color: rgba(255, 255, 255, 0.692);  
   width: 80%;
 }
+.pagenation .p-paginator {
+  background-color: black !important;
+}
 .image{
   text-align: center;
 }
@@ -157,10 +160,10 @@ input[type="text"]::placeholder {
   border-collapse: separate;
   border-spacing: 0;
   width: 80%;
-  border-radius: 14px; /* Adjust the value for desired corner radius */
+  border-radius: 2vw; /* Adjust the value for desired corner radius */
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.295); /* Adjust the alpha value for transparency */
-  border: 1px solid #ddd;
+  background-color: #dfeaf06e; /* Adjust the alpha value for transparency */
+  // border: 1px solid #ddd;
 
 }
 
@@ -178,9 +181,9 @@ input[type="text"]::placeholder {
 }
 
 .table tbody td {
-  background-color: rgba(0, 0, 0, 0.1); /* Adjust the alpha value for transparency */
-  color: white;
- 
+  background-color: #dfeaf06e; /* Adjust the alpha value for transparency */
+  color: rgb(14, 0, 0);
+ border-bottom: 4px solid #043649;
 }
 
 .table tbody tr:hover {

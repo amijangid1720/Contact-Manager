@@ -39,6 +39,7 @@ margin:5%;
   width: 70%;
   margin-top: 20%;
   margin-left: 14%;
+ 
 
 }
 .box-menu{
@@ -80,7 +81,7 @@ input{
 
 input:focus {
   background-color:transparent;
-  color: white;
+  color: rgb(14, 1, 1);
   border: 3px solid #053B50;
   
 }
@@ -88,14 +89,14 @@ textarea{
   border: none;
   background-color: transparent;
   border-bottom: 2px solid #053B50 ;
-  color: white;
+  color: rgb(10, 10, 10);
   text-align: start;
   width: 95%;
   height: 5vh;
 }
 textarea:focus {
   background-color:transparent;
-  color: white;
+  color: rgb(10, 9, 9);
   border: 3px solid #053B50;
   
 }
@@ -107,7 +108,7 @@ textarea:focus {
   font-family: cursive;
  font-size: 1em;
  font-weight: 400;
-
+color: white;
  padding: 3%;
  padding-top: 5%;
 
