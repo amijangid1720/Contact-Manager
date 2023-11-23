@@ -1,10 +1,7 @@
-<div
-  class="back img-fluid"
-  style="background-image: url(../../assets/phone6.avif)"
->
+
   <app-navbar1></app-navbar1>
 
-<div class="color-overlay" *ngIf="isLoggedout()">
+  <div class="color-overlay" *ngIf="isLoggedout()">
     <div>
       <h1>Smart Contact Manager</h1>
       <p class="">
@@ -13,38 +10,116 @@
       </p>
       <button routerLink="/login">Get Start</button>
     </div>
-  
   </div>
 
-  <div class="container-div"  *ngIf="!isLoggedout()">
-  <div class="menu">
-    <div class="sidenav" id="mySidenav" >
-      <nav class="sidebar">
-
-        <ul class="nav flex-column">
-          <!-- <li class="nav-item">
+  <div class="container-div" *ngIf="!isLoggedout()">
+    <div class="menu">
+      <div class="sidenav" id="mySidenav">
+        <nav class="sidebar">
+          <ul class="nav flex-column">
+            <!-- <li class="nav-item">
             <a class="nav-link active" routerLink=""  routerLinkActive="active-link">
               Home <i class="fa-regular fa-house" style="color: #dee4e9"></i
             ></a>
           </li> -->
-          <li class="nav-item">
-            <a class="nav-link active" routerLink="dashboard"  routerLinkActive="active-link"> My Contacts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" routerLink="/add"  routerLinkActive="active-link"> Add Contacts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" routerLink="/profile"  routerLinkActive="active-link"> Profile </a>
-        
-        </ul>
-      </nav>
-    </div>
-  
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                routerLink="dashboard"
+                routerLinkActive="active-link"
+                ><fa-icon
+                  [icon]="faAddressBook"
+                  size="2x"
+                  [styles]="{
+                    stroke: 'red',
+                    color: '#dfe2e7',
+                    'font-size': '20px',
+                    'margin-right': '12px'
+                  }"
+                ></fa-icon>
+                My Contacts</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                routerLink="/add"
+                routerLinkActive="active-link"
+              >
+                <fa-icon
+                  [icon]="faUserPlus"
+                  size="2x"
+                  [styles]="{
+                    stroke: 'red',
+                    color: '#dfe2e7',
+                    'font-size': '20px',
+                    'margin-right': '12px'
+                  }"
+                ></fa-icon>
+                Add Contacts</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                routerLink="/profile"
+                routerLinkActive="active-link"
+              >
+                <fa-icon
+                  [icon]="faUser"
+                  size="2x"
+                  [styles]="{
+                    stroke: 'red',
+                    color: '#dfe2e7',
+                    'font-size': '20px',
+                    'margin-right': '12px'
+                  }"
+                ></fa-icon>
+                Profile
+              </a>
+            </li>
 
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                routerLink="favorite"
+                routerLinkActive="active-link"
+              >
+                <fa-icon
+                  [icon]="faHeart"
+                  size="2x"
+                  [styles]="{
+                    stroke: 'red',
+                    color: '#dfe2e7',
+                    'font-size': '20px',
+                    'margin-right': '12px'
+                  }"
+                ></fa-icon>
+                Favorite
+              </a>
+            </li>
+
+            <li class="nav-item bottom">
+              <a class="nav-link active" routerLink="" (click)="signOut()">
+                <fa-icon
+                  [icon]="faLock"
+                  size="2x"
+                  [styles]="{
+                    stroke: 'red',
+                    color: '#dfe2e7',
+                    'font-size': '20px',
+                    'margin-right': '12px'
+                  }"
+                ></fa-icon>
+                Logout</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="section">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-  <div class="section" >
-    
-    <router-outlet></router-outlet>
-  </div>
-</div>
-</div>
+<!-- </div> -->

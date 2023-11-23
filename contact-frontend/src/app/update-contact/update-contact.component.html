@@ -1,121 +1,200 @@
-<div class="form-parent">
-  <div class=" card login">
-    <h2 class="text-center">Update Contact</h2>
-    <form
-      #contactForm="ngForm"
-      (ngSubmit)="onSubmit(contactForm)"
-      class="form-container"
-    >
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              type="text"
-              id="firstname"
-              name="firstname"
-              placeholder="Enter First Name"
-              class="input-field form-control"
-              ngModel
-              required
-              #fname="ngModel"
-              [(ngModel)]="contact.firstname"
-            />
+<div class="container">
+  <div class="form-parent">
+    <div class="login">
+      <h2 class="text-center">Update Contact</h2>
+      <form
+        #contactForm="ngForm"
+        (ngSubmit)="onSubmit(contactForm)"
+        class="form-container"
+      >
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input
+                type="text"
+                id="firstname"
+                name="firstname"
+                placeholder="Enter First Name"
+                class="input-field form-control"
+                ngModel
+                required
+                #fname="ngModel"
+                [(ngModel)]="contact.firstname"
+                pattern="[A-Za-z]+"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div *ngIf="fname.invalid && (fname.dirty || fname.touched)">
+            <div *ngIf="fname?.errors?.['required']" class="error-message">
+              *First Name is required.
+            </div>
+            <div *ngIf="fname?.errors?.['pattern']" class="error-message">
+              *First Name should contain only alphabets
+            </div>
           </div>
         </div>
 
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              type="text"
-              id="lastname"
-              name="lastname"
-              placeholder="Enter Last Name"
-              class="input-field form-control"
-              ngModel
-              required
-              [(ngModel)]="contact.lastname"
-            />
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input
+                type="text"
+                id="lastname"
+                name="lastname"
+                placeholder="Enter Last Name"
+                class="input-field form-control"
+                ngModel
+                required
+                #lname="ngModel"
+                pattern="[A-Za-z]+"
+                [(ngModel)]="contact.lastname"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div *ngIf="lname.invalid && (lname.dirty || lname.touched)">
+              <div *ngIf="lname?.errors?.['required']" class="error-message">
+                *Last Name is required.
+              </div>
+              <div *ngIf="lname?.errors?.['pattern']" class="error-message">
+                *Last Name should contain only alphabets
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Enter Email"
-          class="input-field form-control"
-          ngModel
-          required
-          email
-          [(ngModel)]="contact.email"
-        />
-      </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter Email"
+                class="input-field form-control"
+                ngModel
+                required
+                email
+                [(ngModel)]="contact.email"
+                #username="ngModel"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+              />
+            </div>
+            <div
+              *ngIf="username.invalid && (username.dirty || username.touched)"
+            >
+              <div *ngIf="username?.errors?.['required']" class="error-message">
+                *Email is required.
+              </div>
+              <div *ngIf="username?.errors?.['pattern']" class="error-message">
+                Please enter a valid email address.
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <div class="form-group">
-        <input
-          type="text"
-          id="work"
-          name="work"
-          placeholder="Enter Work Description"
-          class="input-field form-control"
-          ngModel
-          [(ngModel)]="contact.work"
-        />
-      </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input
+                type="text"
+                id="work"
+                name="work"
+                placeholder="Enter Work Description"
+                class="input-field form-control"
+                ngModel
+                [(ngModel)]="contact.work"
+              />
+            </div>
+          </div>
+        </div>
 
-      <div class="form-group">
-        <input
-          type="tel"
-          id="phoneno"
-          name="phoneno"
-          placeholder="Enter Phone Number"
-          class="input-field form-control"
-          ngModel
-          required
-          [(ngModel)]="contact.phoneno"
-        />
-      </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input
+                type="tel"
+                id="phoneno"
+                name="phoneno"
+                placeholder="Enter Phone Number"
+                class="input-field form-control"
+                ngModel
+                required
+                #phonenoInput="ngModel"
+                pattern="^[0-9]{10}$"
+                required
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="contact.phoneno"
+              />
+            </div>
+            <div
+              *ngIf="
+                phonenoInput.invalid &&
+                (phonenoInput.dirty || phonenoInput.touched)
+              "
+            >
+              <div
+                *ngIf="phonenoInput?.errors?.['required']"
+                class="error-message"
+              >
+                *Phone number is required.
+              </div>
+              <div
+                *ngIf="phonenoInput.errors?.['pattern']"
+                class="error-message"
+              >
+                *Phone number must be 10 digits long and contain only numbers.
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <div class="form-group">
-        <select
-          id="gender"
-          name="gender"
-          class="select-field form-select form-control"
-          ngModel
-          required
-          [(ngModel)]="contact.gender"
-        >
-          <option value="" disabled selected>Select gender</option>
-          <!-- Placeholder option -->
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Others">Others</option>
-        </select>
-      </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="form-group">
+              <select
+                id="gender"
+                name="gender"
+                class="select-field form-select form-control"
+                ngModel
+                required
+                [(ngModel)]="contact.gender"
+              >
+                <option value="" disabled selected>Select gender</option>
+                <!-- Placeholder option -->
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
-      <div class="form-group">
-        <textarea
-          id="description"
-          name="description"
-          placeholder="Enter Description Of The Contact"
-          class="input-field form-control"
-          ngModel
-          [(ngModel)]="contact.description"
-        ></textarea>
-      </div>
-
-      <div class="form-group text-center">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="!contactForm.valid"
-        >
-          <fa-icon [icon]="faCoffee"></fa-icon> Submit
-        </button>
-      </div>
-    </form>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="form-group">
+              <textarea
+                id="description"
+                name="description"
+                placeholder="Enter Description Of The Contact"
+                class="input-field form-control"
+                ngModel
+                [(ngModel)]="contact.description"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="form-group text-center">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!contactForm.valid"
+          >
+            <fa-icon [icon]="faCoffee"></fa-icon> Update 
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 

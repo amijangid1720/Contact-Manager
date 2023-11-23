@@ -1,5 +1,8 @@
 package com.contactmanager.springboot.security.auth;
 
+import com.contactmanager.springboot.Entity.UserInfo;
+import com.contactmanager.springboot.security.services.UserService;
+import com.contactmanager.springboot.security.user.User;
 import com.contactmanager.springboot.security.services.RefreshTokenService;
 import com.contactmanager.springboot.security.services.jwtService;
 import com.contactmanager.springboot.security.token.RefreshToken;
@@ -31,6 +34,9 @@ import static com.contactmanager.springboot.security.token.TokenType.BEARER;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class AuthenticationController {
+
+    @Autowired
+    private UserService userService;
     @Autowired
     UserInfoService userInfoService;
     @Autowired
@@ -66,7 +72,7 @@ public class AuthenticationController {
 //        return ResponseEntity.ok().body("{\"message\": \"ID token received successfully\"}");
 //    }
     @PostMapping("/google")
-    public ResponseEntity<String> authenticateGoogle(@RequestBody String idToken) throws  Exception{
+    public ResponseEntity<String> authenticateGoogle(@RequestBody String idToken) throws Exception {
         try {
             // Initialize the Google API client
             HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
@@ -86,15 +92,40 @@ public class AuthenticationController {
                 GoogleIdToken.Payload payload = googleIdToken.getPayload();
                 String userId = payload.getSubject();
                 System.out.println("User ID: " + userId);
+                String googleEmail = payload.getEmail();
+                System.out.println("User email: " + googleEmail);
                 System.out.println(payload.getEmail());
+                String firstName = (String) payload.get("given_name"); // Extract first name from the payload
+                String lastName = (String) payload.get("family_name");
+
+
+                // Authenticate the user via Google email
+                User user = userService.loadUserByGoogleEmail(googleEmail, firstName, lastName);
+
+
+                // Check if details are filled
+                boolean detailsFilled =user.getUserInfo() != null && user.getUserInfo().isDetailsFilled();
+
+
+                String redirectPath;
+                if (!detailsFilled) {
+                    // User details not filled, redirect to the user details form
+                    redirectPath = "/userdetails";
+                } else {
+                    // User details filled, redirect to the dashboard
+                    redirectPath = "/dashboard";
+                }
+
+
 
                 // Add your logic to process the verified ID token
-                // ...
                 com.contactmanager.springboot.security.auth.AuthenticationResponse response = service.authenticateViaGoogle(payload.getEmail());
-
+                System.out.println("response");
                 System.out.println("response.toString()");
+
                 System.out.println(response.toString());
-                return ResponseEntity.ok().body("{\"token\": \""+response.getToken()+"\"}");
+                String jsonResponse = "{\"token\": \"" + response.getToken() + "\", \"userId\": \"" + user.getId() + "\", \"redirect\": \"" + redirectPath + "\"}";
+                return ResponseEntity.ok().body(jsonResponse);
             } else {
                 System.out.println("Invalid ID token.");
                 return ResponseEntity.badRequest().body("{\"error\": \"Invalid ID token\"}");
@@ -107,6 +138,7 @@ public class AuthenticationController {
 
 
     }
+
     @PostMapping("/check-duplicate")
     public DuplicateCheckResponse checkDuplicate(@RequestBody DuplicateCheckRequest request) {
         boolean emailExists = userInfoService.checkEmailExists(request.getEmail());

@@ -36,7 +36,12 @@
         <span class="text-base">{{firstName.substring(0,1)}}</span>
     </p-avatar> -->
       <div class="p-3 bd-highlight nav-item" *ngIf="loggedin">
-        <span class="navbar-text "> Welcome, {{ firstName }} </span>
+        <span class="navbar-text "> <fa-icon
+          [icon]="faUser"
+          class="nav-link active"
+          size="1x"    routerLink="/profile"
+          [styles]="{ stroke: 'red', color: 'white' ,'margin-right': '12px' }"
+        ></fa-icon>  {{firstName}} </span>
       </div>
 
       <div
@@ -45,10 +50,10 @@
         *ngIf="loggedin"
       >
         <fa-icon
-          [icon]="faArrowRightFromBracket"
+          [icon]="faPowerOff"
           class="nav-link active"
           size="1x"
-          [styles]="{ stroke: 'red', color: 'white' }"
+          [styles]="{ stroke: 'red', color: 'white', 'padding-top':'1.5vh' }"
         ></fa-icon>
       </div>
     </div>

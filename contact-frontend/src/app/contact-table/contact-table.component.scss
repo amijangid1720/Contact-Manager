@@ -20,6 +20,22 @@
 //   background-color: #dfeaf06e;
 //   border: 1px solid #ddd;
 // }
+// table {
+//   width: 55vw;
+//   margin-top: 20px;
+//   border-radius: 20px;
+//   background-color: opacity($color: #0c3d75);
+
+// }
+// .table {
+//   border-collapse: separate;
+//   border-spacing: 0;
+//   width: 100%;
+//   border-radius: 14px;
+//   overflow: hidden;
+//   background-color: #dfeaf06e;
+//   border: 1px solid #ddd;
+// }
 
 
 .section2{
@@ -31,6 +47,7 @@
 
 .head {
   background-color: #043649;
+  background-color: #043649;
   color: white;
   font-family: "Times New Roman", Times, serif;
   height: 5vh;
@@ -39,6 +56,8 @@
 .table-body {
   text-align: center;
   // height: 6vh;
+  background-color: #dfeaf06e;
+  // background-color: opacity($color: #0c3d75);
   background-color: #dfeaf06e;
   // background-color: opacity($color: #0c3d75);
 }
@@ -107,8 +126,18 @@ input[type="text"]::placeholder {
   //     width: auto;
   // }
   .confirm {
+  .confirm {
     margin-right: 1vw;
     width: 2vw;
+    background-color: #021d27;
+
+  }
+ 
+    .image img {
+      width: 20px; /* Adjust the width of the image for smaller screens */
+      height: 20px; /* Adjust the height of the image for smaller screens */
+      margin-right: 5px; /* Adjust margin for smaller screens */
+    }
     background-color: #021d27;
 
   }
@@ -135,9 +164,29 @@ input[type="text"]::placeholder {
 }
 
 
+.imagebox{
+  padding-left: 10px;
+}
+
+
 .pagenation{
   // background-color: rgba(255, 255, 255, 0.692);  
   width: 80%;
+}
+.pagenation .p-paginator {
+  background-color: black !important;
+}
+.image{
+  text-align: center;
+}
+
+
+.image img {
+  width: 100px; /* Adjust the width of the image to make it an icon size */
+  height: 50px; /* Adjust the height of the image to make it an icon size */
+  // border-radius: 80%; /* Make the image circular */
+  border: 2px solid rgb(5, 0, 0); /* Add a border around the image */
+  margin-right: 20px; /* Add some margin to the right of the image */
 }
 .pagenation .p-paginator {
   background-color: black !important;
@@ -159,20 +208,27 @@ input[type="text"]::placeholder {
   border-collapse: separate;
   border-spacing: 0;
   padding-top: 0;
+  padding-top: 0;
   width: 80%;
   border-radius: 2vw; /* Adjust the value for desired corner radius */
+  border-radius: 2vw; /* Adjust the value for desired corner radius */
   overflow: hidden;
+  background-color: #dfeaf06e; /* Adjust the alpha value for transparency */
+  // border: 1px solid #ddd;
   background-color: #dfeaf06e; /* Adjust the alpha value for transparency */
   // border: 1px solid #ddd;
 
 }
 
 
+
 .table thead th,
 .table tbody td {
    /* Add border color if needed */
    padding: 10px;
+   padding: 10px;
   text-align: left;
+  padding-top: 3vh;
   padding-top: 3vh;
 }
 
@@ -181,6 +237,9 @@ input[type="text"]::placeholder {
 }
 
 .table tbody td {
+  background-color: #dfeaf06e; /* Adjust the alpha value for transparency */
+  color: rgb(14, 0, 0);
+ border-bottom: 4px solid #043649;
   background-color: #dfeaf06e; /* Adjust the alpha value for transparency */
   color: rgb(14, 0, 0);
  border-bottom: 4px solid #043649;

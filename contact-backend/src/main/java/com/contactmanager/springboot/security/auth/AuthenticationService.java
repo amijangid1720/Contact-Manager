@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class AuthenticationService {
     @Autowired
     private final UserRepository repository;
     @Autowired
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private final AuthenticationManager authenticationManager;
     @Autowired
@@ -38,15 +40,19 @@ public class AuthenticationService {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
-    public AuthenticationResponse register(com.contactmanager.springboot.security.auth.RegisterRequest request) {
-      //create a user object out of this register request
+
+    public AuthenticationResponse register(RegisterRequest request) {
+        //create a user object out of this register request
+        System.out.println("password : " + request.getPassword());
         User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
+
+        System.out.println(user);
 //        User user = new User(request.getFirstname(),request.getLastname(),userDetails.getUsername(),userDetails.getPassword() );
-        var savedUser=repository.save(user);
+        var savedUser = repository.save(user);
 
         UserInfo userInfo = UserInfo.builder()
                 .firstName(request.getFirstname())
@@ -60,15 +66,15 @@ public class AuthenticationService {
 
         // Save the UserInfo entity to the user_info table
         userInfoRepository.save(userInfo);
-        var jwtToken=JwtService.generateToken(user);
+        var jwtToken = JwtService.generateToken(user);
         revokeAllUserTokens(savedUser);
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder().token(jwtToken).build();
 
     }
 
-    public void saveUserToken(User savedUser, String jwtToken) {
-        var token= Token.builder()
+    private void saveUserToken(User savedUser, String jwtToken) {
+        var token = Token.builder()
                 .user(savedUser)
                 .token(jwtToken)
                 .tokenType(TokenType.BEARER)
@@ -78,18 +84,15 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
-
-
-
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
+        Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
-
         );
-        var user=repository.findByEmail(request.getEmail())
+        System.out.println(authenticate);
+        var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken=JwtService.generateToken(user);
         var refreshToken=refreshTokenService.createRefreshToken(request.getEmail());
@@ -98,6 +101,8 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder().token(jwtToken).refreshToken(refreshToken.getToken()).userid(user.getId()).build();
     }
+
+
 
     public void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
@@ -109,7 +114,8 @@ public class AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
-    public AuthenticationResponse authenticateViaGoogle(String googleEmail) throws  Exception {
+
+    public AuthenticationResponse authenticateViaGoogle(String googleEmail) throws Exception {
         try {
             // Check if the email exists in the database
             var user = repository.findByEmail(googleEmail).orElse(null);
@@ -127,7 +133,7 @@ public class AuthenticationService {
             }
         } catch (Exception e) {
             System.out.print(e);
-            throw  e;
+            throw e;
         }
     }
 

@@ -10,9 +10,10 @@ import { UpdateContactComponent } from './update-contact/update-contact.componen
 import { HomeComponent } from './home/home.component';
 import { ContactTableComponent } from './contact-table/contact-table.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 const routes: Routes = [
- 
   {
     path: 'login',
     component: LoginComponent,
@@ -27,7 +28,12 @@ const routes: Routes = [
   //   canActivate: [authGuard],
   // },
   {
-    path:'navbar1', component:Navbar1Component
+    path: 'navbar1',
+    component: Navbar1Component,
+  },
+  {
+    path:'userdetails' , component:UserDetailsFormComponent,
+    canActivate:[authGuard,]
   },
   // {
   //   path: 'api/v1/contacts/add',
@@ -35,28 +41,54 @@ const routes: Routes = [
   //   canActivate: [authGuard],
   // },
   // { path: 'update-contact/:id',component:UpdateContactComponent},
-  {path:'',component:HomeComponent,
-    children:[
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      
       {
         path: 'dashboard',
-        component: DashboardComponent,canActivate: [authGuard],
+        component: DashboardComponent,
+        canActivate: [authGuard],
       },
+      
       {
         path: 'update-contact/:id',
-        component:UpdateContactComponent,canActivate: [authGuard],
+        component: UpdateContactComponent,
+        canActivate: [authGuard],
       },
       {
-        path:'add',
-        component: AddComponent,canActivate: [authGuard],
+        path: 'add',
+        component: AddComponent,
+        canActivate: [authGuard],
       },
 
-      {path:'table',
-    component:ContactTableComponent,canActivate: [authGuard],},
-    {
-      path:'profile', component:ProfileComponent,canActivate: [authGuard],
-    },
-    ]
-}
+      {
+        path: 'table',
+        component: ContactTableComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path:'favorite',
+        component:FavoriteComponent,
+        canActivate:[authGuard],
+        children:[
+          {
+            path: 'update-contact/:id',
+            component: UpdateContactComponent,
+            canActivate: [authGuard],
+          },
+        ]
+      }
+      
+    ],
+  },
+
 ];
 
 @NgModule({

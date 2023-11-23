@@ -15,7 +15,7 @@
   height: 10vh;
   display: flex;
   justify-content: center;
-  background-color: rgb(21 52 64 / 42%);
+  background-color: #043c53b5;
   padding: 2vw;
 }
 
@@ -24,7 +24,11 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: white;
-  padding-left: 1.5vw;
+   padding-left: 1.5vw;
+}
+span{
+  display: flex;
+  flex-direction: row;
 }
 
 .sidenav {

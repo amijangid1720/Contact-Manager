@@ -27,14 +27,23 @@ public class UserInfo {
     @Column(name = "email",unique = true,nullable = false) //@Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "phoneno",unique = true,nullable = false)
+    @Column(name = "phoneno",nullable = true)
     private String phoneno;
+
 
     @Column(name="gender")
     private String gender;
 
     @Column(name = "address")
     private String address;
+
+
+    @Getter
+    @Column(name = "detailsFilled")
+    private Boolean detailsFilled;
+
+    @Column(name = "profilePicture")
+    private String profilePicture;
 
     @OneToOne
     @JoinColumn(name = "userid") // This column references the "id" column in the "user_login" table
@@ -51,7 +60,13 @@ public class UserInfo {
                 ", phoneno='" + phoneno + '\'' +
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
+                ", detailsFilled=" + detailsFilled +
+                ", profilePicture='" + profilePicture + '\'' +
                 ", user=" + user +
                 '}';
+    }
+
+    public boolean isDetailsFilled() {
+        return detailsFilled != null && detailsFilled;
     }
 }

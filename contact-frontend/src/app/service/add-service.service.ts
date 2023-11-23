@@ -24,4 +24,22 @@ export class AddServiceService {
 
     return this.http.put(url, contact);
   }
+
+  updateUser(user:Object, userId:number): Observable<any>{
+const url = `${environment.backendUrl}/api/v1/contacts/updateuser/${userId}`;
+
+return this.http.put(url,user);
+  }
+
+  checkContact(email:String, phoneno:Number): Observable<any>{
+         const url = `${environment.backendUrl}/api/v1/contacts/checkDuplicateContact`;
+    return this.http.post(url, {email, phoneno})
+        }
+
+
+        toggleFavorite(contactId: number, isFavorite: boolean): Observable<void> {
+          const url = `${environment.backendUrl}/api/v1/contacts/${contactId}/favorite`;
+          return this.http.patch<void>(url, isFavorite);  // Send only the boolean value
+        }
+        
 }

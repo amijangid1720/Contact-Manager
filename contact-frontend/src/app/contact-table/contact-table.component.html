@@ -12,10 +12,11 @@
           <fa-icon
             [icon]="faMagnifyingGlass"
             size="2x"
-            [styles]="{ stroke: 'red', color: '#021D27;', 'font-size': '20px' }"
+            [styles]="{ stroke: 'red', color: '#021d27;', 'font-size': '20px' }"
           ></fa-icon>
         </button>
       </div>
+
       <hr
         style="
           height: 4px;
@@ -26,7 +27,12 @@
           color: rgb(0, 0, 0);
         "
       />
-   
+
+      <div *ngIf="loading" class="loading-spinner">
+        <mat-spinner diameter="50" color="primary"></mat-spinner>
+      </div>
+      
+  
       <table class="table table-hover">
         <thead>
           <tr class="">
@@ -79,6 +85,7 @@
             </th>
             <th class="head" scope="col-2">Phoneno</th>
             <th class="head" scope="col-2">work</th>
+
             <th class="head" scope="col-4">Options</th>
           </tr>
         </thead>
@@ -102,10 +109,12 @@
                 />
               </div>
             </td>
+
             <td scope="col-3">{{ contact.name }}</td>
             <td scope="col-3">{{ contact.email }}</td>
             <td scope="col-2">{{ contact.phoneno }}</td>
             <td scope="col-2">{{ contact.work }}</td>
+
             <td scope="col-4">
               <div class="container-fluid">
                 <div class="icon row">
@@ -115,7 +124,7 @@
                       size="2x"
                       [styles]="{
                         stroke: 'red',
-                        color: '#021D27',
+                        color: '#021d27',
                         'font-size': '20px'
                       }"
                       (click)="updateContact(contact, contact.id)"
@@ -128,7 +137,7 @@
                       size="2x"
                       [styles]="{
                         stroke: 'red',
-                        color: '#021D27',
+                        color: '#021d27',
                         'font-size': '20px'
                       }"
                       (click)="onDeleteContact(i.toString())"
@@ -139,9 +148,9 @@
                       [icon]="faHeart"
                       size="2x"
                       [ngStyle]="{
-                        color: contact.favorite ? '#021D27' : '#9EB8D9'
+                        color: contact.favorite ? '#021d27' : '#9EB8D9'
                       }"
-                      
+                      (click)="toggleFavorite(contact)"
                       [styles]="{ 'font-size': '23px' }"
                     ></fa-icon>
                   </div>
@@ -158,6 +167,7 @@
         [totalRecords]="totalRecords"
         [rowsPerPageOptions]="[5, 10, 15]"
         class="pagenation"
+      
       ></p-paginator>
     </div>
   </div>
@@ -182,7 +192,7 @@
         type="button"
         pButton
         icon="pi pi-times"
-        style="margin: 4%; background-color: #032B3A"
+        style="margin: 4%; background-color: #032b3a"
         label="No"
         (click)="cd.reject()"
       ></button>
@@ -190,9 +200,10 @@
         type="button"
         pButton
         icon="pi pi-check"
-        style="margin: 4%; background-color: #032B3A"
+        style="margin: 4%; background-color: #032b3a"
         label="Yes"
         (click)="cd.accept()"
       ></button>
     </ng-template>
   </p-confirmDialog>
+

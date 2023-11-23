@@ -15,10 +15,39 @@ export class ManipulateUserService implements OnInit {
     return this.http.get(`${environment.backendUrl}/api/v1/contacts/findAll?page=${page}&size=${size}`);
   }
 
-  // getContacts(page: number, size: number, sortField: string = 'name', sortOrder: string = 'asc'): Observable<any> {
-  //   const url = `${environment.backendUrl}/api/v1/contacts/findAll?page=${page}&size=${size}&sortField=${sortField}&sortOrder=${sortOrder}`;
-  //   return this.http.get(url);
-  // }
+  getFavorite(userid:number):Observable<any>{
+    const url = `${environment.backendUrl}/api/v1/contacts/favorite/${userid}`;
+    return this.http.get(url);
+
+  }
+  getUserById(userid: number): Observable<any> {
+    const url = `${environment.backendUrl}/api/v1/contacts/userinfo/${userid}`;
+    return this.http.get(url);
+  }
+  
+  updateUser(user:object, userid:number):Observable<any> {
+    const url = `${environment.backendUrl}/api/v1/contacts/updateUser/${userid}`;
+     return this.http.put(url,user);
+  }
+ 
+
+updateDetailsFilled(userid:number):Observable<any>{
+  const url = `${environment.backendUrl}/api/v1/contacts/updateDetailsFilled/${userid}`;
+  return this.http.put(url,userid);
+}
+
+
+removeFromFavorites(contactId: number):Observable<any>{
+ const url = `${environment.backendUrl}/api/v1/contacts/${contactId}/unfavorite`;
+ return this.http.patch(url,null);
+}
+
+
+uploadProfilePicture(formData: FormData,userid:number): Observable<any> {
+  const uploadUrl = `${environment.backendUrl}/upload-profile-picture/${userid}`; // Replace with your actual upload endpoint
+
+  return this.http.post(uploadUrl, formData);
+}
   
   deleteContact(id: string): Observable<any> {
     return this.http.delete(

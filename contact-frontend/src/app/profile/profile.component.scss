@@ -1,99 +1,120 @@
-// .card {
-//     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-//     background-color: rgba(255, 255, 255, 0.801);
-//     width: 25vw;
-//     // max-width: 300px;
-// margin-left: 15vw;
-//     text-align: center;
-//     font-family: arial;
-//     margin-top: 10vh;
-//     padding: 2w;
-//   }
-
-//   .card-foot{
-//     padding: 2v;
-//   }
-// h2{
-//   font-family: 'Times New Roman', Times, serif;
-//   color: #053B50;
-// background-color: rgba(255, 255, 255, 0.13);}
-//   .title {
-//     color: grey;
-//     font-size: 18px;
-//   }
-//   h1{
-//     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-//     font-size: 2vw;
-//     color: #053B50;
-//   }
-  
-//   button {
-//     border: none;
-//     outline: 0;
-//     display: inline-block;
-//     padding: 8px;
-//     color: white;
-//     background-color: #000;
-//     text-align: center;
-//     cursor: pointer;
-//     width: 100%;
-//     font-size: 18px;
-//   }
-  
-  
-  
-//   button:hover, a:hover {
-//     opacity: 0.7;
-//   }
 
 
-body {
-  background: rgb(99, 39, 120)
+.container-div{
+display: flex;
+flex-direction: row;
+margin:5%;
+
+
+
+}
+.menu{
+  height: 70vh;
+  width :20%;
+  border-top-left-radius: 2vw;
+  border-bottom-left-radius: 2vw;
+  background-color: #032837;
+ 
+
 }
 
-.form-control:focus {
-  box-shadow: none;
-  border-color: #BA68C8
+.error-message {
+  color: #ff0000; /* Red color for error messages */ /* Add some spacing below the input field */
+  margin-top: 2%;
 }
 
-.profile-button {
-  background: rgb(99, 39, 120);
-  box-shadow: none;
-  border: none
+.menu2{
+  height: 70vh;
+  width: 55%;
+  background-color: #dfeaf06e;
+ padding: 1%;
+  margin-right: 10%;
+  border-top-right-radius: 2vw;
+  border-bottom-right-radius: 2vw;
+  border-bottom: 6px solid #032837;
+  box-shadow: 10px 10px 5px rgba(65, 66, 66, 0.26);
 }
+.image{
+  height:25vh;
+  width: 70%;
+  margin-top: 20%;
+  margin-left: 14%;
+ 
 
-.profile-button:hover {
-  background: #682773
 }
-
-.profile-button:focus {
-  background: #682773;
-  box-shadow: none
+.box-menu{
+  margin:5%;
+ align-items: center;
 }
-
-.profile-button:active {
-  background: #682773;
-  box-shadow: none
-}
-
-.back:hover {
-  color: #682773;
-  cursor: pointer
-}
-
-.labels {
-  font-size: 11px
-}
-
-.add-experience:hover {
-  background: #BA68C8;
-  color: #fff;
+.btn-primary {
+  background-color: #053B50;
+  color: rgb(245, 236, 236);
+  padding: 11px 11px;
+  width: 100%;
+  border: none;
+  border-radius: 1vw;
+  margin: auto;
+  margin-top: 4vh;
   cursor: pointer;
-  border: solid 1px #BA68C8
+
+  &:hover {
+    background-color:#053B50 ;
+  }
+}
+label{
+  color: #021b25;
+  font-size: 1.2em;
+  font-weight: 600;
+  font-style: bold;
+  text-align: start;
+}
+input{
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #053B50 ;
+  color: rgb(3, 0, 0);
+  text-align: start;
+  width: 95%;
+  outline: none;
+
 }
 
-.container{
-  width:75%;
-  background-color: rgba(255, 255, 255, 0.295);
-  border-radius: 1.4vw;
+input:focus {
+  background-color:transparent;
+  color: rgb(14, 1, 1);
+  border: 3px solid #053B50;
+  
+}
+textarea{
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #053B50 ;
+  color: rgb(10, 10, 10);
+  text-align: start;
+  width: 95%;
+  height: 5vh;
+}
+textarea:focus {
+  background-color:transparent;
+  color: rgb(10, 9, 9);
+  border: 3px solid #053B50;
+  
+}
+.box1{
+  padding: 1.2%;
+}
+.span
+{
+  font-family: cursive;
+ font-size: 1em;
+ font-weight: 400;
+color: white;
+ padding: 3%;
+ padding-top: 5%;
+
+ margin: 15%;
+ margin-top: 10%;
+ word-wrap: break-word;
+ word-break: keep-all;
+ text-align: center;
 }

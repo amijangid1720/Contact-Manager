@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environment';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private loginService: LoginService) {}
 
   public isLoggedin(): boolean {
     if (localStorage.getItem('token')) return true;

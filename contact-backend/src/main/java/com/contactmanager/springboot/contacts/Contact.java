@@ -4,6 +4,7 @@ import com.contactmanager.springboot.security.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Builder
 @Getter
@@ -43,6 +44,10 @@ public class Contact {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "favorite")
+    @ColumnDefault("false")
+    private Boolean favorite;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
