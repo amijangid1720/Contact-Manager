@@ -37,6 +37,12 @@ updateDetailsFilled(userid:number):Observable<any>{
 }
 
 
+removeFromFavorites(contactId: number):Observable<any>{
+ const url = `${environment.backendUrl}/api/v1/contacts/${contactId}/unfavorite`;
+ return this.http.patch(url,null);
+}
+
+
 uploadProfilePicture(formData: FormData,userid:number): Observable<any> {
   const uploadUrl = `${environment.backendUrl}/upload-profile-picture/${userid}`; // Replace with your actual upload endpoint
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ManipulateUserService } from '../service/manipulate-user.service';
 import { Router } from '@angular/router';
+import { TooltipModule } from 'primeng/tooltip';
 // import { UpdateContactComponent } from '../update-contact/update-contact.component';
 import {
   faPen,
@@ -55,5 +56,16 @@ export class FavoriteComponent {
       this.editingContactId = contactId;
     }
   }
-  // Add any additional methods or event handlers as needed
+
+
+  removeFromFavorites(contactId: number) {
+    // Call the service method to remove the contact
+    this.manipulateuser.removeFromFavorites(contactId).subscribe(() => {
+      console.log("removed from fav");
+      
+      // After successful removal, reload the favorite contacts
+      this.loadFavorite();
+    });
+
+}
 }

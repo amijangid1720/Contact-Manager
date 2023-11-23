@@ -40,7 +40,7 @@ export class Navbar1Component {
       console.log('hi');
       this.tokenservice.getUserName().subscribe({
         next: (res) => {
-          console.log(res);
+          console.log("res" + res);
           this.firstName = res.firstName;
           this.loginService.setLoggedInStatus(true);
         },

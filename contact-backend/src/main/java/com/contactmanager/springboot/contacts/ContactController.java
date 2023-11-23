@@ -257,6 +257,7 @@ public ResponseEntity<contactResponse> findAllContacts(
         }
     }
 
+    //to get list of fav contacts
     @GetMapping("/favorite/{userid}")
     public ResponseEntity<List<Contact>> favoriteContacts(@PathVariable Integer userid) {
         try {
@@ -276,7 +277,7 @@ public ResponseEntity<contactResponse> findAllContacts(
     }
 
 
-    // Add this method to your ContactController class
+    // to make  a contact favorite
     @PatchMapping("/{contactId}/favorite")
     public ResponseEntity<Contact> toggleFavorite(@PathVariable Integer contactId, @RequestBody Boolean isFavorite) {
         try {
@@ -289,6 +290,21 @@ public ResponseEntity<contactResponse> findAllContacts(
         }
     }
 
+
+    //to remove a contact from favorite
+    @PatchMapping("/{contactId}/unfavorite")
+    public ResponseEntity<Contact> removeFromFavorites(@PathVariable Integer contactId) {
+        try {
+            Contact updatedContact = contactService.removeFromFavorites(contactId);
+            return ResponseEntity.ok(updatedContact);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
+
+}
 
 
