@@ -228,6 +228,9 @@
       #phonenoInput="ngModel"
       pattern="^[0-9]{10}$"
       [ngModelOptions]="{ standalone: true }"
+      [attr.readonly]="true"
+      style="  cursor: not-allowed;"
+
     />
     </div>
     <div *ngIf="phonenoInput.invalid && (phonenoInput.dirty || phonenoInput.touched)">
@@ -263,6 +266,8 @@
       [(ngModel)]="user.email"
       #username="ngModel"
       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+      [attr.readonly]="true"
+      style="  cursor: not-allowed;"
     />
     </div>
     <div *ngIf="username.invalid && (username.dirty || username.touched)">
@@ -284,7 +289,7 @@
     class="btn btn-primary"
     [disabled]="!userForm.valid" [disabled]="isButtonDisabled"
   >
-    Submit
+    Update Profile
   </button>
 </div>
   </form>
