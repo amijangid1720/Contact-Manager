@@ -46,7 +46,7 @@ export class ContactTableComponent implements OnInit {
   loading: boolean = false;
   sortField: string = 'name';
   sortOrder: string = 'asc';
-  
+  isContactsEmpty: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -60,6 +60,7 @@ export class ContactTableComponent implements OnInit {
 
   ngOnInit() {
     this.loadContacts();
+   
   }
 
   // loadContacts() {
@@ -292,4 +293,6 @@ export class ContactTableComponent implements OnInit {
         console.log('favorite');
       });
   }
+
+
 }

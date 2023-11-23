@@ -30,4 +30,11 @@ export class ToasterService {
     });
   }
  
+  showUserUpdated() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Profile Updated '
+    });
+  }
 }

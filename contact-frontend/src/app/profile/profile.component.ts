@@ -4,6 +4,7 @@ import { ManipulateUserService } from '../service/manipulate-user.service';
 import { TokenService } from '../service/token.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToasterService } from '../service/toaster.service';
 
 @Component({
   selector: 'app-profile',
@@ -29,11 +30,13 @@ export class ProfileComponent {
   user_id!:number;
   selectedFile: File | null = null;
   isButtonDisabled:boolean=false;
+
   constructor(
     private http: HttpClient,
     private manipulateuser: ManipulateUserService,
     private tokenservice: TokenService,
     private router:Router,
+    private toasterService: ToasterService
   
   ) {}
 
@@ -74,7 +77,7 @@ onSubmit(userForm: NgForm) {
           next: (res) => {
             console.log(res);
             // this.uploadProfilePicture(parsedUserId);
-           
+            this.toasterService.showUserUpdated() ;
           },
           error: (err) => {
             console.log(err);
