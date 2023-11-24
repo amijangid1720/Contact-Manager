@@ -10,7 +10,6 @@ import {} from '@fortawesome/free-solid-svg-icons';
 import { ToasterService } from '../service/toaster.service';
 import { MessageService } from 'primeng/api';
 import { environment } from '../environment';
-
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -19,9 +18,9 @@ import { environment } from '../environment';
 export class AddComponent {
   constructor(
     private router: Router,
-    private addService: AddServiceService,
-    private toasterService: ToasterService,
-    private messageService: MessageService
+    private addService:AddServiceService,
+    private toasterService:ToasterService,
+    private messageService:MessageService
   ) {}
   faCoffee = faCoffee;
   faBackward = faCircleChevronLeft;
@@ -34,8 +33,7 @@ export class AddComponent {
     gender: '',
     description: '',
   };
-  searchTerm: string = '';
-
+  searchTerm:string="";
   onSubmit(contactForm: NgForm) {
     if (contactForm.valid) {
       const phoneno = this.contact.phoneno;

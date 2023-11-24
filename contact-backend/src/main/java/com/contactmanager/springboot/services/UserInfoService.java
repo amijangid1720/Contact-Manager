@@ -56,4 +56,19 @@ public class UserInfoService {
         if(userInfo.isEmpty()) return false;
         else return true;
     }
+    public void updateUserProfilePicture(Integer userid,String imageUrl)
+    {
+        Optional<UserInfo> optionalUser = userInfoRepository.findById(userid);
+
+        if (optionalUser.isPresent()) {
+
+            UserInfo user = optionalUser.get();
+            user.setProfilePicture(imageUrl);
+            userInfoRepository.save(user);
+        } else {
+            // Handle user not found, throw an exception, or perform other actions
+            throw new RuntimeException("User not found with ID: " + userid);
+        }
+    }
+
 }

@@ -11,6 +11,7 @@ import com.contactmanager.springboot.security.auth.DuplicateCheckResponse;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
 //import com.contactmanager.springboot.security.user.UserSession;
+import com.contactmanager.springboot.services.CloudinaryImageService;
 import com.contactmanager.springboot.services.FileStorageService;
 import com.contactmanager.springboot.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,8 @@ public class ContactController {
     @Autowired
     UserInfoRepository userInfoRepository;
 
-
+    @Autowired
+    private CloudinaryImageService cloudinaryImageService;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -302,6 +304,16 @@ public ResponseEntity<contactResponse> findAllContacts(
         }
     }
 
+    @PostMapping("/upload-profile/{userid}")
+   public ResponseEntity<Map> uploadImage(
+            @RequestParam("image") MultipartFile file,
+            @PathVariable Integer userid
+    )
+    {
+      Map data=this.cloudinaryImageService.upload(file,userid);
+
+      return new ResponseEntity<>(data,HttpStatus.OK);
+    }
 
 }
 
