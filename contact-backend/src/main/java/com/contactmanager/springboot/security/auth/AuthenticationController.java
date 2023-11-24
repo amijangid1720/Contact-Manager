@@ -124,16 +124,16 @@ public class AuthenticationController {
                 System.out.println("response.toString()");
 
                 System.out.println(response.toString());
-                String jsonResponse = "{\"token\": \"" + response.getToken() + "\", \"userId\": \"" + user.getId() + "\", \"redirect\": \"" + redirectPath + "\"}";
-                return ResponseEntity.ok().body(jsonResponse);
+                String jsonResponse = "{\"token\": \"" + response.getToken() + "\", \"refreshToken\": \"" + response.getRefreshToken() + "\", \"userId\": \"" + user.getId() + "\", \"redirect\": \"" + redirectPath + "\"}";
+                return ResponseEntity.ok(jsonResponse);
             } else {
                 System.out.println("Invalid ID token.");
-                return ResponseEntity.badRequest().body("{\"error\": \"Invalid ID token\"}");
+                  return ResponseEntity.badRequest().body("{\"error\": \"Invalid ID token\"}");
             }
         } catch (GeneralSecurityException | IOException e) {
             // Handle exceptions appropriately
             e.printStackTrace();
-            return ResponseEntity.status(500).body("{\"error\": \"Internal Server Error\"}");
+           return ResponseEntity.status(500).body("{\"error\": \"Internal Server Error\"}");
         }
 
 
