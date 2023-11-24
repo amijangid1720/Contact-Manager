@@ -109,12 +109,29 @@ input[type="text"]::placeholder {
 .search{
   width: 10%;
   height: 5vh;
-  background-color: #dfeaf06e;
+  background-color: #9BBEC8;
   border-top-right-radius: 1.5vw;
   border-bottom-right-radius: 1.5vw;
   border: none;
 }
+.para{
+  background-color: #DDF2FD;
+  width: 80%;
+  height: 34vw;
 
+  padding: 13vw 0;
+
+  text-align: center;
+  opacity: .5;
+  z-index: -1;
+
+}
+p{
+  font-size: 25px;
+}
+h4{
+  color: black !important;
+}
 @media screen and (max-width: 480px) {
   .icon {
     font-size: 10px;

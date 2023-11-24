@@ -1,5 +1,32 @@
 
 <div class="main">
+    
+  <div class="para" *ngIf="totalRecords === 0; else showTable">
+    <p><fa-icon
+    [icon]="faUserSlash"
+    size="2x"
+    [styles]="{
+      stroke: 'red',
+      color: '#021d27',
+      'font-size': '40px'
+    }"
+    >
+  </fa-icon> No contacts found.
+</p>
+<h4>Add favorites <fa-icon
+  [icon]="faHeart"
+ 
+    size="2x" 
+  [styles]="{
+    stroke: 'red',
+    color: '#021d27',
+    'font-size': '40px'
+  }"
+  >
+</fa-icon></h4>
+</div>
+
+<ng-template #showTable>
   <div class="favside ">
 
     <div class="card" *ngFor="let contact of contacts">
@@ -58,6 +85,7 @@
   <div class="updateside">
     <router-outlet></router-outlet>
   </div>
+</ng-template>
 </div>
 <p-toast>[showTransformOptions]="'translateY(100%)'"
   [showTransitionOptions]="'1000ms'"

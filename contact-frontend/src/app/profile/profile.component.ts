@@ -67,6 +67,12 @@ export class ProfileComponent {
 onFileSelected(event: any) {
   this.selectedFile = event.target.files[0] as File;
 }
+
+
+capitalizeFirstLetter(name: string): string {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
 onSubmit(userForm: NgForm) {
   this.isButtonDisabled = true;
   
@@ -78,7 +84,8 @@ onSubmit(userForm: NgForm) {
         this.manipulateuser.updateUser(this.user, parsedUserId,).subscribe({
           next: (res) => {
             console.log(res);
-            // this.uploadProfilePicture(parsedUserId);
+            //  this.uploadProfilePicture(parsedUserId);
+             
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -94,45 +101,12 @@ onSubmit(userForm: NgForm) {
       }
 
 
-      // if (this.selectedFile) {
-      //   // Upload the selected file to the server
-      //   const formData: FormData = new FormData();
-      //   console.log(formData);
-        
-      //   formData.append('file', this.selectedFile, this.selectedFile.name);
-    
-      //   this.manipulateuser.uploadProfilePicture(formData).subscribe({
-      //     next: (res) => {
-      //       console.log('File uploaded successfully:', res);
-      //       // Handle the response from the server if needed
-      //     },
-      //     error: (err) => {
-      //       console.error('Error uploading file:', err);
-      //       // Handle the error if needed
-      //     },
-      //   });
       } 
     } else {
       console.error("user_id is null in localStorage");
     }
   }
-private uploadProfilePicture(userId: number) {
-  if (this.selectedFile) {
-    const formData: FormData = new FormData();
-    formData.append('file', this.selectedFile, this.selectedFile.name);
-
-    this.manipulateuser.uploadProfilePicture(formData,userId).subscribe(
-      (res) => {
-        console.log('File uploaded successfully:', res);
-      },
-      (err) => {
-        console.error('Error uploading file:', err);
-      }
-    );
-    }
- 
 }
 
-}
-  
+
 

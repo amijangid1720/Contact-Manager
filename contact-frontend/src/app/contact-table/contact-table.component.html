@@ -28,11 +28,34 @@
         "
       />
 
-      <div *ngIf="loading" class="loading-spinner">
-        <mat-spinner diameter="50" color="primary"></mat-spinner>
-      </div>
-      
+      <div class="para" *ngIf="totalRecords === 0; else showTable">
+        <p><fa-icon
+        [icon]="faUserSlash"
+        size="2x"
+        [styles]="{
+          stroke: 'red',
+          color: '#021d27',
+          'font-size': '40px'
+        }"
+        >
+      </fa-icon> No contacts found.
+  </p>
+    <h4>Start adding your contacts now <fa-icon
+      [icon]="faUserPlus"
+     
+        size="2x" 
+      [styles]="{
+        stroke: 'red',
+        color: '#021d27',
+        'font-size': '40px'
+      }"
+      >
+    </fa-icon></h4>
+    </div>
   
+
+
+      <ng-template #showTable>
       <table class="table table-hover">
         <thead>
           <tr class="">
@@ -169,6 +192,7 @@
         class="pagenation"
       
       ></p-paginator>
+    </ng-template>
     </div>
   </div>
 </div>

@@ -10,6 +10,8 @@ import {
   faMagnifyingGlass,
   faStar,
   faHeart,
+  faUserSlash,
+  faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
 
@@ -35,6 +37,8 @@ export class ContactTableComponent implements OnInit {
   faCaretDown = faCaretDown;
   faHeart = faHeart;
   faSearch = faSearch;
+  faUserSlash = faUserSlash;
+  faUserPlus = faUserPlus;
   faMagnifyingGlass = faMagnifyingGlass;
   faArrowRightFromBracket = faArrowRightFromBracket;
   contacts!: any[];
@@ -62,54 +66,6 @@ export class ContactTableComponent implements OnInit {
     this.loadContacts();
    
   }
-
-  // loadContacts() {
-  //   this.manipulateuser
-  //     .getContacts(this.first / this.rows, this.rows)
-  //     .subscribe(
-  //       (response: any) => {
-  //         if (response && Array.isArray(response.content)) {
-  //           // Map contacts without modifying the original response
-
-  //           const mappedContacts = response.content.map((contact: any) => ({
-  //             id: contact.id,
-  //             name: contact.firstname + ' ' + contact.lastname,
-  //             email: contact.email,
-  //             phoneno: contact.phoneno,
-  //             work: contact.work,
-  //             gender: contact.gender,
-  //             favorite: contact.favorite,
-  //           }));
-  //           console.log(mappedContacts.length);
-  //           this.totalRecords = response.totalElements; 
-  //           this.data1 = mappedContacts;
-  //           // Sort the mappedContacts array based on the selected field and order
-  //           mappedContacts.sort((a: any, b: any) => {
-  //             const valueA = a[this.sortField];
-  //             const valueB = b[this.sortField];
-
-  //             // Ensure the values are of string type before using localeCompare
-  //             const strValueA = String(valueA);
-  //             const strValueB = String(valueB);
-
-  //             return this.sortOrder === 'asc'
-  //               ? strValueA.localeCompare(strValueB)
-  //               : strValueB.localeCompare(strValueA);
-  //           });
-  //           // Update the contacts array after mapping and sorting
-  //           this.contacts = mappedContacts;
-  //           console.log('Mapped and Sorted Contacts:', this.contacts);
-  //         } else {
-  //           console.error('Unexpected API response format. Data:', response);
-  //         }
-  //         this.loading = false;
-  //       },
-  //       (error) => {
-  //         console.error('Error fetching contacts:', error);
-  //         this.loading = false;
-  //       }
-  //     );
-  // }
 
 
 

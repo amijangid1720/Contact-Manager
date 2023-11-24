@@ -7,7 +7,9 @@ import {
   faPen,
 faEnvelope,
 faPhone,
-faMinus
+faMinus,
+faUserSlash,
+faHeart
 } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from 'primeng/api';
 @Component({
@@ -19,8 +21,11 @@ export class FavoriteComponent {
   contacts: any[] = [];
   faEnvelope=faEnvelope;
   faPen=faPen;
+  faUserSlash=faUserSlash;
+  faHeart = faHeart;
   faPhone=faPhone;
   faMinus=faMinus;
+  totalRecords!: number;
   editingContactId: number | null = null;
  
   constructor(
@@ -40,6 +45,11 @@ export class FavoriteComponent {
       this.manipulateuser.getFavorite(userId).subscribe((data) => {
         this.contacts = data;
         console.log(data);
+     
+        this.totalRecords = data.length;
+        console.log(this.totalRecords);
+        
+        
       });
     }
   }
