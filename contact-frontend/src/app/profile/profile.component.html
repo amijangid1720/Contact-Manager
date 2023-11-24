@@ -1,6 +1,6 @@
 <div class="container-div">
   <div class="menu">
-    <div class="rounded-circle image">
+    <div class=" image">
       <img
         class="mt-5"
         width="150px"
@@ -15,6 +15,7 @@
       <img
         class="rounded-circle image"
         width="150px"
+        height="150vh"
         *ngIf="gender === 'Male'"
         [src]="
           userProfilePicture ? userProfilePicture : defaultProfilePictureMale
@@ -26,16 +27,14 @@
     <!-- <span class="span">{{ Name }}</span>  -->
   
       <input
-        class="form-control mt-3"
+        class="form-control mt-3 imgselect"
         type="file"
         id="formFile"
         (change)="onFileSelected($event)"
       />
     
   </div>
-  <span class="span">{{ capitalizeFirstLetter( Name)}}</span> 
-    </div>
-   
+
   <div class="menu2">
     <div class="box-menu">
       <form

@@ -194,6 +194,7 @@ public ResponseEntity<contactResponse> findAllContacts(
         userInfo.setEmail(userInfoRequest.getEmail());
         userInfo.setAddress(userInfoRequest.getAddress());
         userInfo.setPhoneno(userInfoRequest.getPhoneno());
+       
 
         // Set the logged-in user as the owner of the contact
         userInfo.setUser(loggedInUser);

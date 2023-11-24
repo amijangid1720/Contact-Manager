@@ -104,6 +104,8 @@ export class ProfileComponent {
         this.uploadProfilePicture(parsedUserId, selectedFile).subscribe(
           (data) => {
              this.userProfilePicture = data.url;
+             console.log("huggrgrrt");
+             
             console.log('Image Url',data.url);
           }
         );
@@ -129,7 +131,8 @@ export class ProfileComponent {
     // headers.set('Content-Type', 'multipart/form-data');
     headers.append('Content-Type', 'multipart/form-data');
 
-
+ console.log("call");
+ 
    return this.http.post(
       `${environment.backendUrl}/api/v1/contacts/upload-profile/${userid}`,
       formData,

@@ -30,7 +30,11 @@
 			<artifactId>jjwt-api</artifactId>
 			<version>0.11.2</version> <!-- Use the appropriate version -->
 		</dependency>
-
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>1.35.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.http-client</groupId>
 			<artifactId>google-http-client-jackson2</artifactId>
