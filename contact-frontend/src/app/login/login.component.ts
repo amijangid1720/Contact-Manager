@@ -48,16 +48,17 @@ export class LoginComponent implements OnInit {
         .sendTokenToBackend(this.user.idToken)
         .pipe(
           tap((data: any) => {
-            console.log('success');
+            // console.log('success');
             console.log(data);
             const gtoken = data.token;
+            const rtoken = data.refreshToken;
             // console.log(localStorage);
             localStorage.setItem('user_id', data.userId);
-
-            console.log('Received gtoken:', gtoken);
+          
+            // console.log('Received gtoken:', gtoken);
 
             localStorage.setItem('token', gtoken);
-
+            localStorage.setItem('refreshToken', rtoken);
             this.router.navigate([data.redirect]);
           })
         )
@@ -70,12 +71,12 @@ export class LoginComponent implements OnInit {
     this.tokenService
       .getToken(this.loginData.email, this.loginData.password)
       .subscribe(
-        (data: { token: string,refreshToken: string,userid:string }) => {
-          console.log('success');
+        (data: { token: string; refreshToken: string; userid: string }) => {
+          // console.log('success');
           console.log(data);
           const token = data.token;
           const refreshToken = data.refreshToken;
-          const user_id=data.userid;
+          const user_id = data.userid;
 
           // Store the token in a secure location (e.g., local storage)
           localStorage.setItem('token', token);
@@ -101,6 +102,14 @@ export class LoginComponent implements OnInit {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
+
+  
+  //   console.log('Refreshing access token...');
+  //   this.authService.refreshAccessToken(GoogleLoginProvider.PROVIDER_ID)
+  //     .then(response => console.log('Refresh response:', response))
+  //     .catch(error => console.error('Refresh error:', error));
+  // }
+  
   signOut(): void {
     this.authService
       .signOut()

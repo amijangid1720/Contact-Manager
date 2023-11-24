@@ -37,10 +37,10 @@ export class HomeComponent {
     else return true;
   }
   signOut() {
-    console.log('Logout button clicked');
+    //console.log('Logout button clicked');
     this.authService.signOut();
     this.loggedin = false;
-    console.log(this.loggedin);
+    //console.log(this.loggedin);
 
     this.router.navigate(['']);
     window.location.reload();

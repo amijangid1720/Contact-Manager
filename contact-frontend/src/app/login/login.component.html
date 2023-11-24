@@ -40,7 +40,7 @@
     <h4>OR</h4>
 
     <div style="display: flex; justify-content: center; align-items: center">
-      <asl-google-signin-button
+      <asl-google-signin-button  (click)="signInWithGoogle()"
         type="standard"
         size="large"
         width="300vw"
@@ -52,7 +52,7 @@
           margin-top: 1rem;
         "
       >
-        <span (click)="signInWithGoogle()">Login with Google</span>
+        <!-- <span (click)="signInWithGoogle()">Login with Google</span> -->
       </asl-google-signin-button>
     </div>
 

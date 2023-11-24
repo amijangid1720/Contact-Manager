@@ -20,7 +20,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   constructor(private tokenRefreshService: TokenRefreshService,
     private router:Router) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    console.log("1) Intercepting Request",request);
+    // console.log("1) Intercepting Request",request);
     
     const authToken = localStorage.getItem('token');
 
@@ -33,13 +33,13 @@ export class AuthInterceptorService implements HttpInterceptor {
       });
       return next.handle(modifiedRequest).pipe(
         tap((response) => {
-          console.log("2)Request with token added",modifiedRequest);
-          console.log('Successful response of above request:',JSON.stringify(response) );
+          // console.log("2)Request with token added",modifiedRequest);
+          // console.log('Successful response of above request:',JSON.stringify(response) );
          
         }),
         catchError((error) => {
-          console.log('3)The error occuring during request');
-          console.log('4)The URL giving above error is',error.url);
+          // console.log('3)The error occuring during request');
+          // console.log('4)The URL giving above error is',error.url);
           
           console.log(error);
           localStorage.removeItem('token');
@@ -59,8 +59,8 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
   }
   handleRefreshToken(request: HttpRequest<any>, next: HttpHandler): any {
-    console.log('entering refresh logic');
-    console.log("Request 1",request)
+    // console.log('entering refresh logic');
+    // console.log("Request 1",request)
     return this.tokenRefreshService.refresh().pipe(
       switchMap((data: any) => {
         console.log('consoling data returned from refresh method');

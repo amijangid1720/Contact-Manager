@@ -50,7 +50,7 @@ export class UpdateContactComponent {
     if (contactForm.valid) {
       this.addService.updateContact(this.contact, this.contact_id).subscribe({
         next: (res) => {
-          console.log(res);
+          //console.log(res);
 
           setTimeout(() => {
             this.router.navigateByUrl('/api/v1/dashboard');
@@ -58,7 +58,7 @@ export class UpdateContactComponent {
           this.toasterService.showContactUpdated();
         },
         error: (err) => {
-          console.log(err);
+          //console.log(err);
           // Handle the error
         },
       });

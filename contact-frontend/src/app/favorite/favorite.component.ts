@@ -5,11 +5,11 @@ import { TooltipModule } from 'primeng/tooltip';
 // import { UpdateContactComponent } from '../update-contact/update-contact.component';
 import {
   faPen,
-faEnvelope,
-faPhone,
-faMinus,
-faUserSlash,
-faHeart
+  faEnvelope,
+  faPhone,
+  faMinus,
+  faUserSlash,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from 'primeng/api';
 @Component({
@@ -19,19 +19,19 @@ import { MessageService } from 'primeng/api';
 })
 export class FavoriteComponent {
   contacts: any[] = [];
-  faEnvelope=faEnvelope;
-  faPen=faPen;
-  faUserSlash=faUserSlash;
+  faEnvelope = faEnvelope;
+  faPen = faPen;
+  faUserSlash = faUserSlash;
   faHeart = faHeart;
-  faPhone=faPhone;
-  faMinus=faMinus;
+  faPhone = faPhone;
+  faMinus = faMinus;
   totalRecords!: number;
   editingContactId: number | null = null;
- 
+
   constructor(
     private manipulateuser: ManipulateUserService,
     private router: Router,
-    private messageService:MessageService
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -44,19 +44,16 @@ export class FavoriteComponent {
       const userId = parseInt(userid, 10);
       this.manipulateuser.getFavorite(userId).subscribe((data) => {
         this.contacts = data;
-        console.log(data);
-     
+        //console.log(data);
+
         this.totalRecords = data.length;
-        console.log(this.totalRecords);
-        
-        
+        //console.log(this.totalRecords);
       });
     }
   }
   capitalizeFirstLetter(name: string): string {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
-
 
   toggleUpdate(contactId: number) {
     if (this.editingContactId === contactId) {
@@ -70,22 +67,19 @@ export class FavoriteComponent {
     }
   }
 
-
   removeFromFavorites(contactId: number) {
     // Call the service method to remove the contact
     this.manipulateuser.removeFromFavorites(contactId).subscribe(() => {
-      console.log("removed from fav");
+      //console.log("removed from fav");
       this.messageService.add({
         severity: 'warn',
         summary: 'Deleted',
         detail: 'Favorite contact removed',
       });
       // After successful removal, reload the favorite contacts
-      setTimeout(()=>{
+      setTimeout(() => {
         this.loadFavorite();
-      },200)
-      
+      }, 200);
     });
-
-}
+  }
 }

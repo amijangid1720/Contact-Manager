@@ -8,15 +8,12 @@ import { LoginService } from './login.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.loginService.isAuthenticated());
-  constructor(
-    private http: HttpClient,
-    private loginService:LoginService
-
-  ) {}
+  private loggedInSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(this.loginService.isAuthenticated());
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
   sendTokenToBackend(idToken: String): Observable<any> {
-    console.log('hiii');
+    //console.log('hiii');
 
     const url = `${environment.backendUrl}/api/v1/auth/google`;
     return this.http.post(url, idToken);
@@ -32,6 +29,5 @@ export class AuthService {
   signOut(): void {
     // localStorage.clear();
     this.loginService.clearToken();
- 
   }
 }

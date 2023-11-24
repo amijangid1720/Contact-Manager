@@ -11,7 +11,7 @@ import {
   faStar,
   faHeart,
   faUserSlash,
-  faUserPlus
+  faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient } from '@angular/common/http';
 
@@ -64,64 +64,61 @@ export class ContactTableComponent implements OnInit {
 
   ngOnInit() {
     this.loadContacts();
-   
   }
-
-
 
   loadContacts() {
     this.loading = true;
-    console.log('Loading started');
-  
+    //console.log('Loading started');
+
     setTimeout(() => {
-    this.manipulateuser.getContacts(this.first / this.rows, this.rows).subscribe(
-      (response: any) => {
-        if (response && Array.isArray(response.contacts)) {
-          const mappedContacts = response.contacts.map((contact: any) => ({
-            id: contact.id,
-            name: contact.firstname + ' ' + contact.lastname,
-            email: contact.email,
-            phoneno: contact.phoneno,
-            work: contact.work,
-            gender: contact.gender,
-            favorite: contact.favorite,
-          }));
-  
-          this.totalRecords = response.totalContacts;
-           console.log("total:" ,this.totalRecords);
-           this.data1 = mappedContacts;
+      this.manipulateuser
+        .getContacts(this.first / this.rows, this.rows)
+        .subscribe(
+          (response: any) => {
+            if (response && Array.isArray(response.contacts)) {
+              const mappedContacts = response.contacts.map((contact: any) => ({
+                id: contact.id,
+                name: contact.firstname + ' ' + contact.lastname,
+                email: contact.email,
+                phoneno: contact.phoneno,
+                work: contact.work,
+                gender: contact.gender,
+                favorite: contact.favorite,
+              }));
 
-            // Sort the mappedContacts array based on the selected field and order
-          mappedContacts.sort((a: any, b: any) => {
-            
-            const valueA = a[this.sortField];
-                        const valueB = b[this.sortField];
-          
-                        // Ensure the values are of string type before using localeCompare
-                        const strValueA = String(valueA);
-                        const strValueB = String(valueB);
-          
-                        return this.sortOrder === 'asc'
-                          ? strValueA.localeCompare(strValueB)
-                          : strValueB.localeCompare(strValueA);
-          });
-       // Update the contacts array after mapping and sorting
-          this.contacts = mappedContacts;
-          console.log('Mapped and Sorted Contacts:', this.contacts);
-        } else {
-          console.error('Unexpected API response format. Data:', response);
-        }
-        this.loading = false;
-      },
-      (error) => {
-        console.error('Error fetching contacts:', error);
-        this.loading = false;
-      }
-    );
-  }, 500); 
-}
+              this.totalRecords = response.totalContacts;
+              //console.log("total:" ,this.totalRecords);
+              this.data1 = mappedContacts;
 
-  
+              // Sort the mappedContacts array based on the selected field and order
+              mappedContacts.sort((a: any, b: any) => {
+                const valueA = a[this.sortField];
+                const valueB = b[this.sortField];
+
+                // Ensure the values are of string type before using localeCompare
+                const strValueA = String(valueA);
+                const strValueB = String(valueB);
+
+                return this.sortOrder === 'asc'
+                  ? strValueA.localeCompare(strValueB)
+                  : strValueB.localeCompare(strValueA);
+              });
+              // Update the contacts array after mapping and sorting
+              this.contacts = mappedContacts;
+              //console.log('Mapped and Sorted Contacts:', this.contacts);
+            } else {
+              console.error('Unexpected API response format. Data:', response);
+            }
+            this.loading = false;
+          },
+          (error) => {
+            console.error('Error fetching contacts:', error);
+            this.loading = false;
+          }
+        );
+    }, 500);
+  }
+
   setSortField(field: string) {
     // Toggle the sort order if the same field is clicked again
     if (this.sortField === field) {
@@ -138,8 +135,8 @@ export class ContactTableComponent implements OnInit {
   onPageChange(event: any) {
     this.first = event.first;
     this.rows = event.rows;
-    console.log(this.first);
-    console.log(this.rows);
+    //console.log(this.first);
+    //console.log(this.rows);
     this.loadContacts();
   }
 
@@ -190,7 +187,7 @@ export class ContactTableComponent implements OnInit {
   }
 
   onDeleteContact(contactId: string) {
-    console.log(contactId);
+    //console.log(contactId);
 
     this.confirmationService.confirm({
       accept: () => {
@@ -249,6 +246,4 @@ export class ContactTableComponent implements OnInit {
         console.log('favorite');
       });
   }
-
-
 }

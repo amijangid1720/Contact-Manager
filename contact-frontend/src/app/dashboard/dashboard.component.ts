@@ -9,15 +9,16 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent  implements OnInit{
+export class DashboardComponent implements OnInit {
   faArrowRightFromBracket = faArrowRightFromBracket;
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private authService: AuthService,
     private renderer: Renderer2,
     private el: ElementRef,
-    private tokenService:TokenService,
+    private tokenService: TokenService
   ) {}
-  firstName:string="";
+  firstName: string = '';
   ngOnInit(): void {
     this.tokenService.getUserName().subscribe({
       next: (res) => {
@@ -33,7 +34,7 @@ export class DashboardComponent  implements OnInit{
   toggleNav() {
     const sidenavElement = this.el.nativeElement.querySelector('#mySidenav');
     const mainElement = this.el.nativeElement.querySelector('#main');
-    
+
     const currentWidth = getComputedStyle(sidenavElement).width;
 
     if (currentWidth === '0px' || !currentWidth) {
@@ -45,7 +46,7 @@ export class DashboardComponent  implements OnInit{
     }
   }
   signOut() {
-    console.log('Logout button clicked');
+    //console.log('Logout button clicked');
     this.authService.signOut();
 
     this.router.navigate(['']);

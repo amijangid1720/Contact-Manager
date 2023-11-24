@@ -18,15 +18,14 @@ export class RegisterComponent {
   phoneno: string = '';
   gender: string = '';
   address: string = '';
-  
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private router:Router
+    private router: Router
   ) {}
   register() {
-    console.log('hiiiiii');
+    //console.log('hiiiiii');
     let bodyData = {
       firstname: this.firstname,
       lastname: this.lastname,
@@ -35,19 +34,17 @@ export class RegisterComponent {
       password: this.password,
       phoneno: this.phoneno,
       gender: this.gender,
-  
-
     };
 
-    console.log(bodyData);
-    
+    //console.log(bodyData);
+
     this.http
       .post(`${environment.backendUrl}/api/v1/auth/check-duplicate`, {
         email: this.email,
         phoneno: this.phoneno,
       })
       .subscribe((resultData: any) => {
-        console.log(resultData, 'hjkh');
+        //console.log(resultData, 'hjkh');
 
         if (resultData.emailExists || resultData.phoneExists) {
           // Email or phone number already exists, show an error message
@@ -76,21 +73,21 @@ export class RegisterComponent {
           this.http
             .post(`${environment.backendUrl}/api/v1/auth/register`, bodyData)
             .subscribe((resultData: any) => {
-              console.log("REGISTER",resultData);
-              const token =resultData.token;
-            console.log("token", token);
-            
-            localStorage.setItem('token', token);
-              const refreshToken=resultData.refreshToken;
-              localStorage.setItem('refreshToken',refreshToken);
-              const user_id=resultData.userid;
-              localStorage.setItem('user_id',user_id);
+              //console.log("REGISTER",resultData);
+              const token = resultData.token;
+              console.log('token', token);
+
+              localStorage.setItem('token', token);
+              const refreshToken = resultData.refreshToken;
+              localStorage.setItem('refreshToken', refreshToken);
+              const user_id = resultData.userid;
+              localStorage.setItem('user_id', user_id);
               this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
                 detail: 'Registration Successful ! ',
               });
-               this.router.navigateByUrl('/dashboard');
+              this.router.navigateByUrl('/dashboard');
             });
         }
       });

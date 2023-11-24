@@ -123,9 +123,9 @@ public class AuthenticationService {
             if (user != null) {
                 // If the user with the Google email exists, generate a JWT token for them
                 var jwtToken = JwtService.generateToken(user);
-
+                var refreshToken=refreshTokenService.createRefreshToken(googleEmail);
                 saveUserToken(user, jwtToken);
-                return AuthenticationResponse.builder().token(jwtToken).build();
+                return AuthenticationResponse.builder().token(jwtToken).refreshToken(refreshToken.getToken()).build();
             } else {
                 // Handle the case when the email does not exist in the database
                 // You can return an error response or perform other actions as needed
