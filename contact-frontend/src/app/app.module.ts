@@ -28,7 +28,7 @@ import { HomeComponent } from './home/home.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
+import { FileUploadModule } from 'primeng/fileupload';
 import { PaginatorModule } from 'primeng/paginator';
 import { PasswordModule } from 'primeng/password';
 import { AvatarModule } from 'primeng/avatar';
@@ -63,7 +63,6 @@ const config: SocialAuthServiceConfig = {
     ProfileComponent,
     UserDetailsFormComponent,
     FavoriteComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -80,7 +79,7 @@ const config: SocialAuthServiceConfig = {
     TooltipModule,
     MatProgressSpinnerModule,
     PaginatorModule,
-
+    FileUploadModule,
     PasswordModule,
     AvatarModule,
     AvatarGroupModule,

@@ -1,299 +1,189 @@
-<!-- <div class="container-fluid">
-  <form #userForm="ngForm"
-  (ngSubmit)="onSubmit(userForm)" class="form-container">
-
-<div class="container mt-5 mb-5">
-  <div class="row">
-    <div class="col-md-3 border-right">
-      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-        <img
-          class="rounded-circle mt-5"
-          width="150px"
-          *ngIf="gender === 'Female'"
-          src="../../assets/user3.png"
-          alt="female"
-          style="width: 100%"
-        />
-        <img
-          class="rounded-circle mt-5"
-          width="150px"
-          *ngIf="gender === 'Male'"
-          src="../../assets/user4.png"
-          alt="male"
-          style="width: 100%"
-        />  -->
-<!-- 
-        <div class="row mt-3">
-          <div class="col-md-12 form-group">
-            <label class="labels">Profile Picture</label>
-            <input type="file" (change)="onFileSelected($event)" accept="image/*" class="form-control-file" />
-          </div>
-        </div> -->
-     
-
-        <!-- <span class="font-weight-bold">{{ Name }}</span
-        ><span class="text-black-50">{{ email }}</span
-        ><span> </span>
-      </div>
-    </div>
-    <div class="col-md-5 border-right">
-      <div class="p-3 py-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="text-right">Profile Settings</h4>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-12 form-group" >
-            <label class="labels">First Name</label
-            ><input
-            type="text"
-            id="firstname"
-            name="firstname"
-            placeholder="Enter First Name"
-            class="input-field form-control"
-            ngModel
-            required
-            #fname="ngModel"
-            [(ngModel)]="user.firstName"
-          />
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-12 form-group">
-            <label class="labels">Last Name</label
-            > <input
-            type="text"
-            id="lastname"
-            name="lastname"
-            placeholder="Enter Last Name"
-            class="input-field form-control"
-            ngModel
-            required
-            [(ngModel)]="user.lastName"
-          />
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-12 form-group">
-            <label class="labels">Mobile Number</label
-            > <input
-            type="tel"
-            id="phoneno"
-            name="phoneno"
-            placeholder="Enter Phone Number"
-            class="input-field form-control"
-            ngModel
-            required
-            [(ngModel)]="user.phoneno"
-          />
-          </div>
-          <div class="col-md-12 form-group" >
-            <label class="labels">Address Line 1</label
-            > <textarea
-            id="address"
-            name="address"
-            placeholder="Enter your  address"
-            class="input-field form-control"
-            ngModel
-            [(ngModel)]="user.address"
-          ></textarea>
-          </div>
-
-          <div class="col-md-12 form-group">
-            <label class="labels">Email ID</label
-            > <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter Email"
-            class="input-field form-control"
-            ngModel
-            required
-            email
-            [(ngModel)]="user.email"
-          />
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="form-group text-center">
-    <button
-      type="submit"
-      class="btn btn-primary">
-      Submit
-    </button>
-  </div>
-</div>
-
-</form>
-</div> -->
-
-
 <div class="container-div">
-  
   <div class="menu">
-    <div class="image">
+    <div class="rounded-circle image">
       <img
-      class="rounded-circle mt-5"
-      width="150px"
-      *ngIf="gender === 'Female'"
-      src="../../assets/girl.png"
-      alt="female"
-      style="width: 100%"
-    />
-    <img
-      class="rounded-circle mt-5"
-      width="150px"
-      *ngIf="gender === 'Male'"
-      src="../../assets/boy.png"
-      alt="male"
-      style="width: 100%"
-    /> 
-
-   
-  </div>
-  <span class="span">{{ Name }}</span> 
+        class="mt-5"
+        width="150px"
+        height="150vh"
+        *ngIf="gender === 'Female'"
+        [src]="
+          userProfilePicture ? userProfilePicture : defaultProfilePictureFemale
+        "
+        alt="female"
+        style="width: 100%"
+      />
+      <img
+        class="rounded-circle image"
+        width="150px"
+        *ngIf="gender === 'Male'"
+        [src]="
+          userProfilePicture ? userProfilePicture : defaultProfilePictureMale
+        "
+        alt="male"
+        style="width: 100%"
+      />
     </div>
-   
+    <!-- <span class="span">{{ Name }}</span>  -->
+  
+      <input
+        class="form-control mt-3"
+        type="file"
+        id="formFile"
+        (change)="onFileSelected($event)"
+      />
+    
+  </div>
+
   <div class="menu2">
     <div class="box-menu">
-    <form #userForm="ngForm"
-  (ngSubmit)="onSubmit(userForm)" class="form-container">
-  <div class="row mt-3">
-    <div class="col-md-12 form-group box1" >
-      <label class="labels">First Name</label
-      ><input
-      type="text"
-      id="firstname"
-      name="firstname"
-      placeholder="Enter First Name"
-      class="input-field form-control"
-      ngModel
-      required
-      #fname="ngModel"
-      [(ngModel)]="user.firstName"
-      [ngModelOptions]="{ standalone: true }"
-        pattern="[A-Za-z]+"
-    />
-     <div *ngIf="fname.invalid && (fname.dirty || fname.touched)">
-      <div *ngIf="fname?.errors?.['required']" class="error-message">
-        *First Name is required.
-      </div>
-      <div *ngIf="fname?.errors?.['pattern']" class="error-message">
-        *First Name should contain only alphabets
-      </div>
-    </div>
+      <form
+        #userForm="ngForm"
+        (ngSubmit)="onSubmit(userForm)"
+        class="form-container"
+      >
+        <div class="row mt-3">
+          <div class="col-md-12 form-group box1">
+            <label class="labels">First Name</label
+            ><input
+              type="text"
+              id="firstname"
+              name="firstname"
+              placeholder="Enter First Name"
+              class="input-field form-control"
+              ngModel
+              required
+              #fname="ngModel"
+              [(ngModel)]="user.firstName"
+              [ngModelOptions]="{ standalone: true }"
+              pattern="[A-Za-z]+"
+            />
+            <div *ngIf="fname.invalid && (fname.dirty || fname.touched)">
+              <div *ngIf="fname?.errors?.['required']" class="error-message">
+                *First Name is required.
+              </div>
+              <div *ngIf="fname?.errors?.['pattern']" class="error-message">
+                *First Name should contain only alphabets
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-12 form-group box1">
+            <label class="labels">Last Name</label>
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              placeholder="Enter Last Name"
+              class="input-field form-control"
+              ngModel
+              required
+              [(ngModel)]="user.lastName"
+              #lname="ngModel"
+              pattern="[A-Za-z]+"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+          <div *ngIf="lname.invalid && (lname.dirty || lname.touched)">
+            <div *ngIf="lname?.errors?.['required']" class="error-message">
+              *Last Name is required.
+            </div>
+            <div *ngIf="lname?.errors?.['pattern']" class="error-message">
+              *Last Name should contain only alphabets
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-12 form-group box1">
+            <label class="labels">Mobile Number</label>
+            <input
+              type="tel"
+              id="phoneno"
+              name="phoneno"
+              placeholder="Enter Phone Number"
+              class="input-field form-control"
+              ngModel
+              required
+              [(ngModel)]="user.phoneno"
+              #phonenoInput="ngModel"
+              pattern="^[0-9]{10}$"
+              [ngModelOptions]="{ standalone: true }"
+              [attr.readonly]="true"
+              style="cursor: not-allowed"
+            />
+          </div>
+          <div
+            *ngIf="
+              phonenoInput.invalid &&
+              (phonenoInput.dirty || phonenoInput.touched)
+            "
+          >
+            <div
+              *ngIf="phonenoInput?.errors?.['required']"
+              class="error-message"
+            >
+              *Phone number is required.
+            </div>
+            <div *ngIf="phonenoInput.errors?.['pattern']" class="error-message">
+              *Phone number must be 10 digits long and contain only numbers.
+            </div>
+          </div>
+
+          <div class="col-md-12 form-group box1">
+            <label class="labels">Address Line 1</label>
+            <textarea
+              id="address"
+              name="address"
+              placeholder="Enter your  address"
+              class="input-field form-control"
+              ngModel
+              [(ngModel)]="user.address"
+              pInputText
+              [ngModelOptions]="{ standalone: true }"
+            ></textarea>
+          </div>
+
+          <div class="col-md-12 form-group box1">
+            <label class="labels">Email ID</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter Email"
+              class="input-field form-control"
+              ngModel
+              required
+              email
+              [(ngModel)]="user.email"
+              #username="ngModel"
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+              [attr.readonly]="true"
+              style="cursor: not-allowed"
+            />
+          </div>
+          <div *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div *ngIf="username?.errors?.['required']" class="error-message">
+              *Email is required.
+            </div>
+            <div *ngIf="username?.errors?.['pattern']" class="error-message">
+              Please enter a valid email address.
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="form-group text-center">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!userForm.valid"
+            [disabled]="isButtonDisabled"
+          >
+            Update Profile
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-
-  <div class="row mt-3">
-    <div class="col-md-12 form-group box1">
-      <label class="labels">Last Name</label
-      > <input
-      type="text"
-      id="lastname"
-      name="lastname"
-      placeholder="Enter Last Name"
-      class="input-field form-control"
-      ngModel
-      required
-      [(ngModel)]="user.lastName"
-      #lname="ngModel"
-      pattern="[A-Za-z]+"
-      [ngModelOptions]="{ standalone: true }"
-    />
-    </div>
-    <div *ngIf="lname.invalid && (lname.dirty || lname.touched)">
-      <div *ngIf="lname?.errors?.['required']" class="error-message">
-        *Last Name is required.
-      </div>
-      <div *ngIf="lname?.errors?.['pattern']" class="error-message">
-        *Last Name should contain only alphabets
-      </div>
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-md-12 form-group box1">
-      <label class="labels">Mobile Number</label
-      > <input
-      type="tel"
-      id="phoneno"
-      name="phoneno"
-      placeholder="Enter Phone Number"
-      class="input-field form-control"
-      ngModel
-      required
-      [(ngModel)]="user.phoneno"
-      #phonenoInput="ngModel"
-      pattern="^[0-9]{10}$"
-      [ngModelOptions]="{ standalone: true }"
-      [attr.readonly]="true"
-      style="  cursor: not-allowed;"
-
-    />
-    </div>
-    <div *ngIf="phonenoInput.invalid && (phonenoInput.dirty || phonenoInput.touched)">
-      <div  *ngIf="phonenoInput?.errors?.['required']" class="error-message">*Phone number is required.</div>
-      <div *ngIf="phonenoInput.errors?.['pattern']" class="error-message">*Phone number must be 10 digits long and contain only numbers.</div>
-    </div>
-
-    <div class="col-md-12 form-group box1" >
-      <label class="labels">Address Line 1</label
-      > <textarea
-      id="address"
-      name="address"
-      placeholder="Enter your  address"
-      class="input-field form-control"
-      ngModel
-      [(ngModel)]="user.address"
-      pInputText
-      [ngModelOptions]="{ standalone: true }"
-    ></textarea>
-    </div>
-
-    <div class="col-md-12 form-group box1">
-      <label class="labels">Email ID</label
-      > <input
-      type="email"
-      id="email"
-      name="email"
-      placeholder="Enter Email"
-      class="input-field form-control"
-      ngModel
-      required
-      email
-      [(ngModel)]="user.email"
-      #username="ngModel"
-      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
-      [attr.readonly]="true"
-      style="  cursor: not-allowed;"
-    />
-    </div>
-    <div *ngIf="username.invalid && (username.dirty || username.touched)">
-      <div *ngIf="username?.errors?.['required']" class="error-message">
-        *Email is required.
-      </div>
-      <div *ngIf="username?.errors?.['pattern']" class="error-message">
-        Please enter a valid email address.
-      </div>
-
-</div>
-</div>
-
-
-
-<div class="form-group text-center">
-  <button
-    type="submit"
-    class="btn btn-primary"
-    [disabled]="!userForm.valid" [disabled]="isButtonDisabled"
-  >
-    Update Profile
-  </button>
-</div>
-  </form>
-</div>
-  </div>
-  
 </div>

@@ -50,7 +50,6 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("api/v1/auth/**").permitAll()
-
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

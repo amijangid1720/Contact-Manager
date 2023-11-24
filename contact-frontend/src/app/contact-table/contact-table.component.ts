@@ -117,7 +117,7 @@ export class ContactTableComponent implements OnInit {
     this.loading = true;
     console.log('Loading started');
   
-    setTimeout(() => {
+   
     this.manipulateuser.getContacts(this.first / this.rows, this.rows).subscribe(
       (response: any) => {
         if (response && Array.isArray(response.contacts)) {
@@ -162,7 +162,7 @@ export class ContactTableComponent implements OnInit {
         this.loading = false;
       }
     );
-  }, 500); 
+
 }
 
   

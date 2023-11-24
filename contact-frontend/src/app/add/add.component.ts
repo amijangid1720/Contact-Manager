@@ -7,20 +7,17 @@ import { } from '@fortawesome/free-solid-svg-icons';
 import { ToasterService } from '../service/toaster.service';
 import { MessageService } from 'primeng/api';
 import { environment } from '../environment';
-
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent {
-
   constructor(
     private router: Router,
     private addService:AddServiceService,
     private toasterService:ToasterService,
     private messageService:MessageService
-   
   ) {}
   faCoffee = faCoffee;
   faBackward = faCircleChevronLeft;
@@ -34,16 +31,12 @@ export class AddComponent {
    description:"",
   };
   searchTerm:string="";
- 
-
   onSubmit(contactForm: NgForm) {
     if (contactForm.valid) {
       const phoneno = this.contact.phoneno;
       const phone = parseInt(phoneno, 10);
-  
       this.addService.checkContact(this.contact.email, phone).subscribe((resultData: any) => {
         console.log(resultData, 'hjkh');
-  
         if (resultData.emailExists || resultData.phoneExists) {
           if (resultData.emailExists && resultData.phoneExists) {
             this.messageService.add({
@@ -84,6 +77,4 @@ export class AddComponent {
       console.log("error");
     }
   }
-  }
-
-   
+}
