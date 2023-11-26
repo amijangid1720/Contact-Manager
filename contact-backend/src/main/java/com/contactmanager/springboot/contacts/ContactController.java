@@ -312,7 +312,7 @@ public ResponseEntity<contactResponse> findAllContacts(
     )
     {
       Map data=this.cloudinaryImageService.upload(file,userid);
-
+      userInfoService.updateUserProfilePicture(data);
       return new ResponseEntity<>(data,HttpStatus.OK);
     }
 

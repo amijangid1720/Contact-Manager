@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLOutput;
+import java.util.Map;
 import java.util.Optional;
 @Service
 public class UserInfoService {
@@ -56,19 +57,29 @@ public class UserInfoService {
         if(userInfo.isEmpty()) return false;
         else return true;
     }
-    public void updateUserProfilePicture(Integer userid,String imageUrl)
-    {
-        Optional<UserInfo> optionalUser = userInfoRepository.findById(userid);
 
-        if (optionalUser.isPresent()) {
+    public void updateUserProfilePicture(Map data) {
+        Object userIdObject = data.get("userid");
 
-            UserInfo user = optionalUser.get();
-            user.setProfilePicture(imageUrl);
-            userInfoRepository.save(user);
+        if (userIdObject != null) {
+            try {
+                int userId = Integer.parseInt(userIdObject.toString());
+                UserInfo user = userInfoRepository.findByUserId(userId);
+
+                if (user != null) {
+                    user.setProfilePicture(data.get("url").toString());
+                    userInfoRepository.save(user);
+                } else {
+                    // Handle the case where the user is not found
+                    System.out.println("User not found with ID: " + userId);
+                }
+            } catch (NumberFormatException e) {
+                // Handle the case where the user ID is not a valid integer
+                System.out.println("Invalid user ID format: " + userIdObject);
+            }
         } else {
-            // Handle user not found, throw an exception, or perform other actions
-            throw new RuntimeException("User not found with ID: " + userid);
+            // Handle the case where the user ID is not present in the data map
+            System.out.println("User ID is not present in the data map");
         }
     }
-
 }
