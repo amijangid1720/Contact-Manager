@@ -70,7 +70,7 @@ export class ContactTableComponent implements OnInit {
     this.loading = true;
     //console.log('Loading started');
 
-    setTimeout(() => {
+   
       this.manipulateuser
         .getContacts(this.first / this.rows, this.rows)
         .subscribe(
@@ -117,7 +117,7 @@ export class ContactTableComponent implements OnInit {
             this.loading = false;
           }
         );
-    }, 500);
+    
   }
 
   setSortField(field: string) {
