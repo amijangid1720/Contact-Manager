@@ -23,8 +23,12 @@ Page<Contact> findByUserId(Integer id, Pageable pageable);
     Optional<Contact> findByEmail(String email);
     Optional<Contact> findByPhoneno(String phoneno);
 
-    @Query("SELECT c FROM Contact c WHERE c.firstname LIKE %:search% OR c.lastname LIKE %:search% OR c.email LIKE %:search% OR c.work LIKE %:search%")
-    List<Contact> searchContacts(@Param("search") String search);
+    @Query("SELECT c FROM Contact c WHERE " +
+            "(:filterTerm = 'name' AND (c.firstname LIKE %:search% OR c.lastname LIKE %:search%)) OR " +
+            "(:filterTerm = 'email' AND c.email LIKE %:search%) OR " +
+            "(:filterTerm = 'work' AND c.work LIKE %:search%) OR " +
+            "(:filterTerm = 'phoneno' AND c.phoneno LIKE %:search%)")
+    List<Contact> searchContacts(@Param("search") String search, @Param("filterTerm") String filterTerm);
 
     List<Contact> findByUserIdAndFavorite(Integer userId, boolean favorite);
 }

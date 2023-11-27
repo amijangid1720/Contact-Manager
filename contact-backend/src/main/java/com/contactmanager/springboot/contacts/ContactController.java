@@ -249,10 +249,10 @@ public ResponseEntity<contactResponse> findAllContacts(
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/search/{searchQuery}")
-    public ResponseEntity<List<Contact>> searchContacts(@PathVariable String searchQuery) {
+    @GetMapping("/search/{searchQuery}/{filterTerm}")
+    public ResponseEntity<List<Contact>> searchContacts(@PathVariable String searchQuery,@PathVariable String filterTerm) {
         try {
-            List<Contact> matchingContacts = contactService.searchContacts(searchQuery);
+            List<Contact> matchingContacts = contactService.searchContacts(searchQuery,filterTerm);
             return ResponseEntity.ok(matchingContacts);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());

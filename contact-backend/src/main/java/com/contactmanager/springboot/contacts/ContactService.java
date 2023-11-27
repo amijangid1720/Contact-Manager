@@ -17,9 +17,9 @@ public class ContactService {
         contactRepository.save(contact);
     }
 
-    public List<Contact> searchContacts(String search) {
+    public List<Contact> searchContacts(String search , String filterTerm) {
         // Implement your search logic here, e.g., using a JPA repository
-        return contactRepository.searchContacts(search);
+        return contactRepository.searchContacts(search,filterTerm);
     }
 
     //get all fav
