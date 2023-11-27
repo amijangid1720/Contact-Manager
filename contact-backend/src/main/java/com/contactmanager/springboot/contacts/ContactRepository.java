@@ -24,8 +24,7 @@ Page<Contact> findByUserId(Integer id, Pageable pageable);
     Optional<Contact> findByPhoneno(String phoneno);
 
     @Query("SELECT c FROM Contact c WHERE c.firstname LIKE %:search% OR c.lastname LIKE %:search% OR c.email LIKE %:search% OR c.work LIKE %:search%")
-    List<Contact> searchContacts(@Param("search") String search);
-
+    Page<Contact> searchContacts(@Param("search") String search, Pageable pageable);
     List<Contact> findByUserIdAndFavorite(Integer userId, boolean favorite);
 }
 

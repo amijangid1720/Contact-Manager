@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   signOut(): void {
-    // localStorage.clear();
-    this.loginService.clearToken();
+    localStorage.clear();
+    // this.loginService.clearToken();
   }
 }

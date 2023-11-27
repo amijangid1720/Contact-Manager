@@ -13,7 +13,7 @@ import {
   faUserSlash,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { ManipulateUserService } from '../service/manipulate-user.service';
 import { Router } from '@angular/router';
@@ -154,18 +154,25 @@ export class ContactTableComponent implements OnInit {
 
   searchContacts() {
     if (this.searchTerm) {
-      // Make an HTTP request to fetch matching contacts
+      const params = new HttpParams()
+        .set('page', this.first.toString())
+        .set('size', this.rows.toString());
+  
+      // Make an HTTP request to fetch matching contacts with pagination
       this.http
-        .get<any[]>(
-          `${environment.backendUrl}/api/v1/contacts/search/${this.searchTerm}`
+        .get<any>(
+          `${environment.backendUrl}/api/v1/contacts/search/${this.searchTerm}`,
+          { params }
         )
         .subscribe(
-          (data) => {
-            console.log(data);
-            this.contacts = data; // Update the contacts array with the search results
+          (response) => {
+            console.log(response);
+            this.contacts = response.contacts; // Update the contacts array with the search results
+            this.totalRecords = response.totalContacts;
             this.setdata(this.contacts);
             console.log('This is this.contacts');
             console.log(this.contacts);
+            console.log(this.contacts.length);
           },
           (error) => {
             console.error('Error fetching contacts:', error);
