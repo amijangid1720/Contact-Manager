@@ -226,14 +226,15 @@ public ResponseEntity<contactResponse> findAllContacts(
     }
 
     @PutMapping("updateDetailsFilled/{id}")
-    public ResponseEntity<String> userDetailsFilled(@PathVariable Integer id){
+    public ResponseEntity<ApiResponse> userDetailsFilled(@PathVariable Integer id) {
         try {
             userInfoService.markDetailsAsFilled(id);
-            return ResponseEntity.ok().body("Details marked as filled successfully");
+            return ResponseEntity.ok().body(new ApiResponse("Details marked as filled successfully"));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to update detailsFilled");
+            return ResponseEntity.status(500).body(new ApiResponse("Failed to update detailsFilled"));
         }
     }
+
     @GetMapping("/info")
     public ResponseEntity<UserInfo> getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
 

@@ -34,7 +34,7 @@ export class ProfileComponent {
   selectedFile: File | null = null;
   isButtonDisabled: boolean = false;
   defaultProfilePictureMale: string = '../../assets/boy.png';
-  defaultProfilePictureFemale: string = '../../assets/girl.png';
+  defaultProfilePictureFemale: string = '../../assets/user3.png';
   constructor(
     private http: HttpClient,
     private manipulateuser: ManipulateUserService,

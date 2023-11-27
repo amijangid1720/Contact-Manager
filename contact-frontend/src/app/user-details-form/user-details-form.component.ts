@@ -51,14 +51,14 @@ export class UserDetailsFormComponent {
             .updateUser(this.user, parsedUserId)
             .subscribe({
               next: (res) => {
-                //console.log(res);
+                console.log(res);
                 this.user.detailsFilled = true;
 
                 this.manipulateUserService
                   .updateDetailsFilled(parsedUserId)
                   .subscribe({
                     next: (updateRes) => {
-                      //console.log(updateRes);
+                      console.log(updateRes);
                     },
                     error: (updateErr) => {
                       console.error(updateErr);
