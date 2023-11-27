@@ -19,10 +19,10 @@ public class ContactService {
         contactRepository.save(contact);
     }
 
-    public Page<Contact> searchContacts(String search, Pageable pageable) {
+    public Page<Contact> searchContacts(String search , String filterTerm, Pageable pageable) {
         try {
             // Implement your search logic using a JPA repository with pagination
-            return contactRepository.searchContacts(search, pageable);
+            return contactRepository.searchContacts(search,filterTerm, pageable);
         } catch (Exception e) {
             // Log the exception or handle it according to your requirements
             throw new RuntimeException("Error occurred during contact search", e);

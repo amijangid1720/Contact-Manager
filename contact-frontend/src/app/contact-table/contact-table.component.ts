@@ -44,6 +44,7 @@ export class ContactTableComponent implements OnInit {
   contacts!: any;
   data1!: any;
   searchTerm: string = '';
+  filterTerm:string='';
   first: number = 0;
   rows: number = 5;
   totalRecords!: number;
@@ -65,6 +66,12 @@ export class ContactTableComponent implements OnInit {
   ngOnInit() {
     this.loadContacts();
   }
+  
+  selectTerm(term: string): void {
+    this.filterTerm = term;
+    // You can do additional processing here based on the selected term
+    
+  } 
 
   loadContacts() {
     this.loading = true;
@@ -154,7 +161,7 @@ export class ContactTableComponent implements OnInit {
   }
 
   searchContacts() {
-    if (this.searchTerm) {
+    if (this.searchTerm && this.filterTerm) {
       const params = new HttpParams()
         .set('page', this.first.toString())
         .set('size', this.rows.toString());
@@ -162,7 +169,7 @@ export class ContactTableComponent implements OnInit {
       // Make an HTTP request to fetch matching contacts with pagination
       this.http
         .get<any>(
-          `${environment.backendUrl}/api/v1/contacts/search/${this.searchTerm}`,
+          `${environment.backendUrl}/api/v1/contacts/search/${this.searchTerm}/${this.filterTerm}`,
           { params }
         )
         .subscribe(
@@ -194,7 +201,7 @@ export class ContactTableComponent implements OnInit {
               summary: 'Error',
               detail: 'Could not find any matching contact',
             });
-          }
+          }  
         );
     } else {
       // Handle when the search input is empty, e.g., display all contacts
@@ -209,7 +216,7 @@ export class ContactTableComponent implements OnInit {
   onDeleteContact(contactId: string) {
     //console.log(contactId);
 
-    this.confirmationService.confirm({
+    this.confirmationService.confirm({  
       accept: () => {
         const dub = this.data1[contactId].id;
         console.log(dub);
@@ -254,7 +261,7 @@ export class ContactTableComponent implements OnInit {
       },
     });
   }
-  toggleFavorite(contact: any): void {
+  toggleFavorite(contact: any): void {          
     contact.favorite = !contact.favorite;
     console.log('favorite');
 
@@ -266,4 +273,9 @@ export class ContactTableComponent implements OnInit {
         console.log('favorite');
       });
   }
+   btn()
+   {
+    console.log("clicked");
+    
+   }
 }

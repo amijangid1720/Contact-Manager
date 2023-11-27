@@ -249,15 +249,15 @@ public ResponseEntity<contactResponse> findAllContacts(
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/search/{searchQuery}")
+    @GetMapping("/search/{searchQuery}/{filterTerm}")
     public ResponseEntity<contactResponse> searchContacts(
-            @PathVariable String searchQuery,
+            @PathVariable String searchQuery,@PathVariable String filterTerm,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size
     ) {
         try {
             Pageable pageable = PageRequest.of(page, size);
-            Page<Contact> matchingContacts = contactService.searchContacts(searchQuery, pageable);
+            Page<Contact> matchingContacts = contactService.searchContacts(searchQuery,filterTerm, pageable);
 
             contactResponse response = new contactResponse();
             response.setContacts(matchingContacts.getContent());
