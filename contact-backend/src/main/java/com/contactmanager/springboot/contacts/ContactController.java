@@ -250,14 +250,25 @@ public ResponseEntity<contactResponse> findAllContacts(
         }
     }
     @GetMapping("/search/{searchQuery}/{filterTerm}")
-    public ResponseEntity<List<Contact>> searchContacts(@PathVariable String searchQuery,@PathVariable String filterTerm) {
+    public ResponseEntity<contactResponse> searchContacts(
+            @PathVariable String searchQuery,@PathVariable String filterTerm,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
         try {
-            List<Contact> matchingContacts = contactService.searchContacts(searchQuery,filterTerm);
-            return ResponseEntity.ok(matchingContacts);
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Contact> matchingContacts = contactService.searchContacts(searchQuery,filterTerm, pageable);
+
+            contactResponse response = new contactResponse();
+            response.setContacts(matchingContacts.getContent());
+            response.setTotalContacts(matchingContacts.getTotalElements());
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new contactResponse());
         }
     }
+
 
     //to get list of fav contacts
     @GetMapping("/favorite/{userid}")

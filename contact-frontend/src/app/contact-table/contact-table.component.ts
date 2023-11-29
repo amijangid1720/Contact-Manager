@@ -13,7 +13,7 @@ import {
   faUserSlash,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { ManipulateUserService } from '../service/manipulate-user.service';
 import { Router } from '@angular/router';
@@ -41,7 +41,7 @@ export class ContactTableComponent implements OnInit {
   faUserPlus = faUserPlus;
   faMagnifyingGlass = faMagnifyingGlass;
   faArrowRightFromBracket = faArrowRightFromBracket;
-  contacts!: any[];
+  contacts!: any;
   data1!: any;
   searchTerm: string = '';
   filterTerm:string='';
@@ -53,6 +53,7 @@ export class ContactTableComponent implements OnInit {
   sortOrder: string = 'asc';
   isContactsEmpty: boolean = false;
 
+
   constructor(
     private http: HttpClient,
     private manipulateuser: ManipulateUserService,
@@ -61,10 +62,15 @@ export class ContactTableComponent implements OnInit {
     private messageService: MessageService,
     private toasterService: ToasterService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) {
+    console.log("hiiii");
+    
+  }
 
   ngOnInit() {
     this.loadContacts();
+  
+    
   }
   
   selectTerm(term: string): void {
@@ -77,7 +83,7 @@ export class ContactTableComponent implements OnInit {
     this.loading = true;
     //console.log('Loading started');
 
-    setTimeout(() => {
+   
       this.manipulateuser
         .getContacts(this.first / this.rows, this.rows)
         .subscribe(
@@ -85,7 +91,8 @@ export class ContactTableComponent implements OnInit {
             if (response && Array.isArray(response.contacts)) {
               const mappedContacts = response.contacts.map((contact: any) => ({
                 id: contact.id,
-                name: contact.firstname + ' ' + contact.lastname,
+                firstname: contact.firstname ,
+                lastname: contact.lastname,
                 email: contact.email,
                 phoneno: contact.phoneno,
                 work: contact.work,
@@ -123,7 +130,7 @@ export class ContactTableComponent implements OnInit {
             this.loading = false;
           }
         );
-    }, 500);
+    
   }
 
   setSortField(field: string) {
@@ -150,7 +157,7 @@ export class ContactTableComponent implements OnInit {
   setdata(contact: any) {
     this.contacts = contact.map((contact: any) => ({
       id: contact.id,
-      name: contact.firstname + ' ' + contact.lastname,
+      // firstname: contact.firstname + ' ' + contact.lastname,
       firstname: contact.firstname,
       lastname: contact.lastname,
       email: contact.email,
@@ -161,18 +168,24 @@ export class ContactTableComponent implements OnInit {
 
   searchContacts() {
     if (this.searchTerm && this.filterTerm) {
-      // Make an HTTP request to fetch matching contacts
+      const params = new HttpParams()
+        .set('page', this.first.toString())
+        .set('size', this.rows.toString());
+  
+      // Make an HTTP request to fetch matching contacts with pagination
       this.http
-        .get<any[]>(
-          `${environment.backendUrl}/api/v1/contacts/search/${this.searchTerm}/${this.filterTerm}`
+        .get<any>(
+          `${environment.backendUrl}/api/v1/contacts/search/${this.searchTerm}/${this.filterTerm}`,
+          { params }
         )
         .subscribe(
-          (data) => {
-            console.log(data);
-            this.contacts = data; // Update the contacts array with the search results
-            this.setdata(this.contacts);
-            console.log('This is this.contacts');
-            console.log(this.contacts);
+          (response) => {
+            console.log(response, "res");
+            this.contacts = response.contacts; // Update the contacts array with the search results
+           
+            
+            this.totalRecords = response.totalContacts;
+          
           },
           (error) => {
             console.error('Error fetching contacts:', error);

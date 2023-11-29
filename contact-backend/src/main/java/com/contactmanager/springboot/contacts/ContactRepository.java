@@ -28,8 +28,7 @@ Page<Contact> findByUserId(Integer id, Pageable pageable);
             "(:filterTerm = 'email' AND c.email LIKE %:search%) OR " +
             "(:filterTerm = 'work' AND c.work LIKE %:search%) OR " +
             "(:filterTerm = 'phoneno' AND c.phoneno LIKE %:search%)")
-    List<Contact> searchContacts(@Param("search") String search, @Param("filterTerm") String filterTerm);
-
+    Page<Contact> searchContacts(@Param("search") String search, @Param("filterTerm") String filterTerm, Pageable pageable);
     List<Contact> findByUserIdAndFavorite(Integer userId, boolean favorite);
 }
 

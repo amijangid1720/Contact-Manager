@@ -58,15 +58,7 @@ export class Navbar1Component {
     }
   }
 
-  openNav() {
-    const sidenavElement = this.el.nativeElement.querySelector('#mySidenav');
-    this.renderer.setStyle(sidenavElement, 'width', '250px');
-  }
 
-  closeNav() {
-    const sidenavElement = this.el.nativeElement.querySelector('#mySidenav');
-    this.renderer.setStyle(sidenavElement, 'width', '0');
-  }
 
   signOut() {
     console.log('Logout button clicked good one');
@@ -78,18 +70,5 @@ export class Navbar1Component {
     window.location.reload();
   }
 
-  toggleNav() {
-    const sidenavElement = this.el.nativeElement.querySelector('#mySidenav');
-    const mainElement = this.el.nativeElement.querySelector('#main');
-
-    const currentWidth = getComputedStyle(sidenavElement).width;
-
-    if (currentWidth === '0px' || !currentWidth) {
-      this.renderer.setStyle(sidenavElement, 'width', '250px');
-      this.renderer.setStyle(mainElement, 'margin-left', '250px');
-    } else {
-      this.renderer.setStyle(sidenavElement, 'width', '0');
-      this.renderer.setStyle(mainElement, 'margin-left', '0');
-    }
-  }
+  
 }

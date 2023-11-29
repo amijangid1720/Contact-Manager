@@ -87,6 +87,19 @@ input{
 
   border: none;
 }
+::ng-deep .p-paginator{
+  // background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.filters{
+  margin-right: 50%;
+  width: 40%;
+
+}
 
 .loading-spinner {
   position: fixed;

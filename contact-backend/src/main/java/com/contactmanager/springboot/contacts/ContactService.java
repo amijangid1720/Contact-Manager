@@ -2,6 +2,8 @@ package com.contactmanager.springboot.contacts;
 
 import com.contactmanager.springboot.Entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +19,14 @@ public class ContactService {
         contactRepository.save(contact);
     }
 
-    public List<Contact> searchContacts(String search , String filterTerm) {
-        // Implement your search logic here, e.g., using a JPA repository
-        return contactRepository.searchContacts(search,filterTerm);
+    public Page<Contact> searchContacts(String search , String filterTerm, Pageable pageable) {
+        try {
+            // Implement your search logic using a JPA repository with pagination
+            return contactRepository.searchContacts(search,filterTerm, pageable);
+        } catch (Exception e) {
+            // Log the exception or handle it according to your requirements
+            throw new RuntimeException("Error occurred during contact search", e);
+        }
     }
 
     //get all fav
