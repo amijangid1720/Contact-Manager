@@ -53,6 +53,7 @@ export class ContactTableComponent implements OnInit {
   sortOrder: string = 'asc';
   isContactsEmpty: boolean = false;
 
+
   constructor(
     private http: HttpClient,
     private manipulateuser: ManipulateUserService,
@@ -61,10 +62,15 @@ export class ContactTableComponent implements OnInit {
     private messageService: MessageService,
     private toasterService: ToasterService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) {
+    console.log("hiiii");
+    
+  }
 
   ngOnInit() {
     this.loadContacts();
+  
+    
   }
   
   selectTerm(term: string): void {
@@ -176,23 +182,10 @@ export class ContactTableComponent implements OnInit {
           (response) => {
             console.log(response, "res");
             this.contacts = response.contacts; // Update the contacts array with the search results
-            
-              // this.contacts = this.contacts.map((contact: any) => ({
-              //   id: contact.id,
-              //   name: contact.firstname + ' ' + contact.lastname,
-              //   firstname: contact.firstname,
-              //   lastname: contact.lastname,
-              //   email: contact.email,
-              //   phoneno: contact.phoneno,
-              //   work: contact.work,
-              // }));
            
             
             this.totalRecords = response.totalContacts;
-            // this.setdata(this.contacts);
-            // console.log('This is this.contacts');
-            // console.log(this.contacts);
-            // console.log(this.contacts.length);
+          
           },
           (error) => {
             console.error('Error fetching contacts:', error);
