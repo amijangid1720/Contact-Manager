@@ -30,5 +30,10 @@ Page<Contact> findByUserId(Integer id, Pageable pageable);
             "(:filterTerm = 'phoneno' AND c.phoneno LIKE %:search%)")
     Page<Contact> searchContacts(@Param("search") String search, @Param("filterTerm") String filterTerm, Pageable pageable);
     List<Contact> findByUserIdAndFavorite(Integer userId, boolean favorite);
+
+    List<Contact> findByUserIdAndIsFamily(Integer userId,Boolean isFamily);
+    List<Contact> findByUserIdAndIsFriend(Integer userId,Boolean isFamily);
+    List<Contact> findByUserIdAndIsColleague(Integer userId,Boolean isFamily);
+
 }
 

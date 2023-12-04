@@ -32,12 +32,31 @@ export class AddComponent {
     phoneno: '',
     gender: '',
     description: '',
+    categories:'',
+    isFamily:false,
+    isFriend:false,
+    isColleague:false
   };
   searchTerm:string="";
   onSubmit(contactForm: NgForm) {
+    console.log(contactForm);
+
+    console.log("submitted Form !!");
+    
+    
     if (contactForm.valid) {
       const phoneno = this.contact.phoneno;
       const phone = parseInt(phoneno, 10);
+      if(this.contact.categories==='family')
+      {
+        this.contact.isFamily=true;
+
+      }else if(this.contact.categories==='friend')
+      {
+        this.contact.isFriend=true;
+      }else{
+        this.contact.isColleague=true;
+      }
 
       this.addService
         .checkContact(this.contact.email, phone)
@@ -65,6 +84,8 @@ export class AddComponent {
               });
             }
           } else {
+            console.log(this.contact);
+            
             this.addService.addContact(this.contact).subscribe({
               next: (res) => {
                 //console.log(res);

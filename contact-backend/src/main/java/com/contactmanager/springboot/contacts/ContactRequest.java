@@ -1,14 +1,14 @@
 package com.contactmanager.springboot.contacts;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Column;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Builder
 public class ContactRequest {
     private String firstname;
     private String lastname;
@@ -17,20 +17,9 @@ public class ContactRequest {
     private String phoneno;
     private String gender;
     private String description;
-   private String favourite;
+    private String favourite;
+    private Boolean isFriend;
+    private Boolean isFamily;
+    private Boolean isColleague;
 
-    // Constructors, getters, and setters
-
-    @Override
-    public String toString() {
-        return "ContactRequest{" +
-                "firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", work='" + work + '\'' +
-                ", phoneno='" + phoneno + '\'' +
-                ", gender='" + gender + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

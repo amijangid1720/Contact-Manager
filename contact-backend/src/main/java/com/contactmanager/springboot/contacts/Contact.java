@@ -53,5 +53,14 @@ public class Contact {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "friend")
+    private Boolean isFriend;
+
+    @Column(name = "family")
+    private Boolean isFamily;
+
+    @Column(name = "colleague")
+    private Boolean isColleague;
+
 
 }

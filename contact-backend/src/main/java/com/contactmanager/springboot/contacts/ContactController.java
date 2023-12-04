@@ -71,6 +71,9 @@ public class ContactController {
         contact.setDescription(contactRequest.getDescription());
         contact.setPhoneno(contactRequest.getPhoneno());
         contact.setFavorite(false);
+        contact.setIsFriend(contactRequest.getIsFriend());
+        contact.setIsColleague(contactRequest.getIsColleague());
+        contact.setIsFamily(contactRequest.getIsFamily());
         // Set the logged-in user as the owner of the contact
         contact.setUser(loggedInUser);
         // Save the contact
@@ -133,34 +136,15 @@ public ResponseEntity<contactResponse> findAllContacts(
         contact.setEmail(contactRequest.getEmail());
         contact.setDescription(contactRequest.getDescription());
         contact.setPhoneno(contactRequest.getPhoneno());
+        contact.setIsFriend(contactRequest.getIsFriend());
+        contact.setIsColleague(contactRequest.getIsColleague());
+        contact.setIsFamily(contactRequest.getIsFamily());
 
         // Set the logged-in user as the owner of the contact
         contact.setUser(loggedInUser);
         contactRepository.save(contact);
         return contact;
     }
-
-//update details of user using his id
-//    @PutMapping("/updateuser/{id}")
-//    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
-//
-//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
-//        UserInfo userInfo = userInfoRepository.getById(id);
-//        userInfo.setFirstName(userInfoRequest.getFirstName());
-//        userInfo.setLastName(userInfoRequest.getLastName());
-//        userInfo.setGender(userInfoRequest.getGender());
-//        userInfo.setEmail(userInfoRequest.getEmail());
-//        userInfo.setAddress(userInfoRequest.getAddress());
-//        userInfo.setPhoneno(userInfoRequest.getPhoneno());
-//
-//        // Set the logged-in user as the owner of the contact
-//        userInfo.setUser(loggedInUser);
-//        userInfoRepository.save(userInfo);
-//        return userInfo;
-
-
-
-
 
     @GetMapping("/contactinfo/{id}")
     public ResponseEntity<Contact> getContactInfo(@PathVariable Integer id) {
@@ -181,8 +165,7 @@ public ResponseEntity<contactResponse> findAllContacts(
         return ResponseEntity.ok(userinfo);
     }
 
-
-    //updating details of the user
+    // Profile Update
     @PutMapping("/updateUser/{id}")
     public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
 
@@ -194,11 +177,8 @@ public ResponseEntity<contactResponse> findAllContacts(
         userInfo.setEmail(userInfoRequest.getEmail());
         userInfo.setAddress(userInfoRequest.getAddress());
         userInfo.setPhoneno(userInfoRequest.getPhoneno());
-       
-
-        // Set the logged-in user as the owner of the contact
         userInfo.setUser(loggedInUser);
-       userInfoRepository.save(userInfo);
+        userInfoRepository.save(userInfo);
         return userInfo;
     }
 
@@ -326,6 +306,22 @@ public ResponseEntity<contactResponse> findAllContacts(
       Map data=this.cloudinaryImageService.upload(file,userid);
       userInfoService.updateUserProfilePicture(data);
       return new ResponseEntity<>(data,HttpStatus.OK);
+    }
+    @GetMapping("/family/{userId}")
+    public ResponseEntity<List<Contact>> getFamily(@PathVariable Integer userId)
+    {
+        return contactService.getFamily(userId);
+    }
+    @GetMapping("/friends/{userId}")
+    public ResponseEntity<List<Contact>> getFriends(@PathVariable Integer userId)
+    {
+        return contactService.getFriends(userId);
+    }
+
+    @GetMapping("/colleagues/{userId}")
+    public ResponseEntity<List<Contact>> getColleagues(@PathVariable Integer userId)
+    {
+        return contactService.getColleagues(userId);
     }
 
 }

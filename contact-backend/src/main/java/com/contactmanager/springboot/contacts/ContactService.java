@@ -4,6 +4,7 @@ import com.contactmanager.springboot.Entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -80,5 +81,17 @@ public class ContactService {
     public Contact getContactById(Integer contactId) {
         Optional<Contact> optionalContact = contactRepository.findById(contactId);
         return optionalContact.orElse(null);
+    }
+
+    public ResponseEntity<List<Contact>> getFamily(Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsFamily(userId,true));
+    }
+
+    public ResponseEntity<List<Contact>> getFriends(Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsFriend(userId,true));
+    }
+
+    public ResponseEntity<List<Contact>> getColleagues(Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsColleague(userId,true));
     }
 }

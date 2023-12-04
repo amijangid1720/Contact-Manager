@@ -37,6 +37,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AccordionModule } from 'primeng/accordion';
+import { CategoriesComponent } from './categories/categories.component';
 const config: SocialAuthServiceConfig = {
   providers: [
     {
@@ -63,6 +65,7 @@ const config: SocialAuthServiceConfig = {
     ProfileComponent,
     UserDetailsFormComponent,
     FavoriteComponent,
+    CategoriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ const config: SocialAuthServiceConfig = {
     PasswordModule,
     AvatarModule,
     AvatarGroupModule,
+    AccordionModule
   ],
 
   providers: [

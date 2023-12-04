@@ -2,7 +2,6 @@ $color_1: #fff;
 $background-color_1: #5441bd;
 $background-color_2: #51508e;
 
-
 h2 {
   text-align: center;
   color: #021b25;
@@ -12,17 +11,10 @@ h2 {
   font-size: 2rem;
 }
 .error-message {
-  color: #ff1f02; /* Red color for error messages */ /* Add some spacing below the input field */
-  margin-bottom: 1.5rem;
- 
+  color: #ff1f02;
 }
 
-// .back {
-//   margin-left: 2vw;
-//   margin-top: 3vw;
-// }
-
-.card{
+.card {
   outline: none;
 }
 .login {
@@ -32,39 +24,36 @@ h2 {
   outline: none;
   margin: 9vw;
   background-color: #dfeaf06e;
-border-radius: 2vw;
+  border-radius: 2vw;
   margin-top: 1vw;
   border-bottom: 6px solid #032837;
-  // border-right: 4px solid #032837;
   box-shadow: 10px 10px 5px rgba(65, 66, 66, 0.26);
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-
-.input-field{
+.input-field {
   border: none;
-  background-color:  rgba(255, 255, 255, 0.5);
-  border-bottom: 4px solid #053B50 ;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-bottom: 4px solid #053b50;
 
   color: rgb(17, 1, 1);
   text-align: start;
   width: 95%;
   outline: none;
-  
 }
 
-.select-field{
+.select-field {
   border: none;
-  background-color:  rgba(255, 255, 255, 0.5);
-  border-bottom: 2px solid #053B50 ;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid #053b50;
   text-align: start;
   width: 95%;
   height: 5vh;
 }
 
 .select-field:focus {
-  outline: none; 
+  outline: none;
 }
 
 .btn {
@@ -78,7 +67,7 @@ border-radius: 2vw;
   margin: auto;
   cursor: pointer;
   &:hover {
-    background-color:#021b25;
+    background-color: #021b25;
   }
 }
 input.ng-invalid.ng-touched {
@@ -89,7 +78,6 @@ input.ng-invalid.ng-touched {
   display: flex;
   justify-content: center;
   margin-left: -10vw;
-  
 }
 @media screen and (max-width: 800px) {
   .input-field {
@@ -101,25 +89,11 @@ input.ng-invalid.ng-touched {
   }
 }
 
-
 @media only screen and (min-width: 900px) {
-  // .container {
-  //   width: 40vw;
-  //   height: max(50vh, auto);
-  //   padding: 2vw;
-  //   border-radius: 1.4vw;
-  //   margin-top: 5vw;
-  //   background: #ffffff9e;
-  //   // border-radius: 1.4vw;
-  //   box-shadow: 0 26px 15px rgba(0, 5, 3, 0.5);
-  //   // margin: auto;
-  //   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-  //     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  // }
-  textarea{
+  textarea {
     border: none;
     background-color: transparent;
-    border-bottom: 2px solid #053B50 ;
+    border-bottom: 2px solid #053b50;
     color: white;
     text-align: start;
     width: 95%;
@@ -129,7 +103,9 @@ input.ng-invalid.ng-touched {
 
   .form-container {
     width: 35vw;
-    // margin: 0 auto;
-     padding: 20px;
+    padding: 20px;
+  }
+  .form-group label {
+    margin-right: 100px;
   }
 }

@@ -48,6 +48,11 @@ uploadProfilePicture(formData: FormData,userid:number): Observable<any> {
 
   return this.http.post(uploadUrl, formData);
 }
+
+categories( selectedCategory:string, userid:number):Observable<any>{
+const url = `${environment.backendUrl}/api/v1/contacts/${selectedCategory}/${userid}`
+  return this.http.get(url);
+}
   
   deleteContact(id: string): Observable<any> {
     return this.http.delete(
