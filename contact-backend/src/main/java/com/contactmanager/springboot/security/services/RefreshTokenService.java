@@ -1,9 +1,9 @@
 package com.contactmanager.springboot.security.services;
 
-import com.contactmanager.springboot.security.Repository.UserRepository;
-import com.contactmanager.springboot.security.token.RefreshToken;
-import com.contactmanager.springboot.security.token.RefreshTokenRepository;
-import com.contactmanager.springboot.security.user.User;
+import com.contactmanager.springboot.security.dao.UserRepository;
+import com.contactmanager.springboot.security.entity.RefreshToken;
+import com.contactmanager.springboot.security.dao.RefreshTokenRepository;
+import com.contactmanager.springboot.security.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

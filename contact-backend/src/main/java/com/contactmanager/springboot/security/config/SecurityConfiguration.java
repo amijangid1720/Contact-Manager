@@ -1,6 +1,7 @@
 package com.contactmanager.springboot.security.config;
 
-import com.contactmanager.springboot.security.Repository.UserRepository;
+import com.contactmanager.springboot.security.dao.UserRepository;
+import com.contactmanager.springboot.security.auth.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

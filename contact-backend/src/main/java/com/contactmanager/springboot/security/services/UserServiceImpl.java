@@ -1,19 +1,17 @@
 package com.contactmanager.springboot.security.services;
 
-import com.contactmanager.springboot.Entity.UserInfo;
-import com.contactmanager.springboot.Repository.UserInfoRepository;
-import com.contactmanager.springboot.security.Repository.UserRepository;
-import com.contactmanager.springboot.security.token.RefreshToken;
-import com.contactmanager.springboot.security.token.RefreshTokenRepository;
-import com.contactmanager.springboot.security.user.Role;
-import com.contactmanager.springboot.security.user.User;
+import com.contactmanager.springboot.entity.UserInfo;
+import com.contactmanager.springboot.dao.UserInfoRepository;
+import com.contactmanager.springboot.security.dao.UserRepository;
+import com.contactmanager.springboot.security.dao.RefreshTokenRepository;
+import com.contactmanager.springboot.security.entity.Role;
+import com.contactmanager.springboot.security.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
