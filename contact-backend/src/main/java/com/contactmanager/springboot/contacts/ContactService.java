@@ -1,11 +1,16 @@
 package com.contactmanager.springboot.contacts;
 
 import com.contactmanager.springboot.Entity.UserInfo;
+
+import com.google.api.services.drive.Drive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -19,14 +24,20 @@ public class ContactService {
         contactRepository.save(contact);
     }
 
-    public Page<Contact> searchContacts(String search , String filterTerm, Pageable pageable) {
+    public Page<Contact> searchContacts(String search, String filterTerm, Pageable pageable) {
         try {
             // Implement your search logic using a JPA repository with pagination
-            return contactRepository.searchContacts(search,filterTerm, pageable);
+            return contactRepository.searchContacts(search, filterTerm, pageable);
         } catch (Exception e) {
             // Log the exception or handle it according to your requirements
             throw new RuntimeException("Error occurred during contact search", e);
         }
+    }
+
+
+    //to get all contacts
+    public List<Contact> getAllContacts(Integer Id ) {
+        return contactRepository.findByUserId(Id);
     }
 
     //get all fav
@@ -81,4 +92,23 @@ public class ContactService {
         Optional<Contact> optionalContact = contactRepository.findById(contactId);
         return optionalContact.orElse(null);
     }
+
+
+    public String convertContactsToCSV(List<Contact> contacts) {
+        // Implement logic to convert contacts to CSV format
+        // For simplicity, let's assume Contact class has getFirstname(), getEmail() methods
+
+        StringBuilder csvContent = new StringBuilder();
+        csvContent.append("Name,Email,PhoneNo\n"); // CSV header
+
+        for (Contact contact : contacts) {
+            csvContent.append(contact.getFirstname()).append(",").append(contact.getEmail()).append(",").append(contact.getPhoneno()).
+                    append("\n");
+        }
+
+        return csvContent.toString();
+    }
+
+
+
 }

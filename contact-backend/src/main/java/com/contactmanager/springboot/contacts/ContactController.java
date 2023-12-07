@@ -1,5 +1,6 @@
 package com.contactmanager.springboot.contacts;
 
+import com.cloudinary.Api;
 import com.contactmanager.springboot.Entity.UserInfo;
 import com.contactmanager.springboot.Entity.UserInfoRequest;
 import com.contactmanager.springboot.Repository.UserInfoRepository;
@@ -12,8 +13,10 @@ import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.user.User;
 //import com.contactmanager.springboot.security.user.UserSession;
 import com.contactmanager.springboot.services.CloudinaryImageService;
+import com.contactmanager.springboot.services.DriveService;
 import com.contactmanager.springboot.services.FileStorageService;
 import com.contactmanager.springboot.services.UserInfoService;
+import com.google.api.services.drive.model.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -29,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.*;
 
 @RestController
@@ -56,6 +60,9 @@ public class ContactController {
     UserRepository userRepository;
     @Autowired
     UserService userService;
+
+    @Autowired
+    private DriveService driveService;
     @PostMapping("/")
     public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication)
    {
@@ -116,9 +123,11 @@ public ResponseEntity<contactResponse> findAllContacts(
     return ResponseEntity.ok(response);
 }
 
-
-
-
+    @GetMapping("/getAllContacts/{id}")
+    public ResponseEntity<List<Contact>> getAllContacts(@PathVariable Integer id) {
+        List<Contact>  response = contactService.getAllContacts(id);
+        return ResponseEntity.ok(response);
+    }
 
     //id of the contact whose we want to update
     @PutMapping("/update/{id}")
@@ -139,24 +148,6 @@ public ResponseEntity<contactResponse> findAllContacts(
         contactRepository.save(contact);
         return contact;
     }
-
-//update details of user using his id
-//    @PutMapping("/updateuser/{id}")
-//    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
-//
-//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
-//        UserInfo userInfo = userInfoRepository.getById(id);
-//        userInfo.setFirstName(userInfoRequest.getFirstName());
-//        userInfo.setLastName(userInfoRequest.getLastName());
-//        userInfo.setGender(userInfoRequest.getGender());
-//        userInfo.setEmail(userInfoRequest.getEmail());
-//        userInfo.setAddress(userInfoRequest.getAddress());
-//        userInfo.setPhoneno(userInfoRequest.getPhoneno());
-//
-//        // Set the logged-in user as the owner of the contact
-//        userInfo.setUser(loggedInUser);
-//        userInfoRepository.save(userInfo);
-//        return userInfo;
 
 
 
@@ -327,6 +318,53 @@ public ResponseEntity<contactResponse> findAllContacts(
       userInfoService.updateUserProfilePicture(data);
       return new ResponseEntity<>(data,HttpStatus.OK);
     }
+
+
+    //for backup of contacts
+    @PostMapping("/upload")
+    public ResponseEntity<ApiResponse> uploadContacts(@RequestBody List<Contact> contacts,Authentication authentication) {
+        try {
+            User user = userService.loadUserByEmail(authentication.getName());
+            String email= user.getEmail();
+            // For simplicity, let's just print the contacts to the console
+            System.out.println("Received contacts:");
+            contacts.forEach(contact -> System.out.println("Name: " + contact.getFirstname() + ", Email: " + contact.getEmail() + ", Phoneno: " + contact.getPhoneno()));
+            System.out.println("1");
+            // to convert Contacts to csv filee.
+            String csvData = contactService.convertContactsToCSV(contacts);
+            System.out.println("2");
+
+           driveService.uploadBasicFile(csvData, "contacts.csv", email);
+            // Integrate with Google Drive API
+//            contactService.uploadContactsToDrive(contacts);
+
+            return ResponseEntity.ok().body(new ApiResponse("Contacts uploaded successfully"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(new ApiResponse("Error uploading contacts"));
+        }
+    }
+
+//    @PostMapping("/upload")
+//    public ResponseEntity<ApiResponse> uploadContacts(@RequestParam Integer userId) {
+//        try {
+//            // Step 1: Fetch contacts from the database based on the userId
+//            List<Contact> contacts = contactService.getAllContacts(userId);
+//
+//            // Step 2: Convert contacts to CSV or any desired format
+//            String csvData = contactService.convertContactsToCSV(contacts);
+//
+//            // Step 3: Upload to Google Drive
+//            driveService.uploadBasicFile(csvData, "contacts.csv");
+//
+//
+//            return ResponseEntity.ok().body(new ApiResponse("Contacts uploaded to Google Drive successfully"));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(500).body(new ApiResponse("Error uploading contacts to Google Drive"));
+//        }
+//    }
+
 
 }
 

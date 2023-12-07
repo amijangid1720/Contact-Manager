@@ -12,6 +12,7 @@ import {
   faHeart,
   faUserSlash,
   faUserPlus,
+  faCloud,
 } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -39,6 +40,7 @@ export class ContactTableComponent implements OnInit {
   faSearch = faSearch;
   faUserSlash = faUserSlash;
   faUserPlus = faUserPlus;
+  faCloud = faCloud;
   faMagnifyingGlass = faMagnifyingGlass;
   faArrowRightFromBracket = faArrowRightFromBracket;
   contacts!: any;
@@ -101,7 +103,7 @@ export class ContactTableComponent implements OnInit {
               }));
 
               this.totalRecords = response.totalContacts;
-              //console.log("total:" ,this.totalRecords);
+
               this.data1 = mappedContacts;
 
               // Sort the mappedContacts array based on the selected field and order
@@ -271,4 +273,29 @@ export class ContactTableComponent implements OnInit {
     console.log("clicked");
     
    }
+
+   uploadContacts(){
+    this.manipulateuser.uploadContacts(this.contacts).subscribe(
+      (response) => {
+        console.log('Contacts uploaded successfully', response);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Uploaded',
+          detail: 'Contacts added to Drive',
+        });
+        
+       //you can trigger the additional logic to upload to Google Drive
+      },
+      (error) => {
+        console.error('Error uploading contacts', error);
+        // Handle error scenarios
+        this.messageService.add({
+          severity: 'alert',
+          summary: 'Failed',
+          detail: 'Failed to upload Conatcts Drive',
+        });
+      }
+    );
+   }
+ 
 }

@@ -1,9 +1,10 @@
 
 
 <div class="wrapper">
-  <div>
+  
     <div class="section">
-      <div class="search-bar">
+     
+      <div class="search-bar d-flex justify-content-between">
 
         <div class="dropdown filters">
           <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width:10vw; height: 5vh;background-color: #9BBEC8; border: none; ">
@@ -16,7 +17,8 @@
             <a class="dropdown-item" (click)="selectTerm('PhoneNo')">Phone No</a>
           </ul>
         </div>    
-
+                  
+       <div class="search-container">
         <input
           type="text"
           [(ngModel)]="searchTerm"
@@ -32,6 +34,15 @@
         </button>
       </div>
 
+      <button class="upload"  (click)="uploadContacts()"  pTooltip="Upload to Drive"><fa-icon
+        [icon]="faCloud"
+        size="3x"
+        [styles]="{ stroke: 'red', color: ' #043c53b5', 'font-size': '30px',  'margin-right': '12px' }"
+      ></fa-icon></button>
+      </div>
+      
+
+     
       <hr
         style="
           height: 4px;
@@ -209,8 +220,9 @@
       ></p-paginator>
     </ng-template>
     </div>
-  </div>
+ 
 </div>
+
   <p-toast
     [showTransformOptions]="'translateY(100%)'"
     [showTransitionOptions]="'1000ms'"
