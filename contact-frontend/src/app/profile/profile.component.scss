@@ -1,128 +1,137 @@
-
-
-
-.container-div{
+.container-div {
   display: flex;
   flex-direction: row;
-  margin:5%;
-  
-  
-  
+  margin: 5%;
+}
+.menu {
+  height: 70vh;
+  width: 20%;
+  border-top-left-radius: 2vw;
+  border-bottom-left-radius: 2vw;
+  background-color: #032837;
+}
+
+.imgselect {
+  background-color: #59899c;
+  width: 45%;
+  // margin: 3%;
+  margin-left: 3vw;
+}
+
+.error-message {
+  color: #ff0000; /* Red color for error messages */ /* Add some spacing below the input field */
+  margin-top: 2%;
+}
+
+.menu2 {
+  height: 70vh;
+  width: 55%;
+  background-color: #dfeaf06e;
+  padding: 1%;
+  margin-right: 10%;
+  border-top-right-radius: 2vw;
+  border-bottom-right-radius: 2vw;
+  border-bottom: 6px solid #032837;
+  box-shadow: 10px 10px 5px rgba(65, 66, 66, 0.26);
+}
+.image {
+  height: 20vh;
+  width: 70%;
+  margin-top: 40%;
+  margin-left: 14%;
+}
+.box-menu {
+  margin: 5%;
+  align-items: center;
+}
+.btn-primary {
+  background-color: #053b50;
+  color: rgb(245, 236, 236);
+  padding: 11px 11px;
+  width: 100%;
+  border: none;
+  border-radius: 1vw;
+  margin: auto;
+  margin-top: 4vh;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #053b50;
   }
-  .menu{
-    height: 70vh;
-    width :20%;
-    border-top-left-radius: 2vw;
-    border-bottom-left-radius: 2vw;
-    background-color: #032837;
-   
-  
-  }
-  
-  .imgselect{
-    background-color: #59899c;
-    width: 45%;
-    // margin: 3%;
-    margin-left: 3vw;
-  }
-  
-  .error-message {
-    color: #ff0000; /* Red color for error messages */ /* Add some spacing below the input field */
-    margin-top: 2%;
-  }
-  
-  .menu2{
-    height: 70vh;
-    width: 55%;
-    background-color: #dfeaf06e;
-   padding: 1%;
-    margin-right: 10%;
-    border-top-right-radius: 2vw;
-    border-bottom-right-radius: 2vw;
-    border-bottom: 6px solid #032837;
-    box-shadow: 10px 10px 5px rgba(65, 66, 66, 0.26);
-  }
-  .image{
-    height:20vh;
-    width: 70%;
-    margin-top: 40%;
-    margin-left: 14%;
-   
-  
-  }
-  .box-menu{
-    margin:5%;
-   align-items: center;
-  }
-  .btn-primary {
-    background-color: #053B50;
-    color: rgb(245, 236, 236);
-    padding: 11px 11px;
-    width: 100%;
-    border: none;
-    border-radius: 1vw;
-    margin: auto;
-    margin-top: 4vh;
-    cursor: pointer;
-  
-    &:hover {
-      background-color:#053B50 ;
-    }
-  }
-  label{
-    color: #021b25;
-    font-size: 1.2em;
-    font-weight: 600;
-    font-style: bold;
-    text-align: start;
-  }
-  input{
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid #053B50 ;
-    color: rgb(3, 0, 0);
-    text-align: start;
-    width: 95%;
-    outline: none;
-  
-  }
-  
-  input:focus {
-    background-color:transparent;
-    color: rgb(14, 1, 1);
-    border: 3px solid #053B50;
-    
-  }
-  textarea{
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid #053B50 ;
-    color: rgb(10, 10, 10);
-    text-align: start;
-    width: 95%;
-    height: 5vh;
-  }
-  textarea:focus {
-    background-color:transparent;
-    color: rgb(10, 9, 9);
-    border: 3px solid #053B50;
-    
-  }
-  .box1{
-    padding: 1.2%;
-  }
-  .span
-  {
-    font-family: cursive;
-   font-size: 1em;
-   font-weight: 400;
+}
+label {
+  color: #021b25;
+  font-size: 1.2em;
+  font-weight: 600;
+  font-style: bold;
+  text-align: start;
+}
+input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #053b50;
+  color: rgb(3, 0, 0);
+  text-align: start;
+  width: 95%;
+  outline: none;
+}
+
+// input:focus {
+//   background-color:transparent;
+//   color: rgb(14, 1, 1);
+//   border: 3px solid #053B50;
+
+// }
+textarea {
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #053b50;
+  color: rgb(10, 10, 10);
+  text-align: start;
+  width: 95%;
+  height: 5vh;
+}
+textarea:focus {
+  background-color: transparent;
+  color: rgb(10, 9, 9);
+  border: 3px solid #053b50;
+}
+.box1 {
+  padding: 1.2%;
+}
+.span {
+  font-family: cursive;
+  font-size: 1em;
+  font-weight: 400;
   color: white;
-   padding: 3%;
-   padding-top: 5%;
+  padding: 3%;
+  padding-top: 5%;
+
+  margin: 15%;
+  margin-top: 10%;
+  word-wrap: break-word;
+  word-break: keep-all;
+  text-align: center;
+}
+input:not([readonly]):focus {
+  background-color: transparent;
+  color: rgb(14, 1, 1);
+  border: 3px solid #053b50;
   
-   margin: 15%;
-   margin-top: 10%;
-   word-wrap: break-word;
-   word-break: keep-all;
-   text-align: center;
-  }
+}
+
+textarea:not([readonly]):focus {
+  background-color: transparent;
+  color: rgb(10, 9, 9);
+  border: 3px solid #053b50;
+}
+input[readonly] {
+  background-color: transparent; /* Change the background color for read-only inputs */
+  color: #808080; /* Change the text color for read-only inputs */
+  border-bottom: 2px solid #053b50; /* Change the border for read-only inputs */
+}
+input[readonly]:focus {
+  border-bottom: 2px solid #053b50;/* Remove the border for read-only inputs when focused */
+  outline: none; /* Remove the outline when focused */
+  box-shadow: none;
+}

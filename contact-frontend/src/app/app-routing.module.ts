@@ -12,6 +12,7 @@ import { ContactTableComponent } from './contact-table/contact-table.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
 import { FavoriteComponent } from './favorite/favorite.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 const routes: Routes = [
   {
@@ -85,7 +86,11 @@ const routes: Routes = [
           },
         ]
       }
-      
+      ,{
+        path: 'categories/:category', // <-- :category is a route parameter
+        component: CategoriesComponent,
+        canActivate: [authGuard],
+      },
     ],
   },
 

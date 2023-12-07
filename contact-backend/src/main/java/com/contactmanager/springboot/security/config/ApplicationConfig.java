@@ -1,6 +1,6 @@
 package com.contactmanager.springboot.security.config;
 
-import com.contactmanager.springboot.security.Repository.UserRepository;
+import com.contactmanager.springboot.security.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

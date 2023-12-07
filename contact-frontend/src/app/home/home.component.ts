@@ -8,6 +8,10 @@ import {
   faUser,
   faLock,
   faHeart,
+  faTableCellsLarge,
+  faPeopleGroup,
+  faHouseChimneyWindow,
+  faBriefcase
 } from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from '../service/login.service';
 
@@ -22,6 +26,12 @@ export class HomeComponent {
   faLock = faLock;
   faUser = faUser;
   faHeart = faHeart;
+  faTableCellsLarge= faTableCellsLarge;
+  faHouseChimneyWindow=faHouseChimneyWindow;
+  faPeopleGroup=faPeopleGroup;
+  faBriefcase=faBriefcase;
+  
+  
   loggedin!: boolean;
   constructor(
     private tokenservice: TokenService,

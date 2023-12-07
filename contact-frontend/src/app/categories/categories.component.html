@@ -1,0 +1,89 @@
+<div class="main">
+    
+    <div class="para" *ngIf="totalRecords === 0; else showTable">
+      <p><fa-icon
+      [icon]="faUserSlash"
+      size="2x"
+      [styles]="{
+        stroke: 'red',
+        color: '#021d27',
+        'font-size': '40px'
+      }"
+      >
+    </fa-icon> No contacts found.
+  </p>
+  <h4>Add favorites <fa-icon
+    [icon]="faHeart"
+   
+      size="2x" 
+    [styles]="{
+      stroke: 'red',
+      color: '#021d27',
+      'font-size': '40px'
+    }"
+    >
+  </fa-icon></h4>
+  </div>
+  
+  <ng-template #showTable>
+    <div class="favside ">
+  
+      <div class="card" *ngFor="let contact of contacts">
+      <div class="card-body">
+        <div class="fav-body">
+           <div class="fav1">
+            <div class="image">
+              <img
+                class="rounded-circle"
+                *ngIf="contact.gender == 'Female'"
+                src="../../assets/girl.png"
+                alt="female"
+                style="width: 50%"
+              />
+              <img
+                class="rounded-circle"
+                *ngIf="contact.gender === 'Male'"
+                src="../../assets/boy.jpg"
+                alt="male"
+                style="width: 50%"
+              />
+            </div>
+          </div>
+          <div class="fav2">
+            
+            <div class="fav4 d-flex  justify-content-between">
+            <h4 class="card-title name">{{ capitalizeFirstLetter(contact.firstname) + " " + contact.lastname}}</h4>
+         
+          </div>
+            <div class="fav3">
+            <p class="card-text">     <fa-icon
+              [icon]="faEnvelope"
+              size="2x"
+              [styles]="{ stroke: 'red', color: ' #053B50;', 'font-size': '16px' ,'padding-right':'.5vw'}"
+            ></fa-icon>  {{ contact.email }}</p>
+            <p class="card-text mob"><fa-icon
+              [icon]="faPhone"
+              size="2x"
+              [styles]="{ stroke: 'red', color: ' #053B50;', 'font-size': '16px' ,'padding-right':'.5vw'}"
+            ></fa-icon>  {{ contact.phoneno }}</p>
+          </div>
+  
+            <a (click)="toggleUpdate(contact.id)" class="link"><fa-icon
+              [icon]="faPen"
+              size="2x"
+              [styles]="{ stroke: 'red', color: ' #053B50;', 'font-size': '16px' ,'padding-right':'.5vw'}"
+            ></fa-icon> Edit Details</a>
+        </div>
+        </div>
+      </div></div>
+    </div>
+    <div class="updateside">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-template>
+  </div>
+  <p-toast>[showTransformOptions]="'translateY(100%)'"
+    [showTransitionOptions]="'1000ms'"
+    [hideTransitionOptions]="'1000ms'"
+    [showTransformOptions]="'translateX(100%)'"</p-toast>
+  
