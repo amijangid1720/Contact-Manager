@@ -20,10 +20,7 @@ import com.google.api.services.drive.model.FileList;
 import org.springframework.stereotype.Component;
 
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -78,9 +75,32 @@ public class DriveQuickstart {
             System.err.println("Unable to upload CSV file: " + e.getDetails());
             throw e;
         }
+    }
 
+
+
+    public void downloadData(String id, String email, String destinationPath) throws GeneralSecurityException, IOException{
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT, email))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+
+
+        InputStream contentStream = service.files().get(id).executeMediaAsInputStream();
+
+        // Save the content to a local file
+        try (FileOutputStream fileOutputStream = new FileOutputStream(destinationPath)) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = contentStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead);
+            }
+        }
+
+        System.out.println("CSV file downloaded successfully to: " + destinationPath);
     }
     }
+
 
 
 //    public static void main(String... args) throws IOException, GeneralSecurityException {

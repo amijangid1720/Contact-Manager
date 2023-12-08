@@ -1,34 +1,33 @@
 package com.contactmanager.springboot.contacts;
 
-import com.contactmanager.springboot.Entity.UserInfo;
-import com.contactmanager.springboot.Entity.UserInfoRequest;
-import com.contactmanager.springboot.Repository.UserInfoRepository;
-import com.contactmanager.springboot.Entity.UserInfoRequest;
-import com.contactmanager.springboot.Repository.UserInfoRepository;
-import com.contactmanager.springboot.security.Repository.UserRepository;
-import com.contactmanager.springboot.security.auth.DuplicateCheckRequest;
-import com.contactmanager.springboot.security.auth.DuplicateCheckResponse;
+import com.contactmanager.springboot.dto.ApiResponse;
+import com.contactmanager.springboot.dto.ContactRequest;
+import com.contactmanager.springboot.entity.Contact;
+import com.contactmanager.springboot.entity.UserInfo;
+import com.contactmanager.springboot.dto.UserInfoRequest;
+import com.contactmanager.springboot.dao.UserInfoRepository;
+import com.contactmanager.springboot.dao.ContactRepository;
+import com.contactmanager.springboot.security.dao.UserRepository;
+import com.contactmanager.springboot.security.dto.DuplicateCheckRequest;
+import com.contactmanager.springboot.security.dto.DuplicateCheckResponse;
 import com.contactmanager.springboot.security.services.UserService;
-import com.contactmanager.springboot.security.user.User;
-//import com.contactmanager.springboot.security.user.UserSession;
-import com.contactmanager.springboot.services.CloudinaryImageService;
-import com.contactmanager.springboot.services.FileStorageService;
-import com.contactmanager.springboot.services.UserInfoService;
+import com.contactmanager.springboot.security.entity.User;
+import com.contactmanager.springboot.services.contactservice.DriveService;
+import com.contactmanager.springboot.services.imageUpload.CloudinaryImageUploadService;
+import com.contactmanager.springboot.services.userservice.UserInfoService;
+import com.contactmanager.springboot.services.contactservice.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -41,8 +40,6 @@ public class ContactController {
     @Autowired
     UserInfoService userInfoService;
 
-    @Autowired
-    FileStorageService fileStorageService;
 
     @Autowired
     ContactRepository contactRepository;
@@ -51,11 +48,15 @@ public class ContactController {
     UserInfoRepository userInfoRepository;
 
     @Autowired
-    private CloudinaryImageService cloudinaryImageService;
+    private CloudinaryImageUploadService cloudinaryImageService;
     @Autowired
     UserRepository userRepository;
     @Autowired
     UserService userService;
+
+
+    @Autowired
+    private DriveService driveService;
     @PostMapping("/")
     public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication)
    {
@@ -99,7 +100,7 @@ public class ContactController {
     }
 
 @GetMapping("/findAll")
-public ResponseEntity<contactResponse> findAllContacts(
+public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
         @RequestParam(name = "page", defaultValue = "0") int page,
         @RequestParam(name = "size", defaultValue = "10") int size,
         Authentication authentication
@@ -109,7 +110,7 @@ public ResponseEntity<contactResponse> findAllContacts(
     Pageable pageable = PageRequest.of(page, size);
     Page<Contact> contactPage = contactRepository.findByUserId(user.getId(), pageable);
 
-    contactResponse response = new contactResponse();
+    ContactRequest.contactResponse response = new ContactRequest.contactResponse();
     response.setContacts(contactPage.getContent());
     response.setTotalContacts(contactPage.getTotalElements());
 
@@ -203,27 +204,27 @@ public ResponseEntity<contactResponse> findAllContacts(
     }
 
     //upload profile photo
-    @PostMapping("/upload-profile-picture/{userid}")
-    public ResponseEntity<String> handleFileUpload(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("userId") Integer userId) {
-
-        UserInfo userInfo = userInfoRepository.findById(userId).orElse(null);
-
-        if (userInfo == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        }
-
-        try {
-            String fileName = fileStorageService.storeFile(file);
-            userInfo.setProfilePicture(fileName);
-            userInfoRepository.save(userInfo);
-
-            return new ResponseEntity<>("File uploaded successfully!", HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity<>("Error uploading file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @PostMapping("/upload-profile-picture/{userid}")
+//    public ResponseEntity<String> handleFileUpload(
+//            @RequestParam("file") MultipartFile file,
+//            @RequestParam("userId") Integer userId) {
+//
+//        UserInfo userInfo = userInfoRepository.findById(userId).orElse(null);
+//
+//        if (userInfo == null) {
+//            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+//        }
+//
+//        try {
+//            String fileName = fileStorageService.storeFile(file);
+//            userInfo.setProfilePicture(fileName);
+//            userInfoRepository.save(userInfo);
+//
+//            return new ResponseEntity<>("File uploaded successfully!", HttpStatus.OK);
+//        } catch (IOException e) {
+//            return new ResponseEntity<>("Error uploading file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @PutMapping("updateDetailsFilled/{id}")
     public ResponseEntity<ApiResponse> userDetailsFilled(@PathVariable Integer id) {
@@ -250,7 +251,7 @@ public ResponseEntity<contactResponse> findAllContacts(
         }
     }
     @GetMapping("/search/{searchQuery}/{filterTerm}")
-    public ResponseEntity<contactResponse> searchContacts(
+    public ResponseEntity<ContactRequest.contactResponse> searchContacts(
             @PathVariable String searchQuery,@PathVariable String filterTerm,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size
@@ -259,13 +260,13 @@ public ResponseEntity<contactResponse> findAllContacts(
             Pageable pageable = PageRequest.of(page, size);
             Page<Contact> matchingContacts = contactService.searchContacts(searchQuery,filterTerm, pageable);
 
-            contactResponse response = new contactResponse();
+            ContactRequest.contactResponse response = new ContactRequest.contactResponse();
             response.setContacts(matchingContacts.getContent());
             response.setTotalContacts(matchingContacts.getTotalElements());
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new contactResponse());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ContactRequest.contactResponse());
         }
     }
 
@@ -328,6 +329,63 @@ public ResponseEntity<contactResponse> findAllContacts(
       return new ResponseEntity<>(data,HttpStatus.OK);
     }
 
+
+
+
+    //for backup of contacts
+    @PostMapping("/upload")
+    public ResponseEntity<ApiResponse> uploadContacts(@RequestBody List<Contact> contacts,Authentication authentication) {
+        try {
+            User user = userService.loadUserByEmail(authentication.getName());
+            String email= user.getEmail();
+            // For simplicity, let's just print the contacts to the console
+            System.out.println("Received contacts:");
+            contacts.forEach(contact -> System.out.println("Name: " + contact.getFirstname() + ", Email: " + contact.getEmail() + ", Phoneno: " + contact.getPhoneno()));
+//            System.out.println("1");
+            // to convert Contacts to csv filee.
+            String csvData = contactService.convertContactsToCSV(contacts);
+            System.out.println("2");
+
+            driveService.uploadBasicFile(csvData, "contacts.csv", email);
+            // Integrate with Google Drive API
+//            contactService.uploadContactsToDrive(contacts);
+
+            return ResponseEntity.ok().body(new ApiResponse("Contacts uploaded successfully"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(new ApiResponse("Error uploading contacts"));
+        }
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity<ApiResponse> downloadContacts(Authentication authentication){
+       try {
+           User user = userService.loadUserByEmail(authentication.getName());
+           String email = user.getEmail();
+           System.out.println("download contacts");
+           String id = "1-_V49mWIcChijW484yCzOxT0buxdRS9i";
+           String destinationFilePath = "/home/manisha/Downloads/file.csv";
+           driveService.downloadfile(id, email,destinationFilePath);
+           return ResponseEntity.ok().body(new ApiResponse("contacts downloaded successfully"));
+       }                                                                    
+       catch(Exception e){
+           e.printStackTrace();
+           return  ResponseEntity.status(500).body(new ApiResponse("error downloading contacts"));
+       }
+
+    }
+
+
+public ResponseEntity<List<Contact>> getFamily(Integer userId) {
+    return ResponseEntity.ok(contactRepository.findByUserIdAndIsFamily(userId,true));
 }
 
+    public ResponseEntity<List<Contact>> getFriends(Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsFriend(userId,true));
+    }
 
+    public ResponseEntity<List<Contact>> getColleagues(Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsColleague(userId,true));
+    }
+
+}

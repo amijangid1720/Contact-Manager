@@ -1,4 +1,4 @@
-package com.contactmanager.springboot.services;// DriveService.java
+package com.contactmanager.springboot.services.contactservice;// DriveService.java
 
 import com.contactmanager.springboot.Entity.DriveQuickstart;
 import com.google.api.client.auth.oauth2.Credential;
@@ -51,6 +51,19 @@ public class DriveService {
             // Handle the exceptions or log them
             e.printStackTrace();
             return "Error uploading file: " + e.getMessage(); // or some appropriate error message
+        }
+    }
+
+    public String downloadfile(String id,String email,String destinationpath ) {
+        try {
+
+            driveQuickstart.downloadData(id, email,destinationpath);
+
+            return "File downloaded successfully!";
+        } catch (GeneralSecurityException | IOException e) {
+            // Handle the exceptions or log them
+            e.printStackTrace();
+            return "Error downloading file: " + e.getMessage(); // or some appropriate error message
         }
     }
 

@@ -66,6 +66,13 @@ uploadContacts(contacts: any[]):Observable<any>{
   return this.http.post(url,contacts);
 }
   
+
+downloadContacts():Observable<any>{
+  const url =`${environment.backendUrl}/api/v1/contacts/download`;
+  return this.http.get(url);
+}
+
+
 // uploadContacts(userId: number): Observable<any> {
 //   const url = `${environment.backendUrl}/api/v1/contacts/upload?userId=${userId}`;
 //   return this.http.post(url, null);  // Send a POST request without a request body

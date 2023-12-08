@@ -236,6 +236,40 @@ margin-bottom: 3%;
 
 }
 
+.upload.dropdown-toggle::after {
+  content: none; /* Hide the default arrow */
+}
+
+.uploadmenu{
+  background-color: #9BBEC8;
+  color: white;
+  box-shadow: 10px 10px 5px rgba(65, 66, 66, 0.26);
+  cursor: pointer;
+}
+
+.uploaditem{
+  color: white;
+  background-color: #9BBEC8;
+  box-shadow: 10px 10px 5px rgba(65, 66, 66, 0.26);
+  cursor: pointer;
+ border-bottom: 1vw #03556b;
+}
+
+
+.uploaditem:hover {
+  background-color: #043c53b5; /* Change the background color on hover */
+  color: white; /* Change text color on hover */
+}
+
+/* Add this style to remove default Bootstrap list item styling */
+.uploadmenu .dropdown-item {
+  color: inherit;
+}
+
+.uploadmenu .dropdown-item:hover {
+  background-color: #043c53b5; /* Change the background color on hover */
+  color: white; /* Change text color on hover */
+}
 .table thead th,
 .table tbody td {
    /* Add border color if needed */

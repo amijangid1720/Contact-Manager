@@ -12,7 +12,7 @@ import {
   faHeart,
   faUserSlash,
   faUserPlus,
-  faCloud,
+  faCloudArrowDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -40,7 +40,7 @@ export class ContactTableComponent implements OnInit {
   faSearch = faSearch;
   faUserSlash = faUserSlash;
   faUserPlus = faUserPlus;
-  faCloud = faCloud;
+  faCloudArrowDown = faCloudArrowDown;
   faMagnifyingGlass = faMagnifyingGlass;
   faArrowRightFromBracket = faArrowRightFromBracket;
   contacts!: any;
@@ -54,6 +54,7 @@ export class ContactTableComponent implements OnInit {
   sortField: string = 'name';
   sortOrder: string = 'asc';
   isContactsEmpty: boolean = false;
+  showDropdown = false;
 
 
   constructor(
@@ -298,4 +299,33 @@ export class ContactTableComponent implements OnInit {
     );
    }
  
+
+   downloadContacts(){
+    this.manipulateuser.downloadContacts().subscribe(
+      (response) => {
+        console.log('Contacts downloaded successfully', response);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Downoaded',
+          detail: 'Contacts Downloaded from drive',
+        });
+        
+       //you can trigger the additional logic to upload to Google Drive
+      },
+      (error) => {
+        console.error('Error uploading contacts', error);
+        // Handle error scenarios
+        this.messageService.add({
+          severity: 'alert',
+          summary: 'Failed',
+          detail: 'Failed to download Conatcts  from Drive',
+        });
+      }
+    );
+   }
+
+
+   toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
 }
