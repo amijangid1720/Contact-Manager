@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -9,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { NgxUiLoaderModule ,NgxUiLoaderHttpModule} from "ngx-ui-loader";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptorService } from './service/auth-interceptor.service'; // Import your interceptor
@@ -86,7 +86,16 @@ const config: SocialAuthServiceConfig = {
     PasswordModule,
     AvatarModule,
     AvatarGroupModule,
-    AccordionModule
+    AccordionModule,
+    NgxUiLoaderModule,
+    NgxUiLoaderHttpModule,
+    HttpClientModule, // import HttpClientModule
+    NgxUiLoaderModule, // import NgxUiLoaderModule
+    // import NgxUiLoaderHttpModule. By default, it will show background loader.
+    // If you need to show foreground spinner, do as follow:
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true ,
+    exclude:["/api/v1/auth"]})
+    
   ],
 
   providers: [
