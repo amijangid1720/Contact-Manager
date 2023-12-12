@@ -35,6 +35,16 @@
       <!-- <p-avatar size="large">
         <span class="text-base">{{firstName.substring(0,1)}}</span>
     </p-avatar> -->
+
+    <!-- <div class="p-3 bd-highlight nav-item" *ngIf="loggedin">
+      <button class="upload" (click)="uploadContacts()"> <fa-icon
+        [icon]="faUser"
+        class="nav-link active"
+        size="1x"    routerLink="/profile"
+        [styles]="{ stroke: 'red', color: 'white' ,'margin-right': '12px' }"
+      ></fa-icon>upload from here</button>
+    </div> -->
+
       <div class="p-3 bd-highlight nav-item" *ngIf="loggedin">
         <span class="navbar-text "> <fa-icon
           [icon]="faUser"

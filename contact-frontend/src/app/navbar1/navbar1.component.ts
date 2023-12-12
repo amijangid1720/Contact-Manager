@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../environment';
 import { LoginService } from '../service/login.service';
+import { ManipulateUserService } from '../service/manipulate-user.service';
 
 @Component({
   selector: 'app-navbar1',
@@ -22,13 +23,15 @@ export class Navbar1Component {
     private renderer: Renderer2,
     private el: ElementRef,
     private tokenservice: TokenService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private manipulateuser:ManipulateUserService
   ) {}
   loggedin!: boolean;
   faUser = faUser;
   faPowerOff = faPowerOff;
   faArrowRightFromBracket = faArrowRightFromBracket;
   firstName: string = environment.username;
+  contacts!:any;
 
   ngOnInit() {
     this.loggedin = this.tokenservice.isLoggedin();
@@ -58,6 +61,30 @@ export class Navbar1Component {
     }
   }
 
+  // uploadContacts(){
+  //   const userid = localStorage.getItem('user_id');
+  //   console.log(userid);
+    
+  //   if (userid !== null) {
+  //     const userId = parseInt(userid, 10);
+  //   this.manipulateuser.getAllContact(userId).subscribe((data)=> {
+  // this.contacts = data;
+  // console.log("contacts",this.contacts);
+  
+  // this.manipulateuser.uploadContacts(this.contacts).subscribe(
+  //   (response) => {
+  //     console.log('Contacts uploaded successfully', response);
+
+  //     // Here, you can trigger the additional logic to upload to Google Drive
+  //   },
+  //   (error) => {
+  //     console.error('Error uploading contacts', error);
+  //     // Handle error scenarios
+  //   }
+  // );
+  //   });
+
+  //  }}
 
 
   signOut() {

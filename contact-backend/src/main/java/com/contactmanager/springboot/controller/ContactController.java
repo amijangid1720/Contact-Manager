@@ -1,46 +1,48 @@
-package com.contactmanager.springboot.controller;
+package com.contactmanager.springboot.contacts;
 
+import com.contactmanager.springboot.dto.ApiResponse;
+import com.contactmanager.springboot.dto.ContactRequest;
 import com.contactmanager.springboot.entity.Contact;
 import com.contactmanager.springboot.entity.UserInfo;
-import com.contactmanager.springboot.dao.ContactRepository;
-import com.contactmanager.springboot.dto.ApiResponse;
 import com.contactmanager.springboot.dto.UserInfoRequest;
 import com.contactmanager.springboot.dao.UserInfoRepository;
-import com.contactmanager.springboot.dto.ContactRequest;
+import com.contactmanager.springboot.dao.ContactRepository;
 import com.contactmanager.springboot.mapper.ContactMapper;
 import com.contactmanager.springboot.security.dao.UserRepository;
 import com.contactmanager.springboot.security.dto.DuplicateCheckRequest;
 import com.contactmanager.springboot.security.dto.DuplicateCheckResponse;
 import com.contactmanager.springboot.security.services.UserService;
 import com.contactmanager.springboot.security.entity.User;
-//import com.contactmanager.springboot.security.user.UserSession;
+import com.contactmanager.springboot.services.contactservice.DriveService;
+import com.contactmanager.springboot.services.imageUpload.CloudinaryImageUploadService;
+import com.contactmanager.springboot.services.userservice.UserInfoService;
 import com.contactmanager.springboot.services.contactservice.ContactService;
 import com.contactmanager.springboot.services.imageUpload.CloudinaryImageServiceImpl;
 import com.contactmanager.springboot.services.userservice.UserInfoServiceImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.IOException;
 import java.util.*;
 
 @RestController
 @CrossOrigin(origins ="http://localhost:4200")
 @RequestMapping("api/v1/contacts")
 public class ContactController {
+    @Autowired
+    ContactService contactService;
 
     @Autowired
-    UserInfoServiceImpl userInfoService;
+    UserInfoService userInfoService;
+
 
     @Autowired
     ContactRepository contactRepository;
@@ -49,53 +51,39 @@ public class ContactController {
     UserInfoRepository userInfoRepository;
 
     @Autowired
-    private CloudinaryImageServiceImpl cloudinaryImageService;
+    private CloudinaryImageUploadService cloudinaryImageService;
     @Autowired
     UserRepository userRepository;
     @Autowired
     UserService userService;
 
+
     @Autowired
     ContactService contactService;
+    @PostMapping("/")
+    public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication)
+   {
+        User loggedInUser = userService.loadUserByEmail(authentication.getName());
 
-    @Autowired
-    private ModelMapper modelMapper;
-//    @PostMapping("/")
-//    public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication) {
-//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
-//
-//        // Use ModelMapper to map ContactRequest to Contact
-//        Contact contact = modelMapper.map(contactRequest, Contact.class);
-//
-//        // Set additional properties or modify as needed
-//        contact.setFavorite(false);
-//        contact.setUser(loggedInUser);
-//
-//        // Save the contact
-//        contactService.addContact(contact);
-//
-//        // Return ResponseEntity with the mapped ContactRequest (if needed)
-//        return ResponseEntity.ok(contactRequest);
-//    }
-//}
-@PostMapping("/")
-public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication) {
-    User loggedInUser = userService.loadUserByEmail(authentication.getName());
-
-    // Use ModelMapper to map ContactRequest to Contact
-    Contact contact = ContactMapper.convertContactRequestToContact(contactRequest);
-
-
-    // Set additional properties or modify as needed
-    contact.setFavorite(false);
-    contact.setUser(loggedInUser);
-
-    // Save the contact
-    contactService.addContact(contact);
-
-    // Return ResponseEntity with the mapped ContactRequest (if needed)
-    return ResponseEntity.ok(contactRequest);
-}
+        // Create a Contact object and associate it with the logged-in user
+        Contact contact = new Contact();
+        contact.setFirstname(contactRequest.getFirstname());
+        contact.setLastname(contactRequest.getLastname());
+        contact.setWork(contactRequest.getWork());
+        contact.setGender(contactRequest.getGender());
+        contact.setEmail(contactRequest.getEmail());
+        contact.setDescription(contactRequest.getDescription());
+        contact.setPhoneno(contactRequest.getPhoneno());
+        contact.setFavorite(false);
+        contact.setIsFriend(contactRequest.getIsFriend());
+        contact.setIsColleague(contactRequest.getIsColleague());
+        contact.setIsFamily(contactRequest.getIsFamily());
+        // Set the logged-in user as the owner of the contact
+        contact.setUser(loggedInUser);
+        // Save the contact
+        contactService.addContact(contact);
+        return ResponseEntity.ok(contactRequest);
+    }
 
 
     //id of the contact who we want to delete
@@ -163,27 +151,23 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
     @PutMapping("/update/{id}")
     public Contact updateContact(@RequestBody ContactRequest contactRequest, @PathVariable Integer id, Authentication authentication) throws Exception {
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
+        Contact contact = contactRepository.getById(id);
+        contact.setFirstname(contactRequest.getFirstname());
+        contact.setLastname(contactRequest.getLastname());
+        contact.setWork(contactRequest.getWork());
+        contact.setGender(contactRequest.getGender());
+        contact.setEmail(contactRequest.getEmail());
+        contact.setDescription(contactRequest.getDescription());
+        contact.setPhoneno(contactRequest.getPhoneno());
+        contact.setIsFriend(contactRequest.getIsFriend());
+        contact.setIsColleague(contactRequest.getIsColleague());
+        contact.setIsFamily(contactRequest.getIsFamily());
 
-        // Fetch the existing contact by ID
-        Contact existingContact = contactRepository.getById(id);
-
-        // Use ModelMapper to map ContactRequest to existing Contact
-        modelMapper.map(contactRequest, existingContact);
-
-
-        // Set additional properties or modify as needed
-        existingContact.setIsFriend(contactRequest.getIsFriend());
-        existingContact.setIsColleague(contactRequest.getIsColleague());
-        existingContact.setIsFamily(contactRequest.getIsFamily());
-        existingContact.setUser(loggedInUser);
-
-        // Save the updated contact
-        contactRepository.save(existingContact);
-
-        // Return the updated contact
-        return existingContact;
+        // Set the logged-in user as the owner of the contact
+        contact.setUser(loggedInUser);
+        contactRepository.save(contact);
+        return contact;
     }
-
 
     @GetMapping("/contactinfo/{id}")
     public ResponseEntity<Contact> getContactInfo(@PathVariable Integer id) {
@@ -205,40 +189,22 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
     }
 
     // Profile Update
-//    @PutMapping("/updateUser/{id}")
-//    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
-//
-//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
-//        UserInfo userInfo = userInfoRepository.findByUserId(id);
-//        userInfo.setFirstName(userInfoRequest.getFirstName());
-//        userInfo.setLastName(userInfoRequest.getLastName());
-//        userInfo.setGender(userInfoRequest.getGender());
-//        userInfo.setEmail(userInfoRequest.getEmail());
-//        userInfo.setAddress(userInfoRequest.getAddress());
-//        userInfo.setPhoneno(userInfoRequest.getPhoneno());
-//        userInfo.setUser(loggedInUser);
-//        userInfoRepository.save(userInfo);
-//        return userInfo;
-//    }
     @PutMapping("/updateUser/{id}")
     public UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication) throws Exception {
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
-
-        // Fetch the existing UserInfo by user ID
-        UserInfo existingUserInfo = userInfoRepository.findByUserId(id);
-
-        // Use ModelMapper to map UserInfoRequest to existing UserInfo
-        modelMapper.map(userInfoRequest, existingUserInfo);
-
-        // Set additional properties or modify as needed
-        existingUserInfo.setUser(loggedInUser);
-
-        // Save the updated UserInfo
-        userInfoRepository.save(existingUserInfo);
-
-        // Return the updated UserInfo
-        return existingUserInfo;
+        UserInfo userInfo = userInfoRepository.findByUserId(id);
+        userInfo.setFirstName(userInfoRequest.getFirstName());
+        userInfo.setLastName(userInfoRequest.getLastName());
+        userInfo.setGender(userInfoRequest.getGender());
+        userInfo.setEmail(userInfoRequest.getEmail());
+        userInfo.setAddress(userInfoRequest.getAddress());
+        userInfo.setPhoneno(userInfoRequest.getPhoneno());
+        userInfo.setUser(loggedInUser);
+        userInfoRepository.save(userInfo);
+        return userInfo;
     }
+
+
     @PutMapping("updateDetailsFilled/{id}")
     public ResponseEntity<ApiResponse> userDetailsFilled(@PathVariable Integer id) {
         try {
@@ -341,23 +307,64 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
       userInfoService.updateUserProfilePicture(data);
       return new ResponseEntity<>(data,HttpStatus.OK);
     }
-    @GetMapping("/family/{userId}")
-    public ResponseEntity<List<Contact>> getFamily(@PathVariable Integer userId)
-    {
-        return contactService.getFamily(userId);
-    }
-    @GetMapping("/friends/{userId}")
-    public ResponseEntity<List<Contact>> getFriends(@PathVariable Integer userId)
-    {
-        return contactService.getFriends(userId);
+
+
+
+
+    //for backup of contacts
+    @PostMapping("/upload")
+    public ResponseEntity<ApiResponse> uploadContacts(@RequestBody List<Contact> contacts,Authentication authentication) {
+        try {
+            User user = userService.loadUserByEmail(authentication.getName());
+            String email= user.getEmail();
+            // For simplicity, let's just print the contacts to the console
+            System.out.println("Received contacts:");
+            contacts.forEach(contact -> System.out.println("Name: " + contact.getFirstname() + ", Email: " + contact.getEmail() + ", Phoneno: " + contact.getPhoneno()));
+//            System.out.println("1");
+            // to convert Contacts to csv filee.
+            String csvData = contactService.convertContactsToCSV(contacts);
+            System.out.println("2");
+
+            driveService.uploadBasicFile(csvData, "contacts.csv", email);
+            // Integrate with Google Drive API
+//            contactService.uploadContactsToDrive(contacts);
+
+            return ResponseEntity.ok().body(new ApiResponse("Contacts uploaded successfully"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(new ApiResponse("Error uploading contacts"));
+        }
     }
 
-    @GetMapping("/colleagues/{userId}")
-    public ResponseEntity<List<Contact>> getColleagues(@PathVariable Integer userId)
-    {
-        return contactService.getColleagues(userId);
+    @GetMapping("/download")
+    public ResponseEntity<ApiResponse> downloadContacts(Authentication authentication){
+       try {
+           User user = userService.loadUserByEmail(authentication.getName());
+           String email = user.getEmail();
+           System.out.println("download contacts");
+           String id = "1-_V49mWIcChijW484yCzOxT0buxdRS9i";
+           String destinationFilePath = "/home/manisha/Downloads/file.csv";
+           driveService.downloadfile(id, email,destinationFilePath);
+           return ResponseEntity.ok().body(new ApiResponse("contacts downloaded successfully"));
+       }                                                                    
+       catch(Exception e){
+           e.printStackTrace();
+           return  ResponseEntity.status(500).body(new ApiResponse("error downloading contacts"));
+       }
+
+    }
+
+
+public ResponseEntity<List<Contact>> getFamily(Integer userId) {
+    return ResponseEntity.ok(contactRepository.findByUserIdAndIsFamily(userId,true));
+}
+
+    public ResponseEntity<List<Contact>> getFriends(Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsFriend(userId,true));
+    }
+
+    public ResponseEntity<List<Contact>> getColleagues(Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsColleague(userId,true));
     }
 
 }
-
-

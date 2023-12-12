@@ -1,22 +1,24 @@
 
 
 <div class="wrapper">
-  <div>
+  
     <div class="section">
-      <div class="search-bar">
+     
+      <div class="search-bar d-flex justify-content-between">
 
         <div class="dropdown filters">
           <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width:10vw; height: 5vh;background-color: #9BBEC8; border: none; ">
             Filter By
           </button>
-          <ul class="dropdown-menu">
-            <a class="dropdown-item" (click)="selectTerm('Name')" >Name</a>
-            <a class="dropdown-item" (click)="selectTerm('Email')">Email</a>
-            <a class="dropdown-item" (click)="selectTerm('Work')">Work</a>
-            <a class="dropdown-item" (click)="selectTerm('PhoneNo')">Phone No</a>
+          <ul class="dropdown-menu uploadmenu">
+            <a class="dropdown-item uploaditem " (click)="selectTerm('Name')" >Name</a>
+            <a class="dropdown-item uploaditem" (click)="selectTerm('Email')">Email</a>
+            <a class="dropdown-item uploaditem" (click)="selectTerm('Work')">Work</a>
+            <a class="dropdown-item uploaditem" (click)="selectTerm('PhoneNo')">Phone No</a>
           </ul>
         </div>    
-
+                  
+       <div class="search-container">
         <input
           type="text"
           [(ngModel)]="searchTerm"
@@ -31,6 +33,38 @@
           ></fa-icon>
         </button>
       </div>
+
+      <!-- <button class="upload"  (click)="uploadContacts()"  pTooltip="Upload to Drive"><fa-icon
+        [icon]="faCloud"
+        size="3x"
+        [styles]="{ stroke: 'red', color: ' #043c53b5', 'font-size': '30px',  'margin-right': '12px' }"
+      ></fa-icon></button>
+     
+      
+      <button class="download"  (click)="downloadContacts()"  pTooltip="download to Drive"><fa-icon
+        [icon]="faCloud"
+        size="3x"
+        [styles]="{ stroke: 'red', color: ' #043c53b5', 'font-size': '30px',  'margin-right': '12px' }"
+      ></fa-icon></button>
+      </div> -->
+     
+
+      <button class="upload dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"type="button" data-bs-toggle="dropdown" aria-expanded="false"    pTooltip="Upload to Drive"><fa-icon
+        [icon]="faCloudArrowDown"
+        size="3x"
+        [styles]="{ stroke: 'red', color: ' #043c53b5', 'font-size': '30px',  'margin-right': '12px' }"
+      ></fa-icon></button>
+        
+        <!-- Add your dropdown content here -->
+        <ul class="dropdown-menu uploadmenu">
+          <a (click)="uploadContacts()" class="dropdown-item uploaditem">Upload Contacts</a>
+          <a (click)="downloadContacts()"class="dropdown-item uploaditem">Download Contacts</a>
+          <!-- Add more options as needed -->
+        </ul>
+     
+      </div>     
+
+      
 
       <hr
         style="
@@ -209,8 +243,9 @@
       ></p-paginator>
     </ng-template>
     </div>
-  </div>
+ 
 </div>
+
   <p-toast
     [showTransformOptions]="'translateY(100%)'"
     [showTransitionOptions]="'1000ms'"

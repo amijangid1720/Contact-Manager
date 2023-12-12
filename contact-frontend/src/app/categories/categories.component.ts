@@ -67,21 +67,21 @@ export class CategoriesComponent {
     return name.charAt(0).toUpperCase() + name.slice(1);
   }
 
-  removeFromFavorites(contactId: number) {
-    // Call the service method to remove the contact
-    this.manipulateuser.removeFromFavorites(contactId).subscribe(() => {
-      //console.log("removed from fav");
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Deleted',
-        detail: 'Favorite contact removed',
-      });
-      // After successful removal, reload the favorite contacts
-      setTimeout(() => {
-        this.loadCategories();
-      }, 200);
-    });
-  }
+  // removeFromFavorites(contactId: number) {
+  //   // Call the service method to remove the contact
+  //   this.manipulateuser.removeFromFavorites(contactId).subscribe(() => {
+  //     //console.log("removed from fav");
+  //     this.messageService.add({
+  //       severity: 'warn',
+  //       summary: 'Deleted',
+  //       detail: 'Favorite contact removed',
+  //     });
+  //     // After successful removal, reload the favorite contacts
+  //     setTimeout(() => {
+  //       this.loadCategories();
+  //     }, 200);
+  //   });
+  // }
 
   toggleUpdate(contactId: number) {
     if (this.editingContactId === contactId) {
