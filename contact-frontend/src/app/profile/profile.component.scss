@@ -1,10 +1,12 @@
 .container-div {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   margin: 5%;
 }
 .menu {
-  height: 70vh;
+  height: 80vh;
   width: 20%;
   border-top-left-radius: 2vw;
   border-bottom-left-radius: 2vw;
@@ -24,11 +26,10 @@
 }
 
 .menu2 {
-  height: 70vh;
+  height: 80vh;
   width: 55%;
   background-color: #dfeaf06e;
   padding: 1%;
-  margin-right: 10%;
   border-top-right-radius: 2vw;
   border-bottom-right-radius: 2vw;
   border-bottom: 6px solid #032837;

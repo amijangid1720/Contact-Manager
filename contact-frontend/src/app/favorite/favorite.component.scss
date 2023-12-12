@@ -1,9 +1,8 @@
 .card {
   width: 100%;
-  height: 13vh;
+  height: 18vh;
   background-color: #dfeaf06e;
   margin-top: 2%;
-  margin-left: -2%;
   border: none;
   border-bottom: 5px solid #053B50 ;
   border-right: 3px solid #053B50;
@@ -15,10 +14,14 @@
 .main {
   display: flex;
   flex-direction: row;
+  // margin-left: 14%;
+  margin-left: 5%;
+  margin-right: 5%;
   //   margin-right: -10%;
 }
 p{
     margin-bottom: 0;
+    
 }
 a{  color:  #096285;
     text-decoration: none;
@@ -54,7 +57,7 @@ overflow-y: scroll;
 
 .updateside {
   height: 70vh;
- padding-left: 2%;
+ padding-left: -5%;
   width: 55%;
   display: inline-block;
   // background-color: rgba(255, 255, 255, 0.295);
@@ -62,6 +65,10 @@ overflow-y: scroll;
   vertical-align: middle;
   margin-right: -9%;
  
+}
+
+.updateside .login{
+  background-color: #096285;
 }
 
 .fav-body{

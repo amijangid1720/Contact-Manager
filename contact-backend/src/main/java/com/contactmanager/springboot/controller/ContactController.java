@@ -7,6 +7,7 @@ import com.contactmanager.springboot.dto.ApiResponse;
 import com.contactmanager.springboot.dto.UserInfoRequest;
 import com.contactmanager.springboot.dao.UserInfoRepository;
 import com.contactmanager.springboot.dto.ContactRequest;
+import com.contactmanager.springboot.mapper.ContactMapper;
 import com.contactmanager.springboot.security.dao.UserRepository;
 import com.contactmanager.springboot.security.dto.DuplicateCheckRequest;
 import com.contactmanager.springboot.security.dto.DuplicateCheckResponse;
@@ -16,6 +17,7 @@ import com.contactmanager.springboot.security.entity.User;
 import com.contactmanager.springboot.services.contactservice.ContactService;
 import com.contactmanager.springboot.services.imageUpload.CloudinaryImageServiceImpl;
 import com.contactmanager.springboot.services.userservice.UserInfoServiceImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -55,31 +57,45 @@ public class ContactController {
 
     @Autowired
     ContactService contactService;
-    @PostMapping("/")
-    public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication)
-   {
-        User loggedInUser = userService.loadUserByEmail(authentication.getName());
 
-        // Create a Contact object and associate it with the logged-in user
-        Contact contact = new Contact();
-        contact.setFirstname(contactRequest.getFirstname());
-        contact.setLastname(contactRequest.getLastname());
-        contact.setWork(contactRequest.getWork());
-        contact.setGender(contactRequest.getGender());
-        contact.setEmail(contactRequest.getEmail());
-        contact.setDescription(contactRequest.getDescription());
-        contact.setPhoneno(contactRequest.getPhoneno());
-        contact.setFavorite(false);
-        contact.setIsFriend(contactRequest.getIsFriend());
-        contact.setIsColleague(contactRequest.getIsColleague());
-        contact.setIsFamily(contactRequest.getIsFamily());
-        // Set the logged-in user as the owner of the contact
-        contact.setUser(loggedInUser);
-        // Save the contact
-        contactService.addContact(contact);
-        return ResponseEntity.ok(contactRequest);
-    }
+    @Autowired
+    private ModelMapper modelMapper;
+//    @PostMapping("/")
+//    public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication) {
+//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
+//
+//        // Use ModelMapper to map ContactRequest to Contact
+//        Contact contact = modelMapper.map(contactRequest, Contact.class);
+//
+//        // Set additional properties or modify as needed
+//        contact.setFavorite(false);
+//        contact.setUser(loggedInUser);
+//
+//        // Save the contact
+//        contactService.addContact(contact);
+//
+//        // Return ResponseEntity with the mapped ContactRequest (if needed)
+//        return ResponseEntity.ok(contactRequest);
+//    }
+//}
+@PostMapping("/")
+public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication) {
+    User loggedInUser = userService.loadUserByEmail(authentication.getName());
 
+    // Use ModelMapper to map ContactRequest to Contact
+    Contact contact = ContactMapper.convertContactRequestToContact(contactRequest);
+
+
+    // Set additional properties or modify as needed
+    contact.setFavorite(false);
+    contact.setUser(loggedInUser);
+
+    // Save the contact
+    contactService.addContact(contact);
+
+    // Return ResponseEntity with the mapped ContactRequest (if needed)
+    return ResponseEntity.ok(contactRequest);
+}
 
 
     //id of the contact who we want to delete
@@ -123,27 +139,51 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
 
 
     //id of the contact whose we want to update
+//    @PutMapping("/update/{id}")
+//    public  Contact updateContact(@RequestBody ContactRequest contactRequest,@PathVariable Integer id, Authentication authentication)throws Exception{
+//
+//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
+//        Contact contact = contactRepository.getById(id);
+//        contact.setFirstname(contactRequest.getFirstname());
+//        contact.setLastname(contactRequest.getLastname());
+//        contact.setWork(contactRequest.getWork());
+//        contact.setGender(contactRequest.getGender());
+//        contact.setEmail(contactRequest.getEmail());
+//        contact.setDescription(contactRequest.getDescription());
+//        contact.setPhoneno(contactRequest.getPhoneno());
+//        contact.setIsFriend(contactRequest.getIsFriend());
+//        contact.setIsColleague(contactRequest.getIsColleague());
+//        contact.setIsFamily(contactRequest.getIsFamily());
+//
+//        // Set the logged-in user as the owner of the contact
+//        contact.setUser(loggedInUser);
+//        contactRepository.save(contact);
+//        return contact;
+//    }
     @PutMapping("/update/{id}")
-    public  Contact updateContact(@RequestBody ContactRequest contactRequest,@PathVariable Integer id, Authentication authentication)throws Exception{
-
+    public Contact updateContact(@RequestBody ContactRequest contactRequest, @PathVariable Integer id, Authentication authentication) throws Exception {
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
-        Contact contact = contactRepository.getById(id);
-        contact.setFirstname(contactRequest.getFirstname());
-        contact.setLastname(contactRequest.getLastname());
-        contact.setWork(contactRequest.getWork());
-        contact.setGender(contactRequest.getGender());
-        contact.setEmail(contactRequest.getEmail());
-        contact.setDescription(contactRequest.getDescription());
-        contact.setPhoneno(contactRequest.getPhoneno());
-        contact.setIsFriend(contactRequest.getIsFriend());
-        contact.setIsColleague(contactRequest.getIsColleague());
-        contact.setIsFamily(contactRequest.getIsFamily());
 
-        // Set the logged-in user as the owner of the contact
-        contact.setUser(loggedInUser);
-        contactRepository.save(contact);
-        return contact;
+        // Fetch the existing contact by ID
+        Contact existingContact = contactRepository.getById(id);
+
+        // Use ModelMapper to map ContactRequest to existing Contact
+        modelMapper.map(contactRequest, existingContact);
+
+
+        // Set additional properties or modify as needed
+        existingContact.setIsFriend(contactRequest.getIsFriend());
+        existingContact.setIsColleague(contactRequest.getIsColleague());
+        existingContact.setIsFamily(contactRequest.getIsFamily());
+        existingContact.setUser(loggedInUser);
+
+        // Save the updated contact
+        contactRepository.save(existingContact);
+
+        // Return the updated contact
+        return existingContact;
     }
+
 
     @GetMapping("/contactinfo/{id}")
     public ResponseEntity<Contact> getContactInfo(@PathVariable Integer id) {
@@ -165,23 +205,40 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
     }
 
     // Profile Update
+//    @PutMapping("/updateUser/{id}")
+//    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
+//
+//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
+//        UserInfo userInfo = userInfoRepository.findByUserId(id);
+//        userInfo.setFirstName(userInfoRequest.getFirstName());
+//        userInfo.setLastName(userInfoRequest.getLastName());
+//        userInfo.setGender(userInfoRequest.getGender());
+//        userInfo.setEmail(userInfoRequest.getEmail());
+//        userInfo.setAddress(userInfoRequest.getAddress());
+//        userInfo.setPhoneno(userInfoRequest.getPhoneno());
+//        userInfo.setUser(loggedInUser);
+//        userInfoRepository.save(userInfo);
+//        return userInfo;
+//    }
     @PutMapping("/updateUser/{id}")
-    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
-
+    public UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication) throws Exception {
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
-        UserInfo userInfo = userInfoRepository.findByUserId(id);
-        userInfo.setFirstName(userInfoRequest.getFirstName());
-        userInfo.setLastName(userInfoRequest.getLastName());
-        userInfo.setGender(userInfoRequest.getGender());
-        userInfo.setEmail(userInfoRequest.getEmail());
-        userInfo.setAddress(userInfoRequest.getAddress());
-        userInfo.setPhoneno(userInfoRequest.getPhoneno());
-        userInfo.setUser(loggedInUser);
-        userInfoRepository.save(userInfo);
-        return userInfo;
+
+        // Fetch the existing UserInfo by user ID
+        UserInfo existingUserInfo = userInfoRepository.findByUserId(id);
+
+        // Use ModelMapper to map UserInfoRequest to existing UserInfo
+        modelMapper.map(userInfoRequest, existingUserInfo);
+
+        // Set additional properties or modify as needed
+        existingUserInfo.setUser(loggedInUser);
+
+        // Save the updated UserInfo
+        userInfoRepository.save(existingUserInfo);
+
+        // Return the updated UserInfo
+        return existingUserInfo;
     }
-
-
     @PutMapping("updateDetailsFilled/{id}")
     public ResponseEntity<ApiResponse> userDetailsFilled(@PathVariable Integer id) {
         try {
