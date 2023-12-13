@@ -111,4 +111,8 @@ public class ContactServiceImpl implements ContactService{
         return ResponseEntity.ok(contactRepository.findByUserIdAndIsColleague(userId,true));
     }
 
+
+    public List<Contact> allContacts(Integer userId){
+        return contactRepository.findByUserId(userId);
+    }
 }

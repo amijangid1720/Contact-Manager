@@ -27,7 +27,15 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
     }
 
-
+public UserInfo getUserInfoByEmail(String email){
+        Optional<UserInfo> userInfo = userInfoRepository.findByEmail(email);
+        if(userInfo.isPresent()){
+            return userInfo.get();
+        }
+        else {
+            return null;
+        }
+    }
 
     public void markDetailsAsFilled(Integer id) {
         Optional<User> optionalUser = userRepository.findById(id);
@@ -80,5 +88,10 @@ public class UserInfoServiceImpl implements UserInfoService {
             // Handle the case where the user ID is not present in the data map
             System.out.println("User ID is not present in the data map");
         }
+    }
+
+    @Override
+    public void saveUserInfo(UserInfo userInfo) {
+          userInfoRepository.save(userInfo);
     }
 }

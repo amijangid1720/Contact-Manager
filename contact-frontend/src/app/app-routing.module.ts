@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { CategoriesComponent } from './categories/categories.component';
+// import { TryComponent } from './try/try.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,7 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         canActivate: [authGuard],
+       
       },
       
       {
@@ -63,11 +65,16 @@ const routes: Routes = [
         component: AddComponent,
         canActivate: [authGuard],
       },
-
+      // {
+      //   path:'try',
+      //   component:TryComponent,
+      //   canActivate:[authGuard],
+      // },
       {
         path: 'table',
         component: ContactTableComponent,
         canActivate: [authGuard],
+        
       },
       {
         path: 'profile',

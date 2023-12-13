@@ -45,10 +45,17 @@ public class UserInfo {
     @Column(name = "profilePicture")
     private String profilePicture;
 
+    @Column(name = "folderid")
+    private String folderId;
+
+    @Column(name = "fileid")
+    private String fileId;
+
     @OneToOne
     @JoinColumn(name = "userid") // This column references the "id" column in the "user_login" table
     @JsonIgnore
     private User user;
+
 
     @Override
     public String toString() {
@@ -62,6 +69,8 @@ public class UserInfo {
                 ", address='" + address + '\'' +
                 ", detailsFilled=" + detailsFilled +
                 ", profilePicture='" + profilePicture + '\'' +
+                ", folderId='" + folderId + '\'' +
+                ", fileId='" + fileId + '\'' +
                 ", user=" + user +
                 '}';
     }

@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
       console.log(user.idToken);
       console.log(user.name);
       environment.username = user.name;
+      localStorage.setItem('Token',user.idToken);
 
       // console.log("name", environment.username);
 

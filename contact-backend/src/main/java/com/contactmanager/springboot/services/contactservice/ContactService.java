@@ -23,4 +23,6 @@ public interface ContactService {
     public ResponseEntity<List<Contact>> getFriends(Integer userId);
     public ResponseEntity<List<Contact>> getColleagues(Integer userId);
 
+    public  List<Contact> allContacts(Integer userId);
+
 }

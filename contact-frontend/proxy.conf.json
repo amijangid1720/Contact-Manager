@@ -1,0 +1,7 @@
+{
+    "/api": {
+      "target": "https://www.googleapis.com",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }

@@ -24,6 +24,10 @@ import { MessageService } from 'primeng/api';
 import { ConfirmationService, ConfirmEventType } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../environment';
+import { AuthService } from '../service/auth.service';
+import { Token } from '@angular/compiler';
+import { LoginComponent } from '../login/login.component';
+// import { TryComponent } from '../try/try.component';
 
 @Component({
   selector: 'app-contact-table',
@@ -55,7 +59,7 @@ export class ContactTableComponent implements OnInit {
   sortOrder: string = 'asc';
   isContactsEmpty: boolean = false;
   showDropdown = false;
-
+  Allcontacts: any[] = [];
 
   constructor(
     private http: HttpClient,
@@ -64,7 +68,8 @@ export class ContactTableComponent implements OnInit {
     private addService: AddServiceService,
     private messageService: MessageService,
     private toasterService: ToasterService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private authService:AuthService,
   ) {
     console.log("hiiii");
     
@@ -298,7 +303,49 @@ export class ContactTableComponent implements OnInit {
       }
     );
    }
- 
+    
+  // uploadContacts() {
+  //   const id = localStorage.getItem('user_id');
+  //   if (id !== null) {
+  //     const userid = parseInt(id, 10);
+  //     this.manipulateuser.getallContacts(userid).subscribe(
+  //       (response: any) => {
+  //         console.log("response ", response);
+  //         this.Allcontacts = response;
+          
+  //         this.manipulateuser.uploadContacts(this.Allcontacts).subscribe(
+  //           (response) => {
+  //             console.log("contacts uploaded successfully", response);
+  //             this.messageService.add({
+  //               severity: 'success',
+  //               summary: 'Uploaded',
+  //               detail: 'Contacts added to drive',
+  //             });
+  //           },
+  //           (error) => {
+  //             console.error('Error uploading contacts', error);
+  //             // Handle error scenarios
+  //             this.messageService.add({
+  //               severity: 'alert',
+  //               summary: 'Failed',
+  //               detail: 'Failed to upload Contacts Drive',
+  //             });
+  //           }
+  //         );
+  //       },
+  //       (error) => {
+  //         console.error('Error fetching contacts', error);
+  //         // Handle error scenarios
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Failed',
+  //           detail: 'Failed to fetch Contacts',
+  //         });
+  //       }
+  //     );
+  //   }
+  // }
+  
 
    downloadContacts(){
     this.manipulateuser.downloadContacts().subscribe(
@@ -328,4 +375,7 @@ export class ContactTableComponent implements OnInit {
    toggleDropdown() {
     this.showDropdown = !this.showDropdown;
   }
+
+
+
 }

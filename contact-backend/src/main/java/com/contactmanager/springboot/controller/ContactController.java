@@ -57,9 +57,9 @@ public class ContactController {
 
     @Autowired
     private DriveService driveService;
+
     @PostMapping("/")
-    public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication)
-   {
+    public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication) {
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
 
         // Create a Contact object and associate it with the logged-in user
@@ -80,7 +80,6 @@ public class ContactController {
     }
 
 
-
     //id of the contact who we want to delete
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map<String, Object>> deleteContact(@PathVariable Integer id, Authentication authentication) {
@@ -99,31 +98,28 @@ public class ContactController {
         }
     }
 
-@GetMapping("/findAll")
-public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
-        @RequestParam(name = "page", defaultValue = "0") int page,
-        @RequestParam(name = "size", defaultValue = "10") int size,
-        Authentication authentication
-) throws Exception {
-    User user = userService.loadUserByEmail(authentication.getName());
+    @GetMapping("/findAll")
+    public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            Authentication authentication
+    ) throws Exception {
+        User user = userService.loadUserByEmail(authentication.getName());
 
-    Pageable pageable = PageRequest.of(page, size);
-    Page<Contact> contactPage = contactRepository.findByUserId(user.getId(), pageable);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Contact> contactPage = contactRepository.findByUserId(user.getId(), pageable);
 
-    ContactRequest.contactResponse response = new ContactRequest.contactResponse();
-    response.setContacts(contactPage.getContent());
-    response.setTotalContacts(contactPage.getTotalElements());
+        ContactRequest.contactResponse response = new ContactRequest.contactResponse();
+        response.setContacts(contactPage.getContent());
+        response.setTotalContacts(contactPage.getTotalElements());
 
-    return ResponseEntity.ok(response);
-}
-
-
-
+        return ResponseEntity.ok(response);
+    }
 
 
     //id of the contact whose we want to update
     @PutMapping("/update/{id}")
-    public  Contact updateContact(@RequestBody ContactRequest contactRequest,@PathVariable Integer id, Authentication authentication)throws Exception{
+    public Contact updateContact(@RequestBody ContactRequest contactRequest, @PathVariable Integer id, Authentication authentication) throws Exception {
 
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
         Contact contact = contactRepository.getById(id);
@@ -160,9 +156,6 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
 //        return userInfo;
 
 
-
-
-
     @GetMapping("/contactinfo/{id}")
     public ResponseEntity<Contact> getContactInfo(@PathVariable Integer id) {
         Contact contactInfo = contactRepository.getById(id);
@@ -174,9 +167,9 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
 
     //to get details of the user
     @GetMapping("/userinfo/{id}")
-    public ResponseEntity<UserInfo> getUserInfo(@PathVariable Integer id){
+    public ResponseEntity<UserInfo> getUserInfo(@PathVariable Integer id) {
         UserInfo userinfo = userInfoRepository.findByUserId(id);
-        if(userinfo == null){
+        if (userinfo == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(userinfo);
@@ -185,7 +178,7 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
 
     //updating details of the user
     @PutMapping("/updateUser/{id}")
-    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
+    public UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication) throws Exception {
 
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
         UserInfo userInfo = userInfoRepository.findByUserId(id);
@@ -195,36 +188,13 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
         userInfo.setEmail(userInfoRequest.getEmail());
         userInfo.setAddress(userInfoRequest.getAddress());
         userInfo.setPhoneno(userInfoRequest.getPhoneno());
-       
+
 
         // Set the logged-in user as the owner of the contact
         userInfo.setUser(loggedInUser);
-       userInfoRepository.save(userInfo);
+        userInfoRepository.save(userInfo);
         return userInfo;
     }
-
-    //upload profile photo
-//    @PostMapping("/upload-profile-picture/{userid}")
-//    public ResponseEntity<String> handleFileUpload(
-//            @RequestParam("file") MultipartFile file,
-//            @RequestParam("userId") Integer userId) {
-//
-//        UserInfo userInfo = userInfoRepository.findById(userId).orElse(null);
-//
-//        if (userInfo == null) {
-//            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-//        }
-//
-//        try {
-//            String fileName = fileStorageService.storeFile(file);
-//            userInfo.setProfilePicture(fileName);
-//            userInfoRepository.save(userInfo);
-//
-//            return new ResponseEntity<>("File uploaded successfully!", HttpStatus.OK);
-//        } catch (IOException e) {
-//            return new ResponseEntity<>("Error uploading file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 
     @PutMapping("updateDetailsFilled/{id}")
     public ResponseEntity<ApiResponse> userDetailsFilled(@PathVariable Integer id) {
@@ -245,20 +215,20 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
         System.out.println(userInfo);
         if (userInfo != null) {
             return ResponseEntity.ok(userInfo);
-        }
-        else {
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/search/{searchQuery}/{filterTerm}")
     public ResponseEntity<ContactRequest.contactResponse> searchContacts(
-            @PathVariable String searchQuery,@PathVariable String filterTerm,
+            @PathVariable String searchQuery, @PathVariable String filterTerm,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size
     ) {
         try {
             Pageable pageable = PageRequest.of(page, size);
-            Page<Contact> matchingContacts = contactService.searchContacts(searchQuery,filterTerm, pageable);
+            Page<Contact> matchingContacts = contactService.searchContacts(searchQuery, filterTerm, pageable);
 
             ContactRequest.contactResponse response = new ContactRequest.contactResponse();
             response.setContacts(matchingContacts.getContent());
@@ -319,31 +289,30 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
     }
 
     @PostMapping("/upload-profile/{userid}")
-   public ResponseEntity<Map> uploadImage(
+    public ResponseEntity<Map> uploadImage(
             @RequestParam("image") MultipartFile file,
             @PathVariable Integer userid
-    )
-    {
-      Map data=this.cloudinaryImageService.upload(file,userid);
-      userInfoService.updateUserProfilePicture(data);
-      return new ResponseEntity<>(data,HttpStatus.OK);
+    ) {
+        Map data = this.cloudinaryImageService.upload(file, userid);
+        userInfoService.updateUserProfilePicture(data);
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
-
-
 
 
     //for backup of contacts
     @PostMapping("/upload")
-    public ResponseEntity<ApiResponse> uploadContacts(@RequestBody List<Contact> contacts,Authentication authentication) {
+    public ResponseEntity<ApiResponse> uploadContacts(@RequestBody List<Contact> contacts, Authentication authentication) {
         try {
             User user = userService.loadUserByEmail(authentication.getName());
-            String email= user.getEmail();
+            String email = user.getEmail();
+            Integer id  = user.getId();
+            List<Contact> allcontacts = contactService.allContacts(id);
             // For simplicity, let's just print the contacts to the console
             System.out.println("Received contacts:");
-            contacts.forEach(contact -> System.out.println("Name: " + contact.getFirstname() + ", Email: " + contact.getEmail() + ", Phoneno: " + contact.getPhoneno()));
-//            System.out.println("1");
+            allcontacts.forEach(contact -> System.out.println("Name: " + contact.getFirstname() + ", Email: " + contact.getEmail() + ", Phoneno: " + contact.getPhoneno()));
+
             // to convert Contacts to csv filee.
-            String csvData = contactService.convertContactsToCSV(contacts);
+            String csvData = contactService.convertContactsToCSV(allcontacts);
             System.out.println("2");
 
             driveService.uploadBasicFile(csvData, "contacts.csv", email);
@@ -358,34 +327,56 @@ public ResponseEntity<ContactRequest.contactResponse> findAllContacts(
     }
 
     @GetMapping("/download")
-    public ResponseEntity<ApiResponse> downloadContacts(Authentication authentication){
-       try {
-           User user = userService.loadUserByEmail(authentication.getName());
-           String email = user.getEmail();
-           System.out.println("download contacts");
-           String id = "1-_V49mWIcChijW484yCzOxT0buxdRS9i";
-           String destinationFilePath = "/home/manisha/Downloads/file.csv";
-           driveService.downloadfile(id, email,destinationFilePath);
-           return ResponseEntity.ok().body(new ApiResponse("contacts downloaded successfully"));
-       }                                                                    
-       catch(Exception e){
-           e.printStackTrace();
-           return  ResponseEntity.status(500).body(new ApiResponse("error downloading contacts"));
-       }
+    public ResponseEntity<ApiResponse> downloadContacts(Authentication authentication) {
+        try {
+            User user = userService.loadUserByEmail(authentication.getName());
+            String email = user.getEmail();
+            System.out.println("download contacts");
+
+            String destinationFilePath = "/home/manisha/Downloads/file.csv";
+            driveService.downloadfile(email, destinationFilePath);
+            return ResponseEntity.ok().body(new ApiResponse("contacts downloaded successfully"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(new ApiResponse("error downloading contacts"));
+        }
 
     }
 
 
-public ResponseEntity<List<Contact>> getFamily(Integer userId) {
-    return ResponseEntity.ok(contactRepository.findByUserIdAndIsFamily(userId,true));
+    @GetMapping("/family/{userId}")
+    public ResponseEntity<List<Contact>> getFamily(@PathVariable Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsFamily(userId, true));
+    }
+
+    @GetMapping("/friends/{userid}")
+    public ResponseEntity<List<Contact>> getFriends(@PathVariable Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsFriend(userId, true));
+    }
+
+    @GetMapping("/colleagues/{userid}")
+    public ResponseEntity<List<Contact>> getColleagues(@PathVariable Integer userId) {
+        return ResponseEntity.ok(contactRepository.findByUserIdAndIsColleague(userId, true));
+    }
+
+    @GetMapping("/allContacts/{userId}")
+    public ResponseEntity<List<Contact>> getAllContacts(@PathVariable Integer userId) {
+        try {
+            List<Contact> contacts = contactService.allContacts(userId);
+            System.out.println(contacts);
+            return ResponseEntity.ok(contacts);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
+        }
+
+    }
 }
-
-    public ResponseEntity<List<Contact>> getFriends(Integer userId) {
-        return ResponseEntity.ok(contactRepository.findByUserIdAndIsFriend(userId,true));
-    }
-
-    public ResponseEntity<List<Contact>> getColleagues(Integer userId) {
-        return ResponseEntity.ok(contactRepository.findByUserIdAndIsColleague(userId,true));
-    }
-
-}
+//@GetMapping("/favorite/{userid}")
+//public ResponseEntity<List<Contact>> favoriteContacts(@PathVariable Integer userid) {
+//    try {
+//        List<Contact> favorite = contactService.favoriteContacts(userid);
+//        return ResponseEntity.ok(favorite);
+//    } catch (Exception e) {
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
+//    }
+//}

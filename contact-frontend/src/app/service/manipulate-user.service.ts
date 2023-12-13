@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { EnvironmentInjector, Injectable, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../environment';
 @Injectable({
@@ -61,9 +61,9 @@ const url = `${environment.backendUrl}/api/v1/contacts/${selectedCategory}/${use
 }
   
 
-uploadContacts(contacts: any[]):Observable<any>{
+uploadContacts(Allcontacts: any[]):Observable<any>{
     const url = `${environment.backendUrl}/api/v1/contacts/upload`;
-  return this.http.post(url,contacts);
+  return this.http.post(url,Allcontacts);
 }
   
 
@@ -78,6 +78,10 @@ downloadContacts():Observable<any>{
 //   return this.http.post(url, null);  // Send a POST request without a request body
 // }
 
+getallContacts(id:number):Observable<any>{
+  const url = `${environment.backendUrl}/api/v1/contacts/allContacts/${id}`
+   return this.http.get(url);
+}
   deleteContact(id: string): Observable<any> {
     return this.http.delete(
       `${environment.backendUrl}/api/v1/contacts/delete/${id}`
