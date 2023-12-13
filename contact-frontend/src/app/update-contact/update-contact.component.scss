@@ -54,7 +54,14 @@ h2 {
 .select-field:focus {
   outline: none; /* Remove the default focus outline */
 }
+.categories{
+  margin-top: 2%;
+  margin-bottom: 4%;
+}
 
+.categories label{
+  font-size: 1em;
+}
 .btn {
   background-color: #053b50;
   color: $color_1;
@@ -98,7 +105,8 @@ input.ng-invalid.ng-touched {
     text-align: start;
     width: 95%;
     height: 5vh;
-    margin-bottom: 7vh;
+    margin-bottom: 4%;
+    margin-top: 2%
   }
 
   .form-container {

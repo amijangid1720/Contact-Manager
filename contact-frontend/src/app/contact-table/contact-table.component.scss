@@ -1,10 +1,12 @@
 .section {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
- margin-top: 20px;
+//  margin-top: 20px;
+//  margin-left: 2%;
+//  margin-right: 2% ;
 }
 
 .section2{
@@ -33,7 +35,7 @@
 
 
 .search-bar{
-  width: 80%;
+  width: 65%;
   height:  5vh;
   display: flex;
   margin-top: 3%;
@@ -207,7 +209,7 @@ h4{
   border-spacing: 0;
   padding-top: 0;
   padding-top: 0;
-  width: 80%;
+  width: 65%;
   border-radius: 2vw; /* Adjust the value for desired corner radius */
   border-radius: 2vw; /* Adjust the value for desired corner radius */
   overflow: hidden;
