@@ -3,6 +3,7 @@ package com.contactmanager.springboot.services.userservice;
 
 import com.contactmanager.springboot.entity.UserInfo;
 import com.contactmanager.springboot.dao.UserInfoRepository;
+import com.contactmanager.springboot.mapper.ContactMapper;
 import com.contactmanager.springboot.security.dao.UserRepository;
 import com.contactmanager.springboot.security.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     UserRepository userRepository;
     public UserInfo getUserInfo(String username) {
+        //ContactMapper.convertContactToContactRequest();
         Optional<UserInfo> userInfo=userInfoRepository.findByEmail(username);
         if (userInfo.isPresent()) {
             return userInfo.get(); // Extract the UserInfo object

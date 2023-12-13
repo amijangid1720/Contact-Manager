@@ -21,12 +21,13 @@ h2 {
   width: 40vw;
   // height: max(50vh, auto);
   padding: 2vw;
-  margin: 9vw;
+  margin: 3%;
   background-color:#dfeaf06e;;
   border-radius: 2vw;
   margin-top: 1vw;
   border-bottom: 6px solid #032837;
-
+  justify-content: center;
+  align-items: center;
   box-shadow: 10px 10px 5px rgba(65, 66, 66, 0.26);
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -75,7 +76,7 @@ input.ng-invalid.ng-touched {
 .form-parent {
   display: flex;
   justify-content: center;
-  margin-left: -10vw;
+  // margin-left: -10vw;
 }
 
 @media screen and (max-width: 800px) {

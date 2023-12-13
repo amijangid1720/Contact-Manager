@@ -7,6 +7,7 @@ import com.contactmanager.springboot.entity.UserInfo;
 import com.contactmanager.springboot.dto.UserInfoRequest;
 import com.contactmanager.springboot.dao.UserInfoRepository;
 import com.contactmanager.springboot.dao.ContactRepository;
+import com.contactmanager.springboot.mapper.ContactMapper;
 import com.contactmanager.springboot.security.dao.UserRepository;
 import com.contactmanager.springboot.security.dto.DuplicateCheckRequest;
 import com.contactmanager.springboot.security.dto.DuplicateCheckResponse;
@@ -16,6 +17,8 @@ import com.contactmanager.springboot.services.contactservice.DriveService;
 import com.contactmanager.springboot.services.imageUpload.CloudinaryImageUploadService;
 import com.contactmanager.springboot.services.userservice.UserInfoService;
 import com.contactmanager.springboot.services.contactservice.ContactService;
+import com.contactmanager.springboot.services.imageUpload.CloudinaryImageServiceImpl;
+import com.contactmanager.springboot.services.userservice.UserInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,7 +59,7 @@ public class ContactController {
 
 
     @Autowired
-    private DriveService driveService;
+    ContactService contactService;
 
     @PostMapping("/")
     public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication) {
@@ -72,6 +75,9 @@ public class ContactController {
         contact.setDescription(contactRequest.getDescription());
         contact.setPhoneno(contactRequest.getPhoneno());
         contact.setFavorite(false);
+        contact.setIsFriend(contactRequest.getIsFriend());
+        contact.setIsColleague(contactRequest.getIsColleague());
+        contact.setIsFamily(contactRequest.getIsFamily());
         // Set the logged-in user as the owner of the contact
         contact.setUser(loggedInUser);
         // Save the contact
@@ -118,9 +124,29 @@ public class ContactController {
 
 
     //id of the contact whose we want to update
+//    @PutMapping("/update/{id}")
+//    public  Contact updateContact(@RequestBody ContactRequest contactRequest,@PathVariable Integer id, Authentication authentication)throws Exception{
+//
+//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
+//        Contact contact = contactRepository.getById(id);
+//        contact.setFirstname(contactRequest.getFirstname());
+//        contact.setLastname(contactRequest.getLastname());
+//        contact.setWork(contactRequest.getWork());
+//        contact.setGender(contactRequest.getGender());
+//        contact.setEmail(contactRequest.getEmail());
+//        contact.setDescription(contactRequest.getDescription());
+//        contact.setPhoneno(contactRequest.getPhoneno());
+//        contact.setIsFriend(contactRequest.getIsFriend());
+//        contact.setIsColleague(contactRequest.getIsColleague());
+//        contact.setIsFamily(contactRequest.getIsFamily());
+//
+//        // Set the logged-in user as the owner of the contact
+//        contact.setUser(loggedInUser);
+//        contactRepository.save(contact);
+//        return contact;
+//    }
     @PutMapping("/update/{id}")
     public Contact updateContact(@RequestBody ContactRequest contactRequest, @PathVariable Integer id, Authentication authentication) throws Exception {
-
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
         Contact contact = contactRepository.getById(id);
         contact.setFirstname(contactRequest.getFirstname());
@@ -130,31 +156,15 @@ public class ContactController {
         contact.setEmail(contactRequest.getEmail());
         contact.setDescription(contactRequest.getDescription());
         contact.setPhoneno(contactRequest.getPhoneno());
+        contact.setIsFriend(contactRequest.getIsFriend());
+        contact.setIsColleague(contactRequest.getIsColleague());
+        contact.setIsFamily(contactRequest.getIsFamily());
 
         // Set the logged-in user as the owner of the contact
         contact.setUser(loggedInUser);
         contactRepository.save(contact);
         return contact;
     }
-
-//update details of user using his id
-//    @PutMapping("/updateuser/{id}")
-//    public  UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication)throws Exception{
-//
-//        User loggedInUser = userService.loadUserByEmail(authentication.getName());
-//        UserInfo userInfo = userInfoRepository.getById(id);
-//        userInfo.setFirstName(userInfoRequest.getFirstName());
-//        userInfo.setLastName(userInfoRequest.getLastName());
-//        userInfo.setGender(userInfoRequest.getGender());
-//        userInfo.setEmail(userInfoRequest.getEmail());
-//        userInfo.setAddress(userInfoRequest.getAddress());
-//        userInfo.setPhoneno(userInfoRequest.getPhoneno());
-//
-//        // Set the logged-in user as the owner of the contact
-//        userInfo.setUser(loggedInUser);
-//        userInfoRepository.save(userInfo);
-//        return userInfo;
-
 
     @GetMapping("/contactinfo/{id}")
     public ResponseEntity<Contact> getContactInfo(@PathVariable Integer id) {
@@ -175,11 +185,9 @@ public class ContactController {
         return ResponseEntity.ok(userinfo);
     }
 
-
-    //updating details of the user
+    // Profile Update
     @PutMapping("/updateUser/{id}")
     public UserInfo updateUser(@RequestBody UserInfoRequest userInfoRequest, @PathVariable Integer id, Authentication authentication) throws Exception {
-
         User loggedInUser = userService.loadUserByEmail(authentication.getName());
         UserInfo userInfo = userInfoRepository.findByUserId(id);
         userInfo.setFirstName(userInfoRequest.getFirstName());
@@ -188,13 +196,11 @@ public class ContactController {
         userInfo.setEmail(userInfoRequest.getEmail());
         userInfo.setAddress(userInfoRequest.getAddress());
         userInfo.setPhoneno(userInfoRequest.getPhoneno());
-
-
-        // Set the logged-in user as the owner of the contact
         userInfo.setUser(loggedInUser);
         userInfoRepository.save(userInfo);
         return userInfo;
     }
+
 
     @PutMapping("updateDetailsFilled/{id}")
     public ResponseEntity<ApiResponse> userDetailsFilled(@PathVariable Integer id) {
