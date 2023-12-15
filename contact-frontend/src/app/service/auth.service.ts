@@ -23,8 +23,10 @@ export class AuthService {
     return this.http.post(url, idToken);
   }
 
-
-  
+  forgetpassword(email:String):Observable<any>{
+      const  url=`${environment.backendUrl}/api/v1/auth/send_otp/${email}`
+      return this.http.post(url,email);
+  }  
   setLoggedInStatus(loggedIn: boolean) {
     this.loggedInSubject.next(loggedIn);
   }

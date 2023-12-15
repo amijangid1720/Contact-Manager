@@ -41,12 +41,16 @@ export class UserDetailsFormComponent {
   }
 
   onSubmit(userForm: NgForm) {
+    console.log("11111");
+    
     this.isButtonDisabled = true;
     if (userForm.valid) {
       const userId = localStorage.getItem('user_id');
       if (userId !== null) {
         const parsedUserId = parseInt(userId, 10);
         if (!isNaN(parsedUserId)) {
+          console.log("@2222");
+          
           this.manipulateUserService
             .updateUser(this.user, parsedUserId)
             .subscribe({

@@ -13,12 +13,17 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserDetailsFormComponent } from './user-details-form/user-details-form.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 // import { TryComponent } from './try/try.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path:'forgetpassword',
+    component:ForgetPasswordComponent
   },
   {
     path: 'signup',

@@ -43,6 +43,7 @@ updateDetailsFilled(userid:number):Observable<any>{
 }
 
 
+
 removeFromFavorites(contactId: number):Observable<any>{
  const url = `${environment.backendUrl}/api/v1/contacts/${contactId}/unfavorite`;
  return this.http.patch(url,null);

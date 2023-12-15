@@ -39,6 +39,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AccordionModule } from 'primeng/accordion';
 import { CategoriesComponent } from './categories/categories.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 // import { TryComponent } from './try/try.component';
 const config: SocialAuthServiceConfig = {
   providers: [
@@ -71,6 +72,7 @@ const config: SocialAuthServiceConfig = {
     UserDetailsFormComponent,
     FavoriteComponent,
     CategoriesComponent,
+    ForgetPasswordComponent,
   
   ],
   imports: [

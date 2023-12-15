@@ -1,11 +1,9 @@
 package com.contactmanager.springboot.security.controller;
 
+import com.contactmanager.springboot.dto.ApiResponse;
 import com.contactmanager.springboot.security.dto.*;
-import com.contactmanager.springboot.security.services.AuthenticationService;
-import com.contactmanager.springboot.security.services.UserService;
+import com.contactmanager.springboot.security.services.*;
 import com.contactmanager.springboot.security.entity.User;
-import com.contactmanager.springboot.security.services.RefreshTokenService;
-import com.contactmanager.springboot.security.services.jwtService;
 import com.contactmanager.springboot.security.entity.RefreshToken;
 import com.contactmanager.springboot.security.dao.TokenRepository;
 import com.contactmanager.springboot.services.userservice.UserInfoServiceImpl;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.Random;
 
 @RestController
 @RequestMapping("api/v1/auth")
@@ -35,6 +34,9 @@ public class AuthenticationController {
     private UserService userService;
     @Autowired
     UserInfoServiceImpl userInfoService;
+
+    @Autowired
+    EmailService emailService;
     @Autowired
     TokenRepository tokenRepository;
     @Autowired
@@ -44,6 +46,7 @@ public class AuthenticationController {
 
     @Autowired
     private RefreshTokenService refreshTokenService;
+
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
@@ -100,7 +103,7 @@ public class AuthenticationController {
 
 
                 // Check if details are filled
-                boolean detailsFilled =user.getUserInfo() != null && user.getUserInfo().isDetailsFilled();
+                boolean detailsFilled = user.getUserInfo() != null && user.getUserInfo().isDetailsFilled();
 
 
                 String redirectPath;
@@ -113,7 +116,6 @@ public class AuthenticationController {
                 }
 
 
-
                 // Add your logic to process the verified ID token
                 AuthenticationResponse response = service.authenticateViaGoogle(payload.getEmail());
                 System.out.println("response");
@@ -124,12 +126,12 @@ public class AuthenticationController {
                 return ResponseEntity.ok(jsonResponse);
             } else {
                 System.out.println("Invalid ID token.");
-                  return ResponseEntity.badRequest().body("{\"error\": \"Invalid ID token\"}");
+                return ResponseEntity.badRequest().body("{\"error\": \"Invalid ID token\"}");
             }
         } catch (GeneralSecurityException | IOException e) {
             // Handle exceptions appropriately
             e.printStackTrace();
-           return ResponseEntity.status(500).body("{\"error\": \"Internal Server Error\"}");
+            return ResponseEntity.status(500).body("{\"error\": \"Internal Server Error\"}");
         }
 
 
@@ -144,16 +146,15 @@ public class AuthenticationController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<AuthenticationResponse> refreshJwtToken(@RequestBody RefreshTokenRequest refreshTokenRequest)
-    {
-        RefreshToken refreshToken=refreshTokenService.verifyRefreshToken(refreshTokenRequest.getRefreshToken());
+    public ResponseEntity<AuthenticationResponse> refreshJwtToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        RefreshToken refreshToken = refreshTokenService.verifyRefreshToken(refreshTokenRequest.getRefreshToken());
 
-        User user=refreshToken.getUser();
-        String token =this.jwtservice.generateToken(user);
+        User user = refreshToken.getUser();
+        String token = this.jwtservice.generateToken(user);
 
         service.revokeAllUserTokens(user);
-        service.saveUserToken(user,token);
-        AuthenticationResponse response= AuthenticationResponse.builder()
+        service.saveUserToken(user, token);
+        AuthenticationResponse response = AuthenticationResponse.builder()
                 .token(token)
                 .refreshToken(refreshToken.getToken())
                 .userid(user.getId())
@@ -162,4 +163,30 @@ public class AuthenticationController {
 
     }
 
+    @PostMapping("/send_otp")
+    public ResponseEntity<ApiResponse> sendOtp(@RequestParam("email") String email) {
+        System.out.println("email" + email);
+        // generating otp of 4 digits
+
+        Random random = new Random(1000);
+        int otp = random.nextInt(99999);
+        System.out.println("otp: " + otp);
+
+        //code to send otp to email
+        String subject = "OTP FROM CONTACT MANAGER";
+        String message = "OTP: " + otp;
+        String to = email;
+
+        boolean flag = emailService.sendEmail(subject, message, to);
+
+        if (flag) {
+            return ResponseEntity.ok().body(new ApiResponse("change password"));
+        } else {
+            return ResponseEntity.status(500).body(new ApiResponse("check your email id"));
+        }
+
+
+//    }
+
+    }
 }

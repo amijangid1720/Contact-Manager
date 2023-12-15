@@ -104,13 +104,11 @@ export class LoginComponent implements OnInit {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
-  
-  //   console.log('Refreshing access token...');
-  //   this.authService.refreshAccessToken(GoogleLoginProvider.PROVIDER_ID)
-  //     .then(response => console.log('Refresh response:', response))
-  //     .catch(error => console.error('Refresh error:', error));
-  // }
-  
+   forgetpassword(){
+    console.log("hihihiih");
+   
+   }
+
   signOut(): void {
     this.authService
       .signOut()

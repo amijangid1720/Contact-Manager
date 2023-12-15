@@ -1,4 +1,4 @@
-package com.contactmanager.springboot.contacts;
+package com.contactmanager.springboot.controller;
 
 import com.contactmanager.springboot.dto.ApiResponse;
 import com.contactmanager.springboot.dto.ContactRequest;
@@ -43,7 +43,8 @@ public class ContactController {
     @Autowired
     UserInfoService userInfoService;
 
-
+  @Autowired
+  DriveService driveService;
     @Autowired
     ContactRepository contactRepository;
 
@@ -58,8 +59,8 @@ public class ContactController {
     UserService userService;
 
 
-    @Autowired
-    ContactService contactService;
+//    @Autowired
+//    ContactService contactService;
 
     @PostMapping("/")
     public ResponseEntity<ContactRequest> addContacts(@RequestBody ContactRequest contactRequest, Authentication authentication) {
@@ -376,13 +377,7 @@ public class ContactController {
         }
 
     }
+
+
+
 }
-//@GetMapping("/favorite/{userid}")
-//public ResponseEntity<List<Contact>> favoriteContacts(@PathVariable Integer userid) {
-//    try {
-//        List<Contact> favorite = contactService.favoriteContacts(userid);
-//        return ResponseEntity.ok(favorite);
-//    } catch (Exception e) {
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
-//    }
-//}
